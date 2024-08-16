@@ -8,7 +8,7 @@ export default function UserMoneyUnit() {
   return (
     <div className={styles.container}>
         <UserMoneyAcc />
-        <button className={styles.transaction}>Перевести</button>
+        <button className={styles.transaction_btn}>Перевести</button>
         <OperationsHistory />
     </div>
   )

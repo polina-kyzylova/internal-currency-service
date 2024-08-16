@@ -25,8 +25,24 @@ h1, h2, h3, h4, h5, p {
   --primary-green: #91FF59;
   --secondary-green: #E8FFDE;
 
-  /*----- sizes -----*/
+  /*----- padding and gap -----*/
   --global-padding: 1rem;
   --grid-padding: .8rem;
   --card-radius: 16px;
+
+  /*----- labels font -----*/
+  --lbl-mini-size: 1.4rem;
+  --lbl-small-size: 1.8rem;
+  --lbl-light-weight: 500;
+
+  --lbl-medium-size: 2.2rem;
+  --lbl-large-size: 2.4rem;
+  --lbl-king-size: 5rem;
+  --lbl-bold-weight: 600;
+
+
+
+  /*----- buttons font -----*/
+  --btn-font-size: 1.6rem;
+  --btn-font-weight: 600;
 }

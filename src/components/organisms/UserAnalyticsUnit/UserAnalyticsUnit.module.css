@@ -2,4 +2,34 @@
     padding: var(--global-padding);
     background-color: var(--light-gray);
     border-radius: var(--card-radius);
+
+    display: grid;
+    grid-template-rows: 8rem auto;
+}
+
+.info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: var(--grid-padding);
+}
+
+.lbl {
+    font-size: var(--lbl-small-size);
+    font-weight: var(--lbl-light-weight);
+}
+
+.money {
+    font-size: 2.4rem;
+    font-weight: 600;
+    font-size: var(--lbl-medium-size);
+    font-weight: var(--lbl-bold-weight);
+}
+
+.diagram {
+    height: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }

@@ -8,6 +8,6 @@
 }
 
 .lbl {
-    font-size: 2rem;
-    font-weight: 500;
+    font-size: var(--lbl-small-size);
+    font-weight: var(--lbl-light-weight);
 }

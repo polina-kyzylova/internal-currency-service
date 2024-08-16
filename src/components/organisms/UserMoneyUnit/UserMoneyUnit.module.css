@@ -7,12 +7,12 @@
     gap: var(--grid-padding);
 }
 
-.transaction {
+.transaction_btn {
     background-color: var(--primary-blue);
     border-radius: 32px;
     color: #fff;
-    font-size: 1.6rem;
-    font-weight: 600;
+    font-size: var(--btn-font-size);
+    font-weight: var(--btn-font-weight);
 
     outline: none;
     border: none;

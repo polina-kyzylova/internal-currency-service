@@ -2,10 +2,10 @@ import React from 'react';
 import NorthEastIcon from '@mui/icons-material/NorthEast';
 
 
-export default function GrayButton({onClick}) {
+export default function GrayButton({ onClick }) {
     const styles = {
-        height: '3rem',
-        width: '3rem',
+        height: '4rem',
+        width: '4rem',
         border: 'none',
         display: 'flex',
         alignItems: 'center',
@@ -17,7 +17,7 @@ export default function GrayButton({onClick}) {
 
     return (
         <button style={styles} onClick={onClick}>
-            <NorthEastIcon sx={{color: '#fff'}} />
+            <NorthEastIcon sx={{ color: '#fff', fontSize: 35 }} />
         </button>
     )
 }

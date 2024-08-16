@@ -21,7 +21,8 @@
 }
 
 .header h2 {
-    font-size: 2.2rem;
+    font-size: var(--lbl-medium-size);
+    font-weight: var(--lbl-bold-weight);
 }
 
 .side_menu {
