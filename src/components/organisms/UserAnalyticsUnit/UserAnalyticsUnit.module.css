@@ -1,0 +1,5 @@
+.container {
+    padding: var(--global-padding);
+    background-color: var(--light-gray);
+    border-radius: var(--card-radius);
+}

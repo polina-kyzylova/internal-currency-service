@@ -1,0 +1,13 @@
+.container {
+    display: flex;
+    justify-content: space-between;
+
+    padding: var(--global-padding);
+    background-color: var(--light-gray);
+    border-radius: var(--card-radius);
+}
+
+.lbl {
+    font-size: 2rem;
+    font-weight: 500;
+}
