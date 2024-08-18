@@ -26,8 +26,8 @@ export default function UserMoneyAcc() {
                 <div className={styles.acc_number}>
                     <p>Счет {visible ? number : hideNumber}</p>
                     {visible ?
-                        <VisibilityIcon sx={{fontSize: 30, cursor: 'pointer'}} onClick={() => setVisible(false)} /> :
-                        <VisibilityOffIcon sx={{fontSize: 30, cursor: 'pointer'}} onClick={() => setVisible(true)} />
+                        <VisibilityIcon sx={{ fontSize: 30, cursor: 'pointer' }} onClick={() => setVisible(false)} /> :
+                        <VisibilityOffIcon sx={{ fontSize: 30, cursor: 'pointer' }} onClick={() => setVisible(true)} />
                     }
                 </div>
             </div>

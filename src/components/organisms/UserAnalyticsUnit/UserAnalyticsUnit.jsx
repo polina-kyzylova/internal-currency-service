@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styles from './UserAnalyticsUnit.module.css';
-import Box from '@mui/material/Box';
 import { PieChart } from '@mui/x-charts/PieChart';
 
 
@@ -30,7 +29,7 @@ export default function UserAnalyticsUnit({ label, money, data }) {
                         }
                     ]}
                     colors={palette}
-                    height={400}
+                    
                     margin={{ top: 0, bottom: 100, left: 0, right: 0 }}
 
                     slotProps={{
@@ -46,3 +45,5 @@ export default function UserAnalyticsUnit({ label, money, data }) {
         </div>
     )
 }
+
+// height={400}

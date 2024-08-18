@@ -1,0 +1,34 @@
+.container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.2rem;
+}
+
+.menu_btn {
+    width: 4rem;
+    height: 4rem;
+    border-radius: 4rem;
+    background-color: var(--light-gray);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    outline: none;
+    border: none;
+    cursor: pointer;
+}
+
+.menu_btn_active {
+    width: 4rem;
+    height: 4rem;
+    border-radius: 4rem;
+    background-color: var(--primary-green);
+
+    outline: none;
+    border: none;
+    cursor: pointer;
+}

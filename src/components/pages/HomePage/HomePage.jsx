@@ -1,9 +1,8 @@
 import React from 'react';
 import styles from './HomePage.module.css';
-
 import ControlUnit from '../../molecules/ControlUnit';
 import UserAccLayout from '../../templates/UserAccLayout/UserAccLayout';
-
+import SideMenu from '../../molecules/SideMenu/SideMenu';
 
 export default function HomePage() {
   return (
@@ -14,6 +13,7 @@ export default function HomePage() {
       </div>
 
       <div className={styles.side_menu}>
+        <SideMenu />
       </div>
 
       <div className={styles.content}>
@@ -23,24 +23,3 @@ export default function HomePage() {
   )
 }
 
-
-
-
-/*
-      <div className={styles.header}>
-        <h2>Иван Иванов</h2>
-        <ControlUnit />
-      </div>
-
-
-          <div className={styles.container}>
-      <div className={styles.side_menu}>
-      </div>
-
-      <div className={styles.header}>
-      </div>
-
-      <div className={styles.content}>
-      </div>
-    </div>
-*/

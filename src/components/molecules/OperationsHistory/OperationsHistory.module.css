@@ -11,3 +11,9 @@
     font-size: var(--lbl-small-size);
     font-weight: var(--lbl-light-weight);
 }
+
+@media (max-width: 1024px) {
+    .lbl {
+        width: min-content;
+    }
+}

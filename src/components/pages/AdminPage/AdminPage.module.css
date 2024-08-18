@@ -1,0 +1,129 @@
+.container {
+    height: 96vh;
+    margin: 2vh;
+
+    display: grid;
+    grid-template-columns: 4rem auto;
+    grid-template-rows: 5.2rem auto;
+    gap: var(--grid-padding);
+}
+
+.header {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    grid-row-start: 1;
+    grid-row-end: 2;
+    grid-column-start: 1;
+    grid-column-end: 3;
+}
+
+.user_info {
+    display: flex;
+    flex-direction: column;
+    gap: .4rem;
+}
+
+.user_info h2 {
+    font-size: var(--lbl-medium-size);
+    font-weight: var(--lbl-bold-weight);
+}
+
+.badge {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background-color: var(--secondary-blue);
+    color: var(--primary-blue);
+    width: min-content;
+    padding: 0.3rem 1.7rem;
+    border-radius: var(--card-radius);
+}
+
+.side_menu {
+    width: 100%;
+    grid-row-start: 2;
+    grid-row-end: 3;
+    grid-column-start: 1;
+    grid-column-end: 2;
+}
+
+.content {
+    width: 100%;
+    grid-row-start: 2;
+    grid-row-end: 3;
+    grid-column-start: 2;
+    grid-column-end: 3;
+
+    display: grid;
+    grid-template-rows: 3rem auto;
+    row-gap: 3rem;
+}
+
+.nav_container {
+    display: flex;
+    align-items: center;
+    justify-content: end;
+
+    width: 100%;
+    border-bottom: 1px solid var(--dark-gray);
+}
+
+.navigation {
+    height: 100%;
+    display: flex;
+    gap: 3rem;
+}
+
+
+
+.nav_btn {
+    height: 99%;
+    padding: 0;
+
+    color: var(--dark-gray);
+    font-size: var(--lbl-mini-size);
+    font-weight: var(--lbl-bold-weight);
+
+    background-color: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+
+    transition: all .3s ease-in-out;
+}
+
+.nav_btn_active {
+    height: 99%;
+    padding: 0;
+
+    color: #000;
+    font-size: var(--lbl-mini-size);
+    font-weight: var(--lbl-bold-weight);
+
+    background-color: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+
+    box-shadow: 0px 2px 0px #000;
+    transition: all .3s linear;
+}
+
+
+
+
+
+
+/* ---------- Adaptive ---------- */
+@media (min-width: 3000px) {
+    .container {
+        width: 2024px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+}
