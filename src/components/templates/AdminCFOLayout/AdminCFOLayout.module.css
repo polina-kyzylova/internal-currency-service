@@ -1,0 +1,21 @@
+.container {
+    width: 100%;
+    display: grid;
+    grid-template-rows: 4rem auto;
+    gap: var(--grid-padding);
+
+
+    background-color: antiquewhite;
+}
+
+.manage {
+    width: 100%;
+    height: 100%;
+    background-color: aliceblue;
+}
+
+.content {
+    width: 100%;
+    height: 200vh;
+    background-color: lavender;
+}

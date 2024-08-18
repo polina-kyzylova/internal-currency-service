@@ -1,5 +1,5 @@
 .container {
-    height: 96vh;
+    min-height: 96vh;
     margin: 2vh;
 
     display: grid;
@@ -44,11 +44,12 @@
 }
 
 .side_menu {
-    width: 100%;
-    grid-row-start: 2;
-    grid-row-end: 3;
-    grid-column-start: 1;
-    grid-column-end: 2;
+    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: 0px;
+    height: 100vh;
 }
 
 .content {

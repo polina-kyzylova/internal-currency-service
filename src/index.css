@@ -7,7 +7,7 @@ body {
 
 /* ширина scrollbar */
 body::-webkit-scrollbar {
-  width: 8px;
+  width: 6px;
 }
 
 /* цвет дорожки */
@@ -17,7 +17,7 @@ body::-webkit-scrollbar-track {
 
 /* цвет scrollbar */
 body::-webkit-scrollbar-thumb {
-  background-color: var(--gray-dark);
+  background-color: var(--dark-gray);
   border-radius: 20px;
   border: 3px solid transparent;
 }
