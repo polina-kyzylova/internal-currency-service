@@ -1,6 +1,7 @@
 .container {
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: auto 4rem;
+    column-gap: var(--grid-padding);
 
     padding: var(--global-padding);
     background-color: var(--light-gray);
@@ -8,12 +9,7 @@
 }
 
 .lbl {
+    width: fit-content;
     font-size: var(--lbl-small-size);
     font-weight: var(--lbl-light-weight);
-}
-
-@media (max-width: 1024px) {
-    .lbl {
-        width: min-content;
-    }
 }

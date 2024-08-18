@@ -1,15 +1,15 @@
 import React from 'react';
 import styles from './UserMoneyUnit.module.css';
 import UserMoneyAcc from '../../molecules/UserMoneyAcc/UserMoneyAcc';
-import OperationsHistory from '../../molecules/OperationsHistory/OperationsHistory';
+import OperationsAction from '../../molecules/OperationsAction/OperationsAction';
 
 
 export default function UserMoneyUnit() {
   return (
     <div className={styles.container}>
-        <UserMoneyAcc />
-        <button className={styles.transaction_btn}>Перевести</button>
-        <OperationsHistory />
+      <UserMoneyAcc />
+      <button className={styles.transaction_btn}>Перевести</button>
+      <OperationsAction label='История операций' />
     </div>
   )
 }

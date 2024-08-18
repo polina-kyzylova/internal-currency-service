@@ -1,0 +1,62 @@
+.container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+}
+
+
+/*----- First block -----*/
+.content {
+    width: 100%;
+    height: 50vh;
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1.5fr;
+    column-gap: var(--grid-padding);
+}
+
+.oborot {
+    width: 100%;
+    background-color: var(--light-gray);
+    border-radius: var(--card-radius);
+}
+
+.operations {
+    width: 100%;
+    display: grid;
+    grid-template-rows: 4rem 4rem auto auto;
+    row-gap: var(--grid-padding);
+}
+
+.action_btn {
+    background-color: var(--primary-blue);
+    border-radius: 32px;
+    color: #fff;
+    font-size: var(--btn-font-size);
+    font-weight: var(--btn-font-weight);
+
+    outline: none;
+    border: none;
+    cursor: pointer;
+}
+
+
+/*----- Second block -----*/
+.analytics {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: var(--grid-padding);
+}
+
+.analytics h3 {
+    font-size: var(--lbl-small-size);
+    font-weight: var(--lbl-light-weight);
+}
+
+.cfo_table {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 2.5fr 1.5fr;
+    column-gap: var(--grid-padding);
+}

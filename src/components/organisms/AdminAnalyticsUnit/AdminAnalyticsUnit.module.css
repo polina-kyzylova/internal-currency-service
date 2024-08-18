@@ -1,0 +1,62 @@
+.container {
+    width: 100%;
+    display: grid;
+    grid-template-rows: 2.5rem 10rem 35rem;
+    row-gap: var(--grid-padding);
+}
+
+.period {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.info {
+    display: flex;
+    flex-direction: column;
+    gap: var(--grid-padding);
+
+    padding: var(--global-padding);
+    background-color: var(--light-gray);
+    border-radius: var(--card-radius);
+}
+
+.lbl {
+    font-size: var(--lbl-small-size);
+    font-weight: var(--lbl-light-weight);
+}
+
+.money {
+    font-size: 2.4rem;
+    font-weight: 600;
+    font-size: var(--lbl-medium-size);
+    font-weight: var(--lbl-bold-weight);
+}
+
+.coin {
+    height: 2.4rem;
+    display: flex;
+    align-items: end;
+    gap: 0.3rem;
+}
+
+.coin img {
+    height: 50%;
+    padding-bottom: 0.5rem;
+}
+
+
+.expens_info {
+    display: flex;
+    flex-direction: column;
+    gap: var(--grid-padding);
+}
+
+.diagram {
+    height: 70%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}

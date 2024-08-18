@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from './UserAnalyticsUnit.module.css';
 import { PieChart } from '@mui/x-charts/PieChart';
+import coin from '../../../assets/black_coin.svg'
 
 
 export default function UserAnalyticsUnit({ label, money, data }) {
@@ -10,7 +11,12 @@ export default function UserAnalyticsUnit({ label, money, data }) {
         <div className={styles.container}>
             <div className={styles.info}>
                 <p className={styles.lbl}>{label}</p>
-                <p className={styles.money}>{money}</p>
+                
+
+                <div className={styles.coin}>
+                    <p className={styles.money}>{money}</p>
+                    <img src={coin} alt='coin' />
+                </div>
             </div>
 
             <div className={styles.diagram}>
@@ -29,7 +35,7 @@ export default function UserAnalyticsUnit({ label, money, data }) {
                         }
                     ]}
                     colors={palette}
-                    
+
                     margin={{ top: 0, bottom: 100, left: 0, right: 0 }}
 
                     slotProps={{

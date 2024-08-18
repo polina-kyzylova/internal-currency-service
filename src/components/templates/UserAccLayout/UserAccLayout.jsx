@@ -24,7 +24,7 @@ export default function UserAccLayout() {
     <div className={styles.container}>
       <div className={styles.analys}>
         <div className={styles.period}>
-          <p>Период</p>
+          <p>Выбрать период</p>
         </div>
 
         <div className={styles.content}>
