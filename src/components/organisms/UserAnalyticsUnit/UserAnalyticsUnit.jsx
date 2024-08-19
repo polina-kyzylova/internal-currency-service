@@ -1,17 +1,16 @@
 import React from 'react';
 import styles from './UserAnalyticsUnit.module.css';
 import { PieChart } from '@mui/x-charts/PieChart';
-import coin from '../../../assets/black_coin.svg'
+import coin from '../../../assets/black_coin.svg';
+import { globalPalette } from '../../../store/globalVariables';
 
 
 export default function UserAnalyticsUnit({ label, money, data }) {
-    const palette = ['#2FB3FF', '#141414', '#C4C4C4', '#91FF59', '#ABE52F', '#F6C033', '#FF5B69', '#006097',];
-
     return (
         <div className={styles.container}>
             <div className={styles.info}>
                 <p className={styles.lbl}>{label}</p>
-                
+
 
                 <div className={styles.coin}>
                     <p className={styles.money}>{money}</p>
@@ -34,10 +33,8 @@ export default function UserAnalyticsUnit({ label, money, data }) {
                             faded: { innerRadius: 30, additionalRadius: -30, color: 'gray' },
                         }
                     ]}
-                    colors={palette}
-
+                    colors={globalPalette}
                     margin={{ top: 0, bottom: 100, left: 0, right: 0 }}
-
                     slotProps={{
                         legend: {
                             direction: 'row',

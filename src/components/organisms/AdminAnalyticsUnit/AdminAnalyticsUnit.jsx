@@ -2,12 +2,10 @@ import React from 'react';
 import styles from './AdminAnalyticsUnit.module.css';
 import { PieChart } from '@mui/x-charts/PieChart';
 import coin from '../../../assets/black_coin.svg';
+import { globalPalette } from '../../../store/globalVariables';
 
 
 export default function AdminAnalyticsUnit({ income, expenses, data }) {
-    const palette = ['#2FB3FF', '#141414', '#C4C4C4', '#91FF59', '#ABE52F', '#F6C033', '#FF5B69', '#006097',];
-
-
     return (
         <div className={styles.container}>
             <div className={styles.period}>
@@ -49,11 +47,11 @@ export default function AdminAnalyticsUnit({ income, expenses, data }) {
                             }
                         ]}
 
-                        colors={palette}
+                        colors={globalPalette}
                         margin={{ top: 0, bottom: 0, left: 0, right: 0 }}
                         slotProps={{
                             legend: { hidden: true },
-                          }}
+                        }}
                     />
                 </div>
             </div>

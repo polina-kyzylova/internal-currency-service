@@ -1,7 +1,7 @@
 .container {
     width: 100%;
     display: grid;
-    grid-template-rows: 2.5rem 10rem 35rem;
+    grid-template-rows: 2.5rem 10rem auto;
     row-gap: var(--grid-padding);
 }
 

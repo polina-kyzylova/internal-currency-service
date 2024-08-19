@@ -7,35 +7,31 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 
-function createData(id, title, amount, expenses, remains) {
-    return { id, title, amount, expenses, remains };
+function createData(id, name, title, position, amount) {
+    return { id, name, title, position, amount };
 }
 
 const rows = [
-    createData(111, 'Название/Владелец', 15, 11, 4),
-    createData(122, 'Название/Владелец', 15, 11, 4),
-    createData(133, 'Название/Владелец', 15, 11, 4),
-    createData(144, 'Название/Владелец', 15, 11, 4),
-    createData(155, 'Название/Владелец', 15, 11, 4),
-    createData(166, 'Название/Владелец', 15, 11, 4),
-    createData(177, 'Название/Владелец', 15, 11, 4),
-    createData(188, 'Название/Владелец', 15, 11, 4),
-    createData(199, 'Название/Владелец', 15, 11, 4),
-    createData(211, 'Название/Владелец', 15, 11, 4),
-    createData(222, 'Название/Владелец', 15, 11, 4),
-    createData(233, 'Название/Владелец', 15, 11, 4),
-    createData(244, 'Название/Владелец', 15, 11, 4),
+    createData(111, 'ФИО', 'Название', 'Должность', 40),
+    createData(122, 'ФИО', 'Название', 'Должность', 40),
+    createData(133, 'ФИО', 'Название', 'Должность', 40),
+    createData(144, 'ФИО', 'Название', 'Должность', 40),
+    createData(155, 'ФИО', 'Название', 'Должность', 40),
+    createData(166, 'ФИО', 'Название', 'Должность', 40),
+    createData(177, 'ФИО', 'Название', 'Должность', 40),
+    createData(188, 'ФИО', 'Название', 'Должность', 40),
+    createData(199, 'ФИО', 'Название', 'Должность', 40),
+    createData(211, 'ФИО', 'Название', 'Должность', 40),
+    createData(222, 'ФИО', 'Название', 'Должность', 40),
 ];
 
 
-
-export default function CFOAdminTable() {
+export default function CFOOwnerTable() {
     const container = {
         width: '100%',
         backgroundColor: 'var(--light-gray)',
         borderRadius: 'var(--card-radius)',
     }
-
 
     return (
         <TableContainer style={container}>
@@ -43,10 +39,10 @@ export default function CFOAdminTable() {
                 <TableHead>
                     <TableRow sx={{ '&:last-child td, &:last-child th': { borderColor: '#000' } }}>
                         <TableCell sx={{ fontSize: '1.1rem', fontWeight: 'var(--lbl-bold-weight)' }}>ID</TableCell>
-                        <TableCell sx={{ fontSize: '1.1rem', fontWeight: 'var(--lbl-bold-weight)' }}>Название/Владелец</TableCell>
+                        <TableCell sx={{ fontSize: '1.1rem', fontWeight: 'var(--lbl-bold-weight)' }}>ФИО участника</TableCell>
+                        <TableCell sx={{ fontSize: '1.1rem', fontWeight: 'var(--lbl-bold-weight)' }}>Команда</TableCell>
+                        <TableCell sx={{ fontSize: '1.1rem', fontWeight: 'var(--lbl-bold-weight)' }}>Должность</TableCell>
                         <TableCell sx={{ fontSize: '1.1rem', fontWeight: 'var(--lbl-bold-weight)' }}>Выделеная сумма</TableCell>
-                        <TableCell sx={{ fontSize: '1.1rem', fontWeight: 'var(--lbl-bold-weight)' }}>Расходы за период</TableCell>
-                        <TableCell sx={{ fontSize: '1.1rem', fontWeight: 'var(--lbl-bold-weight)' }}>Остаток</TableCell>
                     </TableRow>
                 </TableHead>
 
@@ -54,10 +50,10 @@ export default function CFOAdminTable() {
                     {rows.map((row) => (
                         <TableRow key={row.name} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
                             <TableCell sx={{ fontSize: '1rem' }}>{row.id}</TableCell>
+                            <TableCell sx={{ fontSize: '1rem' }}>{row.name}</TableCell>
                             <TableCell sx={{ fontSize: '1rem' }}>{row.title}</TableCell>
+                            <TableCell sx={{ fontSize: '1rem' }}>{row.position}</TableCell>
                             <TableCell sx={{ fontSize: '1rem' }}>{row.amount}</TableCell>
-                            <TableCell sx={{ fontSize: '1rem' }}>{row.expenses}</TableCell>
-                            <TableCell sx={{ fontSize: '1rem' }}>{row.remains}</TableCell>
                         </TableRow>
                     ))}
                 </TableBody>

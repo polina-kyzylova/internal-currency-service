@@ -8,7 +8,7 @@ export default function Badge({ label }) {
         justifyContent: 'center',
         backgroundColor: 'var(--secondary-blue)',
         color: 'var(--primary-blue)',
-        width: 'min-content',
+        width: 'fit-content',
         padding: '0.3rem 1.7rem',
         borderRadius: 'var(--card-radius)'
     }
