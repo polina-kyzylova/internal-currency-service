@@ -20,6 +20,12 @@
     outline: none;
     border: none;
     cursor: pointer;
+    transition: all .3s ease-in-out;
+}
+
+.menu_btn:hover {
+    transform: scale(1.15);
+    z-index: 5;
 }
 
 .menu_btn_active {
@@ -31,4 +37,10 @@
     outline: none;
     border: none;
     cursor: pointer;
+    transition: all .3s ease-in-out;
+}
+
+.menu_btn_active:hover {
+    transform: scale(1.15);
+    z-index: 5;
 }

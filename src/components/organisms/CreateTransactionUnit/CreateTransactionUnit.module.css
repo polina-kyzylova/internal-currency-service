@@ -1,0 +1,87 @@
+.container {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-rows: auto 4rem;
+    justify-self: center;
+
+    justify-items: center;
+    align-items: center;
+}
+
+.content {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    height: 70%;
+    justify-content: space-between;
+}
+
+.content h1 {
+    font-size: var(--lbl-small-size);
+    font-weight: var(--lbl-light-weight);
+}
+
+.inpt_box {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.inpt_box label {
+    font-size: 1.2rem;
+    font-weight: var(--lbl-bold-weight);
+}
+
+.mess {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.tags {
+    width: 100%;
+    flex-wrap: wrap;
+    display: flex;
+    gap: var(--grid-padding);
+}
+
+.message_tag {
+    width: fit-content;
+    background-color: #E1E1E1;
+    font-size: 1rem;
+    padding: 0.5rem 1rem;
+    border-radius: 32px;
+
+    cursor: pointer;
+    border: none;
+    outline: none;
+    transition: all .3s ease-in-out;
+}
+
+.message_tag:hover {
+    background-color: #fff;
+}
+
+
+.next_btn {
+    width: fit-content;
+    padding: 1rem 3rem;
+    align-self: end;
+    justify-self: end;
+
+    background-color: var(--primary-blue);
+    border-radius: 32px;
+    color: #fff;
+    font-size: var(--btn-font-size);
+    font-weight: var(--btn-font-weight);
+
+    outline: none;
+    border: none;
+    cursor: pointer;
+    transition: all .3s ease-in-out;
+}
+
+.next_btn:hover {
+    background-color: var(--hover-blue);
+}

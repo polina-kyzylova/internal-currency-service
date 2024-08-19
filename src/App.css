@@ -20,8 +20,12 @@ h1, h2, h3, h4, h5, p {
   /*----- colors -----*/
   --dark-gray: #C4C4C4;
   --light-gray: #F2F2F2;
+  --hover-gray: #919191;
+
   --primary-blue: #2FB3FF;
   --secondary-blue: #D5F0FF;
+  --hover-blue: #147EBB;
+
   --primary-green: #91FF59;
   --secondary-green: #E8FFDE;
 

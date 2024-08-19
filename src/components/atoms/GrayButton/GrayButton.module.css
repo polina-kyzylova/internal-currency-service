@@ -1,0 +1,16 @@
+.btn {
+    height: 4rem;
+    width: 4rem;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 100%;
+    background-color: var(--dark-gray);
+    cursor: pointer;
+    transition: all .3s ease-in-out;
+}
+
+.btn:hover {
+    background-color: var(--hover-gray);
+}

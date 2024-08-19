@@ -17,4 +17,10 @@
     outline: none;
     border: none;
     cursor: pointer;
+
+    transition: all .3s ease-in-out;
+}
+
+.transaction_btn:hover {
+    background-color: var(--hover-blue);
 }

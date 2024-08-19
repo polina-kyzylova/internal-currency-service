@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './CFOCard.module.css';
-import GrayButton from '../../atoms/GrayButton';
+import GrayButton from '../../atoms/GrayButton/GrayButton';
 import LinearProgress from '@mui/material/LinearProgress';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import coin from '../../../assets/black_coin.svg';

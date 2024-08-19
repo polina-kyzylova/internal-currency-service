@@ -1,0 +1,30 @@
+.container {
+    min-height: 96vh;
+    margin: 2vh 16vw;
+    display: grid;
+}
+
+.card {
+    display: grid;
+    grid-template-columns: 10rem auto 10rem;
+    background-color: var(--light-gray);
+    border-radius: var(--card-radius);
+    padding: var(--global-padding);
+}
+
+.btn {
+    height: 4rem;
+    width: 4rem;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 100%;
+    background-color: var(--dark-gray);
+    cursor: pointer;
+    transition: all .3s ease-in-out;
+}
+
+.btn:hover {
+    background-color: var(--hover-gray);
+}

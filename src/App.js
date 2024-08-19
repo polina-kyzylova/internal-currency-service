@@ -4,10 +4,16 @@ import './App.css';
 import HomePage from './components/pages/HomePage/HomePage';
 import OwnerPage from './components/pages/OwnerPage/OwnerPage';
 import AdminPage from './components/pages/AdminPage/AdminPage';
+import TransactionPage from './components/pages/TransactionPage/TransactionPage';
+
 import UserAccLayout from './components/templates/UserAccLayout/UserAccLayout';
 import AdminCFOLayout from './components/templates/AdminCFOLayout/AdminCFOLayout';
 import AdminBudgetLayout from './components/templates/AdminBudgetLayout/AdminBudgetLayout';
 import OwnerCFOLayout from './components/templates/OwnerCFOLayout/OwnerCFOLayout';
+
+import CreateTransactionUnit from './components/organisms/CreateTransactionUnit/CreateTransactionUnit';
+import ConfirmTransactionUnit from './components/organisms/ConfirmTransactionUnit/ConfirmTransactionUnit';
+
 
 
 function App() {
@@ -15,6 +21,12 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<HomePage />} />
+
+        <Route path="/transaction" element={<TransactionPage />} >
+          <Route path='' element={<CreateTransactionUnit />}></Route>
+          <Route path='confirm' element={<ConfirmTransactionUnit />}></Route>
+          <Route path='result'></Route>
+        </Route>
 
         <Route path="/admin" element={<AdminPage />} >
           <Route path="personal" element={<UserAccLayout />} />

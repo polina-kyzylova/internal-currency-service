@@ -4,3 +4,11 @@ export const globalPalette = [
     '#1A00B3', '#00FF8A', '#FF4F60', '#FFFF3F',
     '#FFCAB1', '#874000', '#cf5c36', '#698f3f',
 ];
+
+export const globalTags = [
+    { icon: '☕️', label: 'За кофе' },
+    { icon: '🤝', label: 'Спасибо' },
+    { icon: '💻', label: 'За код-ревью' },
+    { icon: '🎁', label: 'С Днем Рождения!' },
+    { icon: '🥗', label: 'За обед' },
+]

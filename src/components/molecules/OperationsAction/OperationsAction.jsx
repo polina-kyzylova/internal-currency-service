@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './OperationsAction.module.css';
-import GrayButton from '../../atoms/GrayButton';
+import GrayButton from '../../atoms/GrayButton/GrayButton';
 
 
 export default function OperationsAction({ label }) {
