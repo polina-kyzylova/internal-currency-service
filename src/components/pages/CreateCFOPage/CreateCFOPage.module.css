@@ -23,9 +23,6 @@
     padding: var(--global-padding);
 }
 
-span {
-    color: var(--primary-blue);
-}
 
 
 /*----- Gray btn -----*/
@@ -78,6 +75,9 @@ span {
     font-weight: var(--lbl-bold-weight);
 }
 
+.inpt_box span {
+    color: var(--primary-blue);
+}
 
 .select_type {
     border-top: none;
