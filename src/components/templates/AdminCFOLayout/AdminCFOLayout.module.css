@@ -25,6 +25,11 @@
     outline: none;
     border: none;
     cursor: pointer;
+    transition: all .3s ease-in-out;
+}
+
+.create_btn:hover {
+    background-color: var(--hover-blue);
 }
 
 .content {

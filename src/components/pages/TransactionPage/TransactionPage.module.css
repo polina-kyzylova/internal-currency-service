@@ -1,0 +1,13 @@
+.container {
+    min-height: 96vh;
+    margin: 2vh 16vw;
+    display: grid;
+}
+
+@media (max-width: 1000px) {
+    .container {
+        min-height: 100vh;
+        margin: 0;
+        display: grid;
+    }
+}

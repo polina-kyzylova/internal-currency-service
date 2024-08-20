@@ -1,6 +1,5 @@
 import React from 'react';
 import styles from './CreateTransactionUnit.module.css';
-import { useNavigate } from 'react-router-dom';
 import coin from '../../../assets/black_coin.svg';
 import { globalTags } from '../../../store/globalVariables';
 import { useForm } from "react-hook-form";
@@ -38,7 +37,6 @@ export default function CreateTransactionUnit({ setCreating }) {
     } = useForm()
 
     const balance = 360;
-    const navigate = useNavigate();
     const [data, setData] = useOutletContext();
 
     const onSubmit = (data) => {

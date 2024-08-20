@@ -1,17 +1,13 @@
 import React, { useState } from 'react';
+import styles from './TransactionPage.module.css';
 import { Outlet } from 'react-router-dom';
 
 
 export default function TransactionPage() {
     const [transaction, setTransaction] = useState();
-    const styles = {
-        minHeight: '96vh',
-        margin: '2vh 16vw',
-        display: 'grid',
-    }
-
+    
     return (
-        <div style={styles}>
+        <div className={styles.container}>
             <Outlet context={[transaction, setTransaction]} />
         </div>
     )

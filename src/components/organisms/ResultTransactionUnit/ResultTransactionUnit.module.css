@@ -41,3 +41,21 @@
     background-color: var(--hover-blue);
     color: #fff;
 }
+
+
+
+@media (max-width: 1000px) {
+    .container {
+        width: auto;
+        border-radius: 0;
+        gap: 4rem;
+    }
+
+    .container h2 {
+        text-align: center;
+    }
+
+    .container img {
+        width: 14rem;
+    }
+}

@@ -6,7 +6,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import coin from '../../../assets/black_coin.svg';
 
 
-export default function CFOCard({ balance, title, cfo_id }) {
+export default function CFOCard({ balance, title, owner_name }) {
     const theme = createTheme({
         palette: {
             primary: { main: '#91FF59' },
@@ -40,7 +40,7 @@ export default function CFOCard({ balance, title, cfo_id }) {
 
                 <div className={styles.info}>
                     <p className={styles.titl}>{title}</p>
-                    <p className={styles.identif}>ID: {cfo_id}</p>
+                    <p className={styles.identif}>Владелец: {owner_name}</p>
                 </div>
             </div>
 

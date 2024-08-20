@@ -5,3 +5,10 @@
     border-radius: var(--card-radius);
     padding: var(--global-padding);
 }
+
+@media (max-width: 1024px) {
+    .card {
+        width: auto;
+        border-radius: 0;
+    }
+}
