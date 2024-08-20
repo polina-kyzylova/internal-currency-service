@@ -23,7 +23,11 @@ export default function AdminBudgetLayout() {
   return (
     <div className={styles.container}>
       <div className={styles.content}>
-        <div className={styles.oborot}>Оборот денежных средств</div>
+        <div className={styles.oborot}>
+          <h4>Оборот всех средств (Сумма балансов ЦФО + ЦФО сервисов - коины и рубли)</h4>
+          <p>Оборот ЦФО (Сумма балансов ЦФО - коины и рубли)</p>
+          <p>Оборот ЦФО сервисов (Сумма балансов ЦФО сервисов - коины и рубли)</p>
+        </div>
 
         <div className={styles.operations}>
           <button className={styles.action_btn}>Пополнить</button>
