@@ -104,7 +104,10 @@ export default function CreateTransactionUnit() {
                             helperText={errors.amount ? errors.amount.message : null}
                             type='number'
                             onKeyDown={(e) => {
-                                if (e.key === "e" || e.key === "E" || e.key === "-" || e.key === "+" || e.key === "ArrowDown") {
+                                if (e.key === "e" || e.key === "E" || e.key === "-" || e.key === "+") {
+                                    e.preventDefault()
+                                }
+                                if (e.key === "ArrowDown" && e.target.value <= 0) {
                                     e.preventDefault()
                                 }
                             }}
