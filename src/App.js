@@ -29,13 +29,13 @@ function App() {
         </Route>
 
         <Route path="/admin" element={<AdminPage />} >
-          <Route path="personal" element={<UserAccLayout />} />
+          <Route path="" element={<UserAccLayout />} />
           <Route path="cfo" element={<AdminCFOLayout />} />
           <Route path="budget" element={<AdminBudgetLayout />} />
         </Route>
 
         <Route path="/owner" element={<OwnerPage />} >
-          <Route path="personal" element={<UserAccLayout />} />
+          <Route path="" element={<UserAccLayout />} />
           <Route path="cfo" element={<OwnerCFOLayout />} />
         </Route>
       </Routes>

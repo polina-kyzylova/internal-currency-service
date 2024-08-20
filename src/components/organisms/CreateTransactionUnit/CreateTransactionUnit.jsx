@@ -6,7 +6,8 @@ import { Box } from '@mui/material';
 import { globalTags } from '../../../store/globalVariables';
 import { Avatar } from '@mui/material';
 import PersonIcon from '@mui/icons-material/Person';
-import { useForm } from "react-hook-form"
+import { useForm } from "react-hook-form";
+import coin from '../../../assets/black_coin.svg';
 
 
 
@@ -27,11 +28,17 @@ export default function CreateTransactionUnit() {
         register,
         handleSubmit,
         setValue,
-        getValues,
+        setError,
         formState: { errors },
     } = useForm()
 
-    const onSubmit = (data) => console.log(data)
+    const balance = 360;
+    const onSubmit = (data) => {
+        if (parseInt(data.amount) > balance) {
+            setError('amount', { type: 'custom', message: 'Недостаточно средств на счете' });
+        }
+        console.log(data)
+    }
 
 
     return (
@@ -39,6 +46,16 @@ export default function CreateTransactionUnit() {
             <div className={styles.container}>
                 <div className={styles.content}>
                     <h1>Перевод другому пользователю</h1>
+
+                    <div className={styles.inpt_box}>
+                        <p className={styles.acc_info}>Счет списания: <span className={styles.money}>№1111 1111 1111</span></p>
+
+                        <div className={styles.coin}>
+                            <p className={styles.acc_info}>Баланс: <span className={styles.money}>{balance}</span></p>
+                            <img src={coin} alt='coin' />
+                        </div>
+                    </div>
+
 
                     <div className={styles.inpt_box}>
                         <label htmlFor='recipient'>Получатель</label>
@@ -78,6 +95,7 @@ export default function CreateTransactionUnit() {
                             fullWidth
                             variant="standard"
                             error={errors.amount ? true : false}
+                            helperText={errors.amount ? errors.amount.message : null}
                             type='number'
                             onKeyDown={(e) => {
                                 if (e.key === "e" || e.key === "E" || e.key === "-" || e.key === "+") {

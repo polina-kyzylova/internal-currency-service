@@ -66,11 +66,11 @@ export default function AdminPage() {
                 onClick={() => navigate('./cfo')}
               />
               <Tab
-                value="personal"
+                value="admin"
                 sx={{ color: 'var(--dark-gray)', textTransform: 'none', fontSize: 'var(--lbl-mini-size)', fontWeight: 'var(--lbl-bold-weight)' }}
                 aria-label="Мои финансы"
                 label="Мои финансы"
-                onClick={() => navigate('./personal')}
+                onClick={() => navigate('')}
               />
             </Tabs>
           </Box>
