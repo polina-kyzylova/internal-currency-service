@@ -13,26 +13,29 @@ import OwnerCFOLayout from './components/templates/OwnerCFOLayout/OwnerCFOLayout
 
 import CreateTransactionUnit from './components/organisms/CreateTransactionUnit/CreateTransactionUnit';
 import ConfirmTransactionUnit from './components/organisms/ConfirmTransactionUnit/ConfirmTransactionUnit';
-
+import ResultTransactionUnit from './components/organisms/ResultTransactionUnit/ResultTransactionUnit';
 
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<HomePage />} />
+        <Route path="/user" element={<HomePage />} />
 
-        <Route path="/transaction" element={<TransactionPage />} >
-          <Route path='' element={<CreateTransactionUnit />}></Route>
-          <Route path='confirm' element={<ConfirmTransactionUnit />}></Route>
-          <Route path='result'></Route>
+
+        <Route path="/transaction/:user" element={<TransactionPage />} >
+          <Route path="" element={<CreateTransactionUnit />} />
+          <Route path="confirm" element={<ConfirmTransactionUnit />} />
+          <Route path="result" element={<ResultTransactionUnit />} />
         </Route>
+
 
         <Route path="/admin" element={<AdminPage />} >
           <Route path="" element={<UserAccLayout />} />
           <Route path="cfo" element={<AdminCFOLayout />} />
           <Route path="budget" element={<AdminBudgetLayout />} />
         </Route>
+
 
         <Route path="/owner" element={<OwnerPage />} >
           <Route path="" element={<UserAccLayout />} />

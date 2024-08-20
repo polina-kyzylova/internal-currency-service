@@ -1,13 +1,15 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styles from './CreateTransactionUnit.module.css';
+import { useNavigate } from 'react-router-dom';
+import coin from '../../../assets/black_coin.svg';
+import { globalTags } from '../../../store/globalVariables';
+import { useForm } from "react-hook-form";
+
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
 import { Box } from '@mui/material';
-import { globalTags } from '../../../store/globalVariables';
 import { Avatar } from '@mui/material';
 import PersonIcon from '@mui/icons-material/Person';
-import { useForm } from "react-hook-form";
-import coin from '../../../assets/black_coin.svg';
 
 
 
@@ -33,11 +35,15 @@ export default function CreateTransactionUnit() {
     } = useForm()
 
     const balance = 360;
+    const navigate = useNavigate();
+
     const onSubmit = (data) => {
         if (parseInt(data.amount) > balance) {
             setError('amount', { type: 'custom', message: 'Недостаточно средств на счете' });
+        } else {
+            navigate('./confirm')
+            console.log(data)
         }
-        console.log(data)
     }
 
 
@@ -48,7 +54,7 @@ export default function CreateTransactionUnit() {
                     <h1>Перевод другому пользователю</h1>
 
                     <div className={styles.inpt_box}>
-                        <p className={styles.acc_info}>Счет списания: <span className={styles.money}>№1111 1111 1111</span></p>
+                        <p className={styles.acc_info}>Счет списания: <span className={styles.money}>№111 111 111 111</span></p>
 
                         <div className={styles.coin}>
                             <p className={styles.acc_info}>Баланс: <span className={styles.money}>{balance}</span></p>
@@ -98,11 +104,12 @@ export default function CreateTransactionUnit() {
                             helperText={errors.amount ? errors.amount.message : null}
                             type='number'
                             onKeyDown={(e) => {
-                                if (e.key === "e" || e.key === "E" || e.key === "-" || e.key === "+") {
+                                if (e.key === "e" || e.key === "E" || e.key === "-" || e.key === "+" || e.key === "ArrowDown") {
                                     e.preventDefault()
                                 }
                             }}
                             {...register("amount", { required: true })}
+
                         />
                     </div>
 

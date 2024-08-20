@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 
 
 export default function UserMoneyUnit() {
+  let user = window.location.href.split("/").pop();
   const navigate = useNavigate();
 
   return (
@@ -13,7 +14,7 @@ export default function UserMoneyUnit() {
       <UserMoneyAcc />
       <button
         className={styles.transaction_btn}
-        onClick={() => navigate('/transaction')}
+        onClick={() => navigate(`/transaction/${user}`)}
       >
         Перевести
       </button>
