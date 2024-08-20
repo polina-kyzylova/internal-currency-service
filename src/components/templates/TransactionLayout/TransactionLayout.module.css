@@ -1,0 +1,7 @@
+.card {
+    width: 100%;
+    display: grid;
+    background-color: var(--light-gray);
+    border-radius: var(--card-radius);
+    padding: var(--global-padding);
+}

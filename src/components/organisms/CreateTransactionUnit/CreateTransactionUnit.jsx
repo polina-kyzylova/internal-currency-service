@@ -4,16 +4,19 @@ import { useNavigate } from 'react-router-dom';
 import coin from '../../../assets/black_coin.svg';
 import { globalTags } from '../../../store/globalVariables';
 import { useForm } from "react-hook-form";
+import { useOutletContext } from "react-router-dom";
 
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
 import { Box } from '@mui/material';
 import { Avatar } from '@mui/material';
 import PersonIcon from '@mui/icons-material/Person';
+import WestIcon from '@mui/icons-material/West';
 
 
 
-export default function CreateTransactionUnit() {
+
+export default function CreateTransactionUnit({ setCreating }) {
     const users = [
         { label: 'Иванов Иван Иванович', phone: '79999999999' },
         { label: 'Иванов Иван Иванович', phone: '79999999998' },
@@ -36,13 +39,14 @@ export default function CreateTransactionUnit() {
 
     const balance = 360;
     const navigate = useNavigate();
+    const [data, setData] = useOutletContext();
 
     const onSubmit = (data) => {
         if (parseInt(data.amount) > balance) {
             setError('amount', { type: 'custom', message: 'Недостаточно средств на счете' });
         } else {
-            navigate('./confirm')
-            console.log(data)
+            setCreating(false);
+            setData(data);
         }
     }
 
@@ -50,6 +54,11 @@ export default function CreateTransactionUnit() {
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
             <div className={styles.container}>
+                <button className={styles.previous_btn} onClick={() => window.history.back()}>
+                    <WestIcon sx={{ color: '#fff', fontSize: 35 }} />
+                </button>
+
+
                 <div className={styles.content}>
                     <h1>Перевод другому пользователю</h1>
 
@@ -87,8 +96,8 @@ export default function CreateTransactionUnit() {
                                     {...params}
                                     inputProps={{ ...params.inputProps }}
                                     variant="standard"
-                                    error={errors.recipient ? true : false}
-                                    {...register("recipient", { required: true, })}
+                                    error={errors.phone ? true : false}
+                                    {...register("phone", { required: true, })}
                                 />
                             )}
                         />

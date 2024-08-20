@@ -1,0 +1,43 @@
+.container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+
+    background-color: var(--primary-blue);
+    border-radius: var(--card-radius);
+    padding: var(--global-padding);
+}
+
+.container h2 {
+    font-size: var(--lbl-medium-size);
+    font-weight: var(--lbl-light-weight);
+    color: #fff;
+}
+
+.container img {
+    width: 20rem;
+}
+
+.return_btn {
+    width: fit-content;
+    padding: 1rem 3rem;
+
+    background-color: #fff;
+    border-radius: 32px;
+    color: var(--primary-blue);
+    font-size: var(--btn-font-size);
+    font-weight: var(--btn-font-weight);
+
+    outline: none;
+    border: none;
+    cursor: pointer;
+    transition: all .3s ease-in-out;
+}
+
+.return_btn:hover {
+    background-color: var(--hover-blue);
+    color: #fff;
+}

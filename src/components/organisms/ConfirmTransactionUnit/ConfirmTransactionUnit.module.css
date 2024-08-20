@@ -1,0 +1,119 @@
+.container {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-rows: 4rem auto 4rem;
+    row-gap: var(--grid-padding);
+    justify-items: center;
+}
+
+
+/*----- Gray btn -----*/
+.previous_btn {
+    height: 4rem;
+    width: 4rem;
+
+    align-self: start;
+    justify-self: start;
+
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 100%;
+    background-color: var(--dark-gray);
+    cursor: pointer;
+    transition: all .3s ease-in-out;
+}
+
+.previous_btn:hover {
+    background-color: var(--hover-gray);
+}
+
+
+
+/*----- Main content -----*/
+.content {
+    width: 50vw;
+    display: flex;
+    flex-direction: column;
+    height: 90%;
+    justify-content: space-between;
+}
+
+.content h1 {
+    font-size: var(--lbl-small-size);
+    font-weight: var(--lbl-light-weight);
+    color: var(--primary-blue);
+}
+
+.box {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: var(--grid-padding);
+}
+
+.box h3 {
+    font-size: 1.2rem;
+    font-weight: var(--lbl-bold-weight);
+}
+
+.ava {
+    display: flex;
+    align-items: center;
+}
+
+.information {
+    display: grid;
+    grid-template-columns: 10rem auto;
+}
+
+.info {
+    list-style: none;
+    font-size: 1.2rem;
+    display: flex;
+    flex-direction: column;
+    gap: var(--grid-padding);
+    margin: 0;
+    padding: 0;
+}
+
+
+
+
+/*----- Next btn -----*/
+.next_btn {
+    width: fit-content;
+    padding: 1rem 3rem;
+    align-self: end;
+    justify-self: end;
+
+    background-color: var(--primary-blue);
+    border-radius: 32px;
+    color: #fff;
+    font-size: var(--btn-font-size);
+    font-weight: var(--btn-font-weight);
+
+    outline: none;
+    border: none;
+    cursor: pointer;
+    transition: all .3s ease-in-out;
+}
+
+.next_btn:hover {
+    background-color: var(--hover-blue);
+}
+
+
+
+@media (max-width: 1400px) {
+    .content {
+        width: 50vw;
+        height: 90%;
+        display: flex;
+        flex-direction: column;
+        justify-content: start;
+        gap: 4vh;
+    }
+}

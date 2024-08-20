@@ -4,16 +4,17 @@ import './App.css';
 import HomePage from './components/pages/HomePage/HomePage';
 import OwnerPage from './components/pages/OwnerPage/OwnerPage';
 import AdminPage from './components/pages/AdminPage/AdminPage';
-import TransactionPage from './components/pages/TransactionPage/TransactionPage';
+import TransactionPage from './components/pages/TransactionPage';
 
 import UserAccLayout from './components/templates/UserAccLayout/UserAccLayout';
 import AdminCFOLayout from './components/templates/AdminCFOLayout/AdminCFOLayout';
 import AdminBudgetLayout from './components/templates/AdminBudgetLayout/AdminBudgetLayout';
 import OwnerCFOLayout from './components/templates/OwnerCFOLayout/OwnerCFOLayout';
 
-import CreateTransactionUnit from './components/organisms/CreateTransactionUnit/CreateTransactionUnit';
-import ConfirmTransactionUnit from './components/organisms/ConfirmTransactionUnit/ConfirmTransactionUnit';
+import TransactionLayout from './components/templates/TransactionLayout/TransactionLayout';
 import ResultTransactionUnit from './components/organisms/ResultTransactionUnit/ResultTransactionUnit';
+
+
 
 
 function App() {
@@ -24,8 +25,7 @@ function App() {
 
 
         <Route path="/transaction/:user" element={<TransactionPage />} >
-          <Route path="" element={<CreateTransactionUnit />} />
-          <Route path="confirm" element={<ConfirmTransactionUnit />} />
+          <Route path="" element={<TransactionLayout />} />
           <Route path="result" element={<ResultTransactionUnit />} />
         </Route>
 
