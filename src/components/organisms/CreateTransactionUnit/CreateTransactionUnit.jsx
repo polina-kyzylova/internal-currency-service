@@ -11,6 +11,7 @@ import { Box } from '@mui/material';
 import { Avatar } from '@mui/material';
 import PersonIcon from '@mui/icons-material/Person';
 import GrayButtonBack from '../../atoms/GrayButtonBack/GrayButtonBack';
+import TransactionAccInfo from '../../molecules/TransactionAccInfo/TransactionAccInfo';
 
 
 
@@ -42,6 +43,8 @@ export default function CreateTransactionUnit({ setCreating }) {
     const onSubmit = (data) => {
         if (parseInt(data.amount) > balance) {
             setError('amount', { type: 'custom', message: 'Недостаточно средств на счете' });
+        } else if (parseInt(data.amount) === 0) {
+            setError('amount', { type: 'custom', message: 'Некорректная сумма' });
         } else {
             setCreating(false);
             setData(data);
@@ -57,15 +60,7 @@ export default function CreateTransactionUnit({ setCreating }) {
 
                 <div className={styles.content}>
                     <h1>Перевод другому пользователю</h1>
-
-                    <div className={styles.inpt_box}>
-                        <p className={styles.acc_info}>Счет списания: <span className={styles.money}>№111 111 111 111</span></p>
-
-                        <div className={styles.coin}>
-                            <p className={styles.acc_info}>Баланс: <span className={styles.money}>{balance}</span></p>
-                            <img src={coin} alt='coin' />
-                        </div>
-                    </div>
+                    <TransactionAccInfo acc_type='Счет списания' acc_number='111 111 111 111' acc_balance={balance} />
 
 
                     <div className={styles.inpt_box}>

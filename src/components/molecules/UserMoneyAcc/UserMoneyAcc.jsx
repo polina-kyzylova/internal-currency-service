@@ -5,17 +5,14 @@ import coin from '../../../assets/white_coin.svg'
 
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import { useSelector } from 'react-redux';
+import useHideAccNumber from '../../../hooks/useHideAccNumber';
 
 
 export default function UserMoneyAcc() {
     const [visible, setVisible] = useState(false);
-    const [number, setNumber] = useState('111111111111');
-    const [hideNumber, setHideNumber] = useState('');
-
-    useEffect(() => {
-        let numbers = number.replace(number.slice(0, number.length - 4), '*'.repeat(number.length - 4));
-        setHideNumber(numbers);
-    }, [number])
+    const { personal_acc_number, personal_acc_balance } = useSelector(state => state.user);
+    const hideNumber = useHideAccNumber(personal_acc_number);
 
 
     return (
@@ -23,12 +20,12 @@ export default function UserMoneyAcc() {
             <div className={styles.data}>
                 <p className={styles.balance}>Баланс</p>
                 <div className={styles.coin}>
-                    <p className={styles.amount}>360</p>
+                    <p className={styles.amount}>{parseInt(personal_acc_balance).toLocaleString()}</p>
                     <img src={coin} alt='coin' />
                 </div>
 
                 <div className={styles.acc_number}>
-                    <p>Счет {visible ? parseInt(number).toLocaleString() : hideNumber}</p>
+                    <p>Счет {visible ? parseInt(personal_acc_number).toLocaleString() : hideNumber}</p>
                     {visible ?
                         <VisibilityIcon sx={{ fontSize: 30, cursor: 'pointer' }} onClick={() => setVisible(false)} /> :
                         <VisibilityOffIcon sx={{ fontSize: 30, cursor: 'pointer' }} onClick={() => setVisible(true)} />

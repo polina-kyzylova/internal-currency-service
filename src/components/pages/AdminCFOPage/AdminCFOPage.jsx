@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styles from './AdminCFOPage.module.css';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import GrayButtonBack from '../../atoms/GrayButtonBack/GrayButtonBack';
 import CFOAccount from '../../molecules/CFOAccount/CFOAccount';
 import TextField from '@mui/material/TextField';
@@ -8,33 +8,18 @@ import { useForm } from "react-hook-form";
 
 import CreateIcon from '@mui/icons-material/Create';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-
 import DeleteCFOModal from '../../molecules/DeleteCFOModal/DeleteCFOModal';
 
 
 
 export default function AdminCFOPage() {
     const [modifTitle, setModifTitle] = useState(false);
-    const [modifOwner, setModifOwner] = useState(false);
     const [deleteModalOpen, setDeleteModalOpen] = useState(false);
     const handleOpen = () => setDeleteModalOpen(true);
     const handleClose = () => setDeleteModalOpen(false);
 
-
-
+    const navigate = useNavigate();
     let { cfo_id } = useParams();
-
-    const users = [
-        { label: 'Петров Петр Петрович', phone: '79999999999' },
-        { label: 'Петров Петр Петрович', phone: '79999999998' },
-        { label: 'Петров Петр Петрович', phone: '79999999997' },
-        { label: 'Петров Петр Петрович', phone: '79999999996' },
-        { label: 'Петров Петр Петрович', phone: '79999999995' },
-        { label: 'Петров Петр Петрович', phone: '79999999994' },
-        { label: 'Петров Петр Петрович', phone: '79999999993' },
-        { label: 'Петров Петр Петрович', phone: '79999999992' },
-        { label: 'Петров Петр Петрович', phone: '79999999991' },
-    ]
 
     const {
         register,
@@ -62,8 +47,6 @@ export default function AdminCFOPage() {
             />
 
 
-
-
             <div className={styles.container}>
                 <div className={styles.header}>
                     <GrayButtonBack />
@@ -75,9 +58,9 @@ export default function AdminCFOPage() {
                     <CFOAccount />
 
                     <div className={styles.buttons_box}>
-                        <button className={styles.manage_btn}>Сменить владельца</button>
-                        <button className={styles.manage_btn}>Перевести</button>
-                        <button className={styles.manage_btn}>Пополнить</button>
+                        <button className={styles.manage_btn} onClick={() => navigate('change-owner')}>Сменить владельца</button>
+                        <button className={styles.manage_btn} onClick={() => navigate('transfer-cfo')}>Перевести</button>
+                        <button className={styles.manage_btn} onClick={() => navigate('replenish-cfo')}>Пополнить</button>
                     </div>
 
                     <div className={styles.box}>

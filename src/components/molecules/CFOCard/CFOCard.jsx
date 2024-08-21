@@ -46,7 +46,7 @@ export default function CFOCard({ cfo_id, balance, title, owner_name }) {
                 </div>
             </div>
 
-            <GrayButton onClick={() => navigate(`/cfo/${cfo_id}`)}/>
+            <GrayButton onClick={() => navigate(`/admin/cfo/${cfo_id}`)}/>
         </div>
     )
 }

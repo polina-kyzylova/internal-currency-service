@@ -17,7 +17,7 @@ export default function AdminCFOLayout() {
       <div className={styles.manage}>
         <button
           className={styles.create_btn}
-          onClick={() => navigate('/create-cfo')}
+          onClick={() => navigate('/admin/create-cfo')}
         >Создать ЦФО
         </button>
       </div>

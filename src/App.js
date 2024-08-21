@@ -12,8 +12,10 @@ import UserAccLayout from './components/templates/UserAccLayout/UserAccLayout';
 import AdminCFOLayout from './components/templates/AdminCFOLayout/AdminCFOLayout';
 import AdminBudgetLayout from './components/templates/AdminBudgetLayout/AdminBudgetLayout';
 import OwnerCFOLayout from './components/templates/OwnerCFOLayout/OwnerCFOLayout';
-
 import TransactionLayout from './components/templates/TransactionLayout/TransactionLayout';
+import ReplenishCFOLayout from './components/templates/ReplenishCFOLayout/ReplenishCFOLayout';
+import TransferCFOLayout from './components/templates/TransferCFOLayout/TransferCFOLayout';
+
 import ResultTransactionUnit from './components/organisms/ResultTransactionUnit/ResultTransactionUnit';
 
 
@@ -23,17 +25,35 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
+        <Route path="/" element={<h2>Авторизация</h2>} />
+
+
+
         /*----- user page -----*/
         <Route path="/user" element={<HomePage />} />
 
-        /*----- admin page -----*/
+
+
+        /*========== ADMIN PAGES ==========*/
         <Route path="/admin" element={<AdminPage />} >
           <Route path="" element={<UserAccLayout />} />
           <Route path="cfo" element={<AdminCFOLayout />} />
           <Route path="budget" element={<AdminBudgetLayout />} />
         </Route>
 
-        /*----- CFO owner page -----*/
+        /*----- admin cfo pages -----*/
+        <Route path="/admin/create-cfo" element={<CreateCFOPage />} />
+        <Route path='/admin/cfo/:cfo_id' element={<TransactionPage />}>
+          <Route path='' element={<AdminCFOPage />} />
+          <Route path="replenish-cfo" element={<ReplenishCFOLayout />} />  /* master-to-cfo transaction */
+          <Route path="transfer-cfo" element={<TransferCFOLayout />} />    /* cfo-to-user/cfo transaction */
+          <Route path="change-owner" />                                    /* change cfo owner */
+          <Route path="result" />                                          /* transactions result */
+        </Route>
+
+
+
+        /*========== CFO OWNER PAGES ==========*/
         <Route path="/owner" element={<OwnerPage />} >
           <Route path="" element={<UserAccLayout />} />
           <Route path="cfo" element={<OwnerCFOLayout />} />
@@ -41,18 +61,15 @@ function App() {
 
 
 
-        /*----- user-to-user transactions -----*/
+        /*----- USER-TO-USER transactions -----*/
         <Route path="/transaction/:user" element={<TransactionPage />} >
           <Route path="" element={<TransactionLayout />} />
           <Route path="result" element={<ResultTransactionUnit />} />
         </Route>
 
-        /*----- admin cfo pages -----*/
-        <Route path="/create-cfo" element={<CreateCFOPage />} />
-        <Route path='/cfo/:cfo_id' element={<AdminCFOPage />} />
 
         /*----- error URL page -----*/
-        <Route path='*' exact={true} />
+        <Route path='*' exact={true} element={<h2>Такой страницы не существует :(</h2>} />
       </Routes>
     </BrowserRouter>
   );

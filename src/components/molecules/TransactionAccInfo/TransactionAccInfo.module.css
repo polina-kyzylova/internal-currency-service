@@ -1,0 +1,31 @@
+.inpt_box {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.inpt_box label {
+    font-size: 1.2rem;
+    font-weight: var(--lbl-bold-weight);
+}
+
+.acc_info {
+    font-size: 1.2rem;
+}
+
+.money {
+    font-size: var(--lbl-mini-size);
+    font-weight: var(--lbl-bold-weight);
+}
+
+.coin {
+    height: var(--lbl-mini-size);
+    display: flex;
+    align-items: end;
+    gap: 0.3rem;
+}
+
+.coin img {
+    height: 60%;
+    padding-bottom: 0.3rem;
+}

@@ -7,8 +7,8 @@ const initialState = {
     last_name: null,
     phone: null,
     email: null,
-    personal_acc_number: null,
-    personal_acc_balance: null,
+    personal_acc_number: '111111111111',
+    personal_acc_balance: '360',
 }
 
 
