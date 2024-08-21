@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from './ConfirmReplenishCFOUnit.module.css';
+import '../GeneralOperations.css';
 import { useNavigate } from 'react-router-dom';
 import { useOutletContext } from "react-router-dom";
 import WestIcon from '@mui/icons-material/West';
@@ -12,7 +13,7 @@ export default function ConfirmReplenishCFOUnit({ setConfirmReplenish }) {
 
     return (
         <div className={styles.container}>
-            <button className={styles.previous_btn} onClick={() => setConfirmReplenish(false)}>
+            <button className='operations-prev-btn' onClick={() => setConfirmReplenish(false)}>
                 <WestIcon sx={{ color: '#fff', fontSize: 35 }} />
             </button>
 
@@ -65,7 +66,7 @@ export default function ConfirmReplenishCFOUnit({ setConfirmReplenish }) {
                 </div>
             </div>
 
-            <button className={styles.next_btn} onClick={() => navigate('../result')}>Перевести</button>
+            <button className='operations-next-btn' onClick={() => navigate('../result')}>Перевести</button>
         </div>
     )
 }

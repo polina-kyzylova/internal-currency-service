@@ -1,4 +1,5 @@
 import React from 'react';
+import '../GeneralOperations.css';
 import styles from './CreateReplenishCFOUnit.module.css';
 import GrayButtonBack from '../../atoms/GrayButtonBack/GrayButtonBack';
 import { useForm } from "react-hook-form";
@@ -79,7 +80,7 @@ export default function CreateReplenishCFOUnit({ setConfirmReplenish }) {
                     </div>
                 </div>
 
-                <input type="submit" value='Продолжить' className={styles.next_btn} />
+                <input type="submit" value='Продолжить' className='operations-next-btn' />
             </div>
         </form>
     )

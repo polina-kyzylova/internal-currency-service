@@ -7,31 +7,6 @@
     justify-items: center;
 }
 
-
-/*----- Gray btn -----*/
-.previous_btn {
-    height: 4rem;
-    width: 4rem;
-
-    align-self: start;
-    justify-self: start;
-
-    border: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 100%;
-    background-color: var(--dark-gray);
-    cursor: pointer;
-    transition: all .3s ease-in-out;
-}
-
-.previous_btn:hover {
-    background-color: var(--hover-gray);
-}
-
-
-/*----- Main content -----*/
 .content {
     width: 50vw;
     display: flex;
@@ -77,33 +52,6 @@
     margin: 0;
     padding: 0;
 }
-
-
-
-
-/*----- Next btn -----*/
-.next_btn {
-    width: fit-content;
-    padding: 1rem 3rem;
-    align-self: end;
-    justify-self: end;
-
-    background-color: var(--primary-blue);
-    border-radius: 32px;
-    color: #fff;
-    font-size: var(--btn-font-size);
-    font-weight: var(--btn-font-weight);
-
-    outline: none;
-    border: none;
-    cursor: pointer;
-    transition: all .3s ease-in-out;
-}
-
-.next_btn:hover {
-    background-color: var(--hover-blue);
-}
-
 
 
 @media (max-width: 1400px) {

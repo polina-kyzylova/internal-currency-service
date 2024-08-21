@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './ConfirmTransactionUnit.module.css';
 import { useNavigate } from 'react-router-dom';
 import { useOutletContext } from "react-router-dom";
-
+import '../GeneralOperations.css';
 import { Avatar } from '@mui/material';
 import PersonIcon from '@mui/icons-material/Person';
 import WestIcon from '@mui/icons-material/West';
@@ -16,7 +16,7 @@ export default function ConfirmTransactionUnit({ setCreating }) {
 
   return (
     <div className={styles.container}>
-      <button className={styles.previous_btn} onClick={() => setCreating(true)}>
+      <button className='operations-prev-btn' onClick={() => setCreating(true)}>
         <WestIcon sx={{ color: '#fff', fontSize: 35 }} />
       </button>
 
@@ -90,7 +90,7 @@ export default function ConfirmTransactionUnit({ setCreating }) {
       </div>
 
 
-      <button className={styles.next_btn} onClick={() => navigate('result')}>Перевести</button>
+      <button className='operations-next-btn' onClick={() => navigate('result')}>Перевести</button>
     </div>
   )
 }

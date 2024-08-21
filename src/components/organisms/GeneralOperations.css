@@ -1,0 +1,45 @@
+/*----- Gray btn -----*/
+.operations-prev-btn {
+    height: 4rem;
+    width: 4rem;
+
+    align-self: start;
+    justify-self: start;
+
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 100%;
+    background-color: var(--dark-gray);
+    cursor: pointer;
+    transition: all .3s ease-in-out;
+}
+
+.operations-prev-btn:hover {
+    background-color: var(--hover-gray);
+}
+
+
+/*----- Next btn -----*/
+.operations-next-btn {
+    width: fit-content;
+    padding: 1rem 3rem;
+    align-self: end;
+    justify-self: end;
+
+    background-color: var(--primary-blue);
+    border-radius: 32px;
+    color: #fff;
+    font-size: var(--btn-font-size);
+    font-weight: var(--btn-font-weight);
+
+    outline: none;
+    border: none;
+    cursor: pointer;
+    transition: all .3s ease-in-out;
+}
+
+.operations-next-btn:hover {
+    background-color: var(--hover-blue);
+}

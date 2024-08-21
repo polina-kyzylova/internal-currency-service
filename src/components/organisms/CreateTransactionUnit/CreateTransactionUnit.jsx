@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './CreateTransactionUnit.module.css';
-import coin from '../../../assets/black_coin.svg';
+import '../GeneralOperations.css';
 import { globalTags } from '../../../store/globalVariables';
 import { useForm } from "react-hook-form";
 import { useOutletContext } from "react-router-dom";
@@ -148,7 +148,7 @@ export default function CreateTransactionUnit({ setCreating }) {
                 </div>
 
 
-                <input type="submit" value='Продолжить' className={styles.next_btn} />
+                <input type="submit" value='Продолжить' className='operations-next-btn' />
             </div>
         </form >
     )
