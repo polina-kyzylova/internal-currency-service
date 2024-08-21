@@ -6,6 +6,7 @@ import OwnerPage from './components/pages/OwnerPage/OwnerPage';
 import AdminPage from './components/pages/AdminPage/AdminPage';
 import TransactionPage from './components/pages/TransactionPage/TransactionPage';
 import CreateCFOPage from './components/pages/CreateCFOPage/CreateCFOPage';
+import AdminCFOPage from './components/pages/AdminCFOPage/AdminCFOPage';
 
 import UserAccLayout from './components/templates/UserAccLayout/UserAccLayout';
 import AdminCFOLayout from './components/templates/AdminCFOLayout/AdminCFOLayout';
@@ -46,8 +47,12 @@ function App() {
           <Route path="result" element={<ResultTransactionUnit />} />
         </Route>
 
-        /*----- admin create cfo page -----*/
+        /*----- admin cfo pages -----*/
         <Route path="/create-cfo" element={<CreateCFOPage />} />
+        <Route path='/cfo/:cfo_id' element={<AdminCFOPage />} />
+
+        /*----- error URL page -----*/
+        <Route path='*' exact={true} />
       </Routes>
     </BrowserRouter>
   );

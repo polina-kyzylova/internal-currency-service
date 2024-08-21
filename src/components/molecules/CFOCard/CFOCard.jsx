@@ -4,9 +4,11 @@ import GrayButton from '../../atoms/GrayButton/GrayButton';
 import LinearProgress from '@mui/material/LinearProgress';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import coin from '../../../assets/black_coin.svg';
+import { useNavigate } from 'react-router-dom';
 
 
-export default function CFOCard({ balance, title, owner_name }) {
+export default function CFOCard({ cfo_id, balance, title, owner_name }) {
+    const navigate = useNavigate();
     const theme = createTheme({
         palette: {
             primary: { main: '#91FF59' },
@@ -44,7 +46,7 @@ export default function CFOCard({ balance, title, owner_name }) {
                 </div>
             </div>
 
-            <GrayButton />
+            <GrayButton onClick={() => navigate(`/cfo/${cfo_id}`)}/>
         </div>
     )
 }

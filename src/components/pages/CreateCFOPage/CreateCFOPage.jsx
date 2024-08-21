@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styles from './CreateCFOPage.module.css';
 import { useForm } from "react-hook-form";
 
@@ -7,7 +7,7 @@ import TextField from '@mui/material/TextField';
 import { Box } from '@mui/material';
 import { Avatar } from '@mui/material';
 import PersonIcon from '@mui/icons-material/Person';
-import WestIcon from '@mui/icons-material/West';
+import GrayButtonBack from '../../atoms/GrayButtonBack/GrayButtonBack';
 
 
 
@@ -24,23 +24,43 @@ export default function CreateCFOPage() {
         { label: 'Петров Петр Петрович', phone: '79999999991' },
     ]
 
+    const titles = [
+        'Название 1', 'Название 2', 'Название 3', 'Название 4',
+    ]
+
     const {
         register,
         handleSubmit,
+        getValues,
+        setError,
         formState: { errors },
     } = useForm()
 
+
+    /* ---------- Check unique name before create new CFO ---------
+        DEBOUNCE + QUERY
+        if (getValues('title') in titles) {
+            setError('title', { type: 'custom', message: 'Название уже используется' });
+        }
+    */
+
+    /* ---------- Check macter acc balance before create new CFO ---------
+        if (getValues('budget') in titles) {
+            setError('budget', { type: 'custom', message: 'Недостаточно средств на мастер-счете' });
+        }
+    */
+
+        
+
     const onSubmit = (data) => { console.log(data) }
+
 
 
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
             <div className={styles.container}>
                 <div className={styles.card}>
-                    <button className={styles.previous_btn} onClick={() => window.history.back()}>
-                        <WestIcon sx={{ color: '#fff', fontSize: 35 }} />
-                    </button>
-
+                    <GrayButtonBack />
 
                     <div className={styles.content}>
                         <h1>Создание ЦФО</h1>
@@ -53,7 +73,7 @@ export default function CreateCFOPage() {
                                 {...register("type")}
                                 className={styles.select_type}
                             >
-                                <option value="team">ЦФО команды</option>
+                                <option value="standart">ЦФО</option>
                                 <option value="service">ЦФО сервиса</option>
                             </select>
                         </div>

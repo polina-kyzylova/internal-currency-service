@@ -10,7 +10,7 @@ import TextField from '@mui/material/TextField';
 import { Box } from '@mui/material';
 import { Avatar } from '@mui/material';
 import PersonIcon from '@mui/icons-material/Person';
-import WestIcon from '@mui/icons-material/West';
+import GrayButtonBack from '../../atoms/GrayButtonBack/GrayButtonBack';
 
 
 
@@ -52,9 +52,7 @@ export default function CreateTransactionUnit({ setCreating }) {
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
             <div className={styles.container}>
-                <button className={styles.previous_btn} onClick={() => window.history.back()}>
-                    <WestIcon sx={{ color: '#fff', fontSize: 35 }} />
-                </button>
+                <GrayButtonBack />
 
 
                 <div className={styles.content}>

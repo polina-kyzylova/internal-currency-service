@@ -31,6 +31,7 @@ export default function AdminCFOLayout() {
               service_cfo.map(item => {
                 return <CFOCard
                   key={item.cfo_id}
+                  cfo_id={item.cfo_id}
                   balance={item.cfo_acc_balance.toLocaleString()}
                   title={item.title}
                   owner_name={item.owner_name}
@@ -48,6 +49,7 @@ export default function AdminCFOLayout() {
               cfo.map(item => {
                 return <CFOCard
                   key={item.cfo_id}
+                  cfo_id={item.cfo_id}
                   balance={item.cfo_acc_balance.toLocaleString()}
                   title={item.title}
                   owner_name={item.owner_name}

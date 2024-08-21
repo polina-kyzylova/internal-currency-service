@@ -8,7 +8,7 @@ const initialState = [
         cfo_acc_balance: 1590,
         cfo_id: 221,
         owner_id: 111,
-        title: 'Команда 1',
+        title: 'Название 1',
         owner_name: 'Васильев В.П.',
     },
     {
@@ -16,7 +16,7 @@ const initialState = [
         cfo_acc_balance: 3300,
         cfo_id: 222,
         owner_id: 112,
-        title: 'Команда 2',
+        title: 'Название 2',
         owner_name: 'Сидоров И.И.',
     },
     {
@@ -24,7 +24,7 @@ const initialState = [
         cfo_acc_balance: 2550,
         cfo_id: 223,
         owner_id: 113,
-        title: 'Команда 3',
+        title: 'Название 3',
         owner_name: 'Петров Е.В.',
     },
     {
@@ -32,7 +32,7 @@ const initialState = [
         cfo_acc_balance: 4100,
         cfo_id: 224,
         owner_id: 114,
-        title: 'Команда 4',
+        title: 'Название 4',
         owner_name: 'Иванов И.В.',
     }
 ];

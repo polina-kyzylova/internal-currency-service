@@ -8,29 +8,6 @@
 }
 
 
-/*----- Gray btn -----*/
-.previous_btn {
-    height: 4rem;
-    width: 4rem;
-
-    align-self: start;
-    justify-self: start;
-
-    border: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 100%;
-    background-color: var(--dark-gray);
-    cursor: pointer;
-    transition: all .3s ease-in-out;
-}
-
-.previous_btn:hover {
-    background-color: var(--hover-gray);
-}
-
-
 
 /*----- Main content -----*/
 .content {

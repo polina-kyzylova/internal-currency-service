@@ -1,0 +1,122 @@
+.container {
+    min-height: 96vh;
+    margin: 2vh 16vw;
+    display: grid;
+    grid-template-rows: 4rem auto;
+    row-gap: var(--grid-padding);
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.delete_btn {
+    background-color: var(--dark-gray);
+    height: 4rem;
+    padding: 0 3rem;
+    align-self: end;
+    justify-self: end;
+
+    border-radius: 32px;
+    color: #fff;
+    font-size: var(--btn-font-size);
+    font-weight: var(--btn-font-weight);
+
+    outline: none;
+    border: none;
+    cursor: pointer;
+    transition: all .3s ease-in-out;
+}
+
+.delete_btn:hover {
+    background-color: var(--hover-gray);
+}
+
+.content {
+    display: grid;
+    grid-template-rows: 1fr 4rem 1fr;
+    row-gap: var(--grid-padding);
+}
+
+.box {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: var(--grid-padding);
+}
+
+.buttons_box {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    column-gap: var(--grid-padding);
+}
+
+.card {
+    background-color: var(--light-gray);
+    border-radius: var(--card-radius);
+    padding: var(--global-padding);
+
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+}
+
+.info {
+    display: flex;
+    flex-direction: column;
+    gap: var(--grid-padding);
+}
+
+.modif_item {
+    display: grid;
+    grid-template-columns: auto 2rem;
+    column-gap: var(--grid-padding);
+}
+
+.modif_item button {
+    border: none;
+    outline: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.identif {
+    color: var(--hover-gray);
+    font-size: var(--lbl-mini-size);
+}
+
+.titl {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    -webkit-box-orient: vertical;
+
+    text-wrap: wrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    overflow-wrap: break-word;
+
+    color: #000;
+    font-size: var(--lbl-small-size);
+    font-weight: var(--lbl-light-weight);
+}
+
+.manage_btn {
+    background-color: var(--primary-blue);
+    border-radius: 32px;
+    color: #fff;
+    font-size: var(--btn-font-size);
+    font-weight: var(--btn-font-weight);
+
+    outline: none;
+    border: none;
+    cursor: pointer;
+    transition: all .3s ease-in-out;
+}
+
+.manage_btn:hover {
+    background-color: var(--hover-blue);
+}

@@ -51,11 +51,12 @@
 }
 
 .card_cover {
-    object-fit: fill;
     position: absolute;
     bottom: 0;
     right: 0;
-    width: 30%;
+    object-fit: cover;
+    max-height: 75%;
+    max-width: 30%;
 }
 
 .coin {
