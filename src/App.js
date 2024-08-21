@@ -12,9 +12,9 @@ import UserAccLayout from './components/templates/UserAccLayout/UserAccLayout';
 import AdminCFOLayout from './components/templates/AdminCFOLayout/AdminCFOLayout';
 import AdminBudgetLayout from './components/templates/AdminBudgetLayout/AdminBudgetLayout';
 import OwnerCFOLayout from './components/templates/OwnerCFOLayout/OwnerCFOLayout';
-import TransactionLayout from './components/templates/TransactionLayout/TransactionLayout';
-import ReplenishCFOLayout from './components/templates/ReplenishCFOLayout/ReplenishCFOLayout';
-import TransferCFOLayout from './components/templates/TransferCFOLayout/TransferCFOLayout';
+import TransactionLayout from './components/templates/OperationsLayouts/TransactionLayout';
+import ReplenishCFOLayout from './components/templates/OperationsLayouts/ReplenishCFOLayout';
+import TransferCFOLayout from './components/templates/OperationsLayouts/TransferCFOLayout';
 
 import ResultTransactionUnit from './components/organisms/ResultTransactionUnit/ResultTransactionUnit';
 

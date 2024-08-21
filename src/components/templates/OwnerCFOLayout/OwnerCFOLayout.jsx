@@ -4,9 +4,11 @@ import OperationsAction from '../../molecules/OperationsAction/OperationsAction'
 import CFOAccount from '../../molecules/CFOAccount/CFOAccount';
 import CFOOwnerTable from '../../molecules/CFOOwnerTable';
 import AdminAnalyticsUnit from '../../organisms/AdminAnalyticsUnit/AdminAnalyticsUnit';
+import { useSelector } from 'react-redux';
 
 
 export default function OwnerCFOLayout() {
+    const { cfo_acc_number, cfo_acc_balance } = useSelector(state => state.owner);
     const all_cfo = [
         { label: 'A', value: 2400 },
         { label: 'B', value: 4567 },
@@ -29,7 +31,7 @@ export default function OwnerCFOLayout() {
                     <button className={styles.manage_btn}>Управлять участниками</button>
                 </div>
 
-                <CFOAccount />
+                <CFOAccount cfo_balance={cfo_acc_balance} cfo_number={cfo_acc_number} />
             </div>
 
 

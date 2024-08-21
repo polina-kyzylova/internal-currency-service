@@ -12,6 +12,8 @@ import TextField from '@mui/material/TextField';
 
 export default function CreateReplenishCFOUnit({ setConfirmReplenish }) {
     const { master_acc_balance, master_acc_number } = useSelector(state => state.admin);
+    const [data, setData] = useOutletContext();
+
     const {
         register,
         handleSubmit,
@@ -21,20 +23,17 @@ export default function CreateReplenishCFOUnit({ setConfirmReplenish }) {
     } = useForm({
         defaultValues: {
             master_acc: master_acc_number,
-            cfo_acc: '222',
         }
     })
 
-    const [data, setData] = useOutletContext();
-
-    const onSubmit = (data) => {
-        if (parseInt(data.amount) > master_acc_balance) {
+    const onSubmit = (d) => {
+        if (parseInt(d.amount) > master_acc_balance) {
             setError('amount', { type: 'custom', message: 'Недостаточно средств для списания' });
-        } else if (parseInt(data.amount) === 0) {
+        } else if (parseInt(d.amount) === 0) {
             setError('amount', { type: 'custom', message: 'Некорректная сумма' });
         } else {
             setConfirmReplenish(true);
-            setData(data);
+            setData({ ...data, ...d });
         }
     }
 
@@ -47,14 +46,16 @@ export default function CreateReplenishCFOUnit({ setConfirmReplenish }) {
                 <div className={styles.content}>
                     <h1>Пополнение ЦФО</h1>
                     <TransactionAccInfo
-                        acc_type='Счет списания'
+                        title='Счет списания'
+                        acc_type='Мастер-счет'
                         acc_number={master_acc_number}
                         acc_balance={master_acc_balance}
                     />
                     <TransactionAccInfo
-                        acc_type='Счет зачисления'
-                        acc_number='222'
-                        acc_balance='222'
+                        title='Счет зачисления'
+                        acc_type='Счет ЦФО'
+                        acc_number={data.cfo_number}
+                        acc_balance={data.cfo_balance}
                     />
 
                     <div className={styles.inpt_box}>

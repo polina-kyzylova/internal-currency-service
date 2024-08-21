@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import styles from './CreateCFOPage.module.css';
 import { useForm } from "react-hook-form";
 
@@ -8,10 +8,12 @@ import { Box } from '@mui/material';
 import { Avatar } from '@mui/material';
 import PersonIcon from '@mui/icons-material/Person';
 import GrayButtonBack from '../../atoms/GrayButtonBack/GrayButtonBack';
+import { useSelector } from 'react-redux';
 
 
 
 export default function CreateCFOPage() {
+    const { master_acc_balance } = useSelector(state => state.admin);
     const users = [
         { label: 'Петров Петр Петрович', phone: '79999999999' },
         { label: 'Петров Петр Петрович', phone: '79999999998' },
@@ -31,7 +33,6 @@ export default function CreateCFOPage() {
     const {
         register,
         handleSubmit,
-        getValues,
         setError,
         formState: { errors },
     } = useForm()
@@ -50,9 +51,16 @@ export default function CreateCFOPage() {
         }
     */
 
-        
 
-    const onSubmit = (data) => { console.log(data) }
+
+    const onSubmit = (data) => {
+        if (data.budget > parseInt(master_acc_balance)) {
+            setError('budget', { type: 'custom', message: 'Недостаточно средств для создания ЦФО' });
+            
+        } else {
+            console.log('CFO succesfully created: ', data)
+        } 
+    }
 
 
 
@@ -126,8 +134,8 @@ export default function CreateCFOPage() {
                                 id="budget"
                                 fullWidth
                                 variant="standard"
-                                error={errors.amount ? true : false}
-                                helperText={errors.amount ? errors.amount.message : null}
+                                error={errors.budget ? true : false}
+                                helperText={errors.budget ? errors.budget.message : null}
                                 type='number'
                                 onKeyDown={(e) => {
                                     if (e.key === "e" || e.key === "E" || e.key === "-" || e.key === "+") {

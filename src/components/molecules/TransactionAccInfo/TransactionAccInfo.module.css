@@ -1,12 +1,18 @@
 .inpt_box {
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    gap: 1rem;
 }
 
-.inpt_box label {
+.inpt_box h3 {
     font-size: 1.2rem;
     font-weight: var(--lbl-bold-weight);
+}
+
+.info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
 }
 
 .acc_info {

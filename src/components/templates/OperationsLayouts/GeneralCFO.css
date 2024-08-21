@@ -1,4 +1,4 @@
-.card {
+.cfo-transaction-card {
     width: 100%;
     display: grid;
     background-color: var(--light-gray);
@@ -7,7 +7,7 @@
 }
 
 @media (max-width: 1024px) {
-    .card {
+    .cfo-transaction-card {
         width: auto;
         border-radius: 0;
     }

@@ -60,7 +60,12 @@ export default function CreateTransactionUnit({ setCreating }) {
 
                 <div className={styles.content}>
                     <h1>Перевод другому пользователю</h1>
-                    <TransactionAccInfo acc_type='Счет списания' acc_number='111 111 111 111' acc_balance={balance} />
+                    <TransactionAccInfo
+                        title='Счет списания'
+                        acc_type='Персональный счет'
+                        acc_number='111111111111'
+                        acc_balance={balance}
+                    />
 
 
                     <div className={styles.inpt_box}>

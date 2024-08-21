@@ -10,7 +10,6 @@ export default function ConfirmReplenishCFOUnit({ setConfirmReplenish }) {
     const navigate = useNavigate();
     const [data, setData] = useOutletContext();
 
-
     return (
         <div className={styles.container}>
             <button className='operations-prev-btn' onClick={() => setConfirmReplenish(false)}>
@@ -44,7 +43,7 @@ export default function ConfirmReplenishCFOUnit({ setConfirmReplenish }) {
                             <li>Владелец ЦФО:</li>
                         </ul>
                         <ul className={styles.info}>
-                            <li>{parseInt(data.cfo_acc).toLocaleString()}</li>
+                            <li>{parseInt(data.cfo_number).toLocaleString()}</li>
                             <li>ФИО</li>
                         </ul>
                     </div>
