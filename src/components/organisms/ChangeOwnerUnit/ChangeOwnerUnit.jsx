@@ -16,6 +16,7 @@ export default function ChangeOwnerUnit() {
     const handleClose = () => setDeleteModalOpen(false);
 
     const {
+        register,
         handleSubmit,
         getValues,
         setValue,
@@ -26,7 +27,7 @@ export default function ChangeOwnerUnit() {
         handleOpen();
     }
 
-    
+
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
             <ChangeOwnerModal
@@ -51,6 +52,7 @@ export default function ChangeOwnerUnit() {
                         />
 
                         <UsersAutoList
+                            register={register}
                             setValue={setValue}
                             errors={errors}
                             title='Новый владелец:'

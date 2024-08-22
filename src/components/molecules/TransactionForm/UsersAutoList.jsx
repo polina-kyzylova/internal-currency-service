@@ -8,7 +8,7 @@ import PersonIcon from '@mui/icons-material/Person';
 
 
 
-export default function UsersAutoList({ errors, title, setValue }) {
+export default function UsersAutoList({ errors, register, title, setValue }) {
     const users = [
         { label: 'Петров Петр П.', phone: '79999999999' },
         { label: 'Петров Петр П.', phone: '79999999998' },
@@ -33,8 +33,7 @@ export default function UsersAutoList({ errors, title, setValue }) {
                 autoHighlight
                 getOptionLabel={(option) => option.phone}
                 onChange={(event, newValue) => {
-                    setValue('user_name', newValue.label);
-                    setValue('user_phone', newValue.phone);
+                    if (newValue) setValue('user_name', newValue.label)
                 }}
 
                 renderOption={(props, option) => {
@@ -53,7 +52,8 @@ export default function UsersAutoList({ errors, title, setValue }) {
                         {...params}
                         inputProps={{ ...params.inputProps }}
                         variant="standard"
-                        error={errors.recipient ? true : false}
+                        error={errors.user_phone ? true : false}
+                        {...register("user_phone", { required: true, })}
                     />
                 )}
             />

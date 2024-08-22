@@ -55,6 +55,7 @@ export default function CreateTransactionUnit({ setCreating }) {
                         title='Получатель'
                         register={register}
                         errors={errors}
+                        setValue={setValue}
                     />
 
                     <AmountInput

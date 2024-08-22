@@ -21,8 +21,8 @@ export default function ConfirmTransferCFOUnit({ setConfirmTransfer }) {
         <UserInfoTable
           title='Получатель'
           user_acc='321'
-          user_name='fio'
-          user_phone={data.recipient}
+          user_name={data.user_name}
+          user_phone={data.user_phone}
         />)
     } else {
       return (

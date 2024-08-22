@@ -63,9 +63,9 @@ export default function ConfirmTransactionUnit({ setCreating }) {
             </ul>
 
             <ul className={styles.info}>
-              <li>Петров Петр Петрович</li>
-              <li>222 222 222 222</li>
-              <li>+{data.recipient}</li>
+              <li>{data.user_name}</li>
+              <li>123</li>
+              <li>+{data.user_phone}</li>
             </ul>
           </div>
         </div>

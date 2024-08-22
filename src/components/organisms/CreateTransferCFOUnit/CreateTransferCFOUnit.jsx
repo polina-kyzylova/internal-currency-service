@@ -17,9 +17,6 @@ import { globalCFOTags } from '../../../store/globalVariables';
 
 export default function CreateTransferCFOUnit({ setConfirmTransfer }) {
   const [data, setData] = useOutletContext();
-  console.log(data)
-
-
   const cfo = useSelector(state => state.cfo);
   const [recipType, setRecipType] = useState('personal');
 
@@ -56,6 +53,7 @@ export default function CreateTransferCFOUnit({ setConfirmTransfer }) {
           title='Получатель'
           register={register}
           errors={errors}
+          setValue={setValue}
         />)
     } else {
       return (
