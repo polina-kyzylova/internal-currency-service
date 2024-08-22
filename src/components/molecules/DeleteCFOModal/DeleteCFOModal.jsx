@@ -1,9 +1,23 @@
 import React from 'react';
 import styles from './DeleteCFOModal.module.css';
 import Modal from '@mui/material/Modal';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { removeCFO } from '../../../store/slices/cfoSlice';
 
 
 export default function DeleteCFOModal({ cfo_id, cfo_title, open, handleClose }) {
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
+    function deleteCFO() {
+        handleClose();
+        dispatch(removeCFO());
+        navigate(-1);
+        /*----- запрос на удаление ЦФО-----*/
+    }
+
+
     return (
         <Modal
             open={open}
@@ -23,7 +37,7 @@ export default function DeleteCFOModal({ cfo_id, cfo_title, open, handleClose })
 
                 <div className={styles.manage}>
                     <button className={styles.back_btn} onClick={handleClose}>Нет</button>
-                    <button className={styles.delete_btn} >Да</button>
+                    <button className={styles.delete_btn} onClick={() => deleteCFO()}>Да</button>
                 </div>
             </div>
         </Modal>

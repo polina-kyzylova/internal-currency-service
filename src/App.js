@@ -17,7 +17,7 @@ import ReplenishCFOLayout from './components/templates/OperationsLayouts/Repleni
 import TransferCFOLayout from './components/templates/OperationsLayouts/TransferCFOLayout';
 
 import ResultTransactionUnit from './components/organisms/ResultTransactionUnit/ResultTransactionUnit';
-
+import ChangeOwnerUnit from './components/organisms/ChangeOwnerUnit/ChangeOwnerUnit';
 
 
 
@@ -45,10 +45,10 @@ function App() {
         <Route path="/admin/create-cfo" element={<CreateCFOPage />} />
         <Route path='/admin/cfo/:cfo_id' element={<TransactionPage />}>
           <Route path='' element={<AdminCFOPage />} />
-          <Route path="replenish-cfo" element={<ReplenishCFOLayout />} />  /* master-to-cfo transaction */
-          <Route path="transfer-cfo" element={<TransferCFOLayout />} />    /* cfo-to-user/cfo transaction */
-          <Route path="change-owner" />                                    /* change cfo owner */
-          <Route path="result" />                                          /* transactions result */
+          <Route path="replenish-cfo" element={<ReplenishCFOLayout />} />      /* master-to-cfo transaction */
+          <Route path="transfer-cfo" element={<TransferCFOLayout />} />        /* cfo-to-user/cfo transaction */
+          <Route path="change-owner" element={<ChangeOwnerUnit />}/>    /* change cfo owner */
+          <Route path="result" />                                              /* transactions result */
         </Route>
 
 

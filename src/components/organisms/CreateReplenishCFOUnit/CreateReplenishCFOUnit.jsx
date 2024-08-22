@@ -18,7 +18,6 @@ export default function CreateReplenishCFOUnit({ setConfirmReplenish }) {
         register,
         handleSubmit,
         setError,
-        setValue,
         formState: { errors },
     } = useForm({
         defaultValues: {

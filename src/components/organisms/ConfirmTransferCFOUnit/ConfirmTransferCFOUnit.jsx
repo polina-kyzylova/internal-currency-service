@@ -50,8 +50,8 @@ export default function ConfirmTransferCFOUnit({ setConfirmTransfer }) {
         <CFOInfoTable
           title='Отправитель'
           acc_number={parseInt(data.cfo_number).toLocaleString()}
-          acc_owner='fio'
-          acc_title='titl'
+          acc_owner={data.cfo_owner}
+          acc_title={data.cfo_title}
         />
 
         {chooseRecipient()}

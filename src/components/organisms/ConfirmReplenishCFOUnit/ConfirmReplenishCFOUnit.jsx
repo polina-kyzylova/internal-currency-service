@@ -4,6 +4,9 @@ import '../GeneralOperations.css';
 import { useNavigate } from 'react-router-dom';
 import { useOutletContext } from "react-router-dom";
 import WestIcon from '@mui/icons-material/West';
+import OperationTypeTable from '../../molecules/ConfirmForm/OperationTypeTable';
+import CFOInfoTable from '../../molecules/ConfirmForm/CFOInfoTable';
+import MasterInfotable from '../../molecules/ConfirmForm/MasterInfoTable';
 
 
 export default function ConfirmReplenishCFOUnit({ setConfirmReplenish }) {
@@ -19,50 +22,23 @@ export default function ConfirmReplenishCFOUnit({ setConfirmReplenish }) {
             <div className={styles.content}>
                 <h1>Подтверждение операции</h1>
 
-                <div className={styles.box}>
-                    <h3>Счет списания</h3>
+                <MasterInfotable
+                    title='Счет списания'
+                    acc_number={parseInt(data.master_acc).toLocaleString()}
+                    admin='fio'
+                />
 
-                    <div className={styles.information}>
-                        <ul className={styles.info}>
-                            <li>Мастер-счет:</li>
-                            <li>Администратор:</li>
-                        </ul>
-                        <ul className={styles.info}>
-                            <li>{parseInt(data.master_acc).toLocaleString()}</li>
-                            <li>ФИО</li>
-                        </ul>
-                    </div>
-                </div>
+                <CFOInfoTable
+                    title='Счет зачисления'
+                    acc_number={parseInt(data.cfo_number).toLocaleString()}
+                    acc_owner={data.cfo_owner}
+                    acc_title={data.cfo_title}
+                />
 
-                <div className={styles.box}>
-                    <h3>Счет зачисления</h3>
-
-                    <div className={styles.information}>
-                        <ul className={styles.info}>
-                            <li>Счет ЦФО:</li>
-                            <li>Владелец ЦФО:</li>
-                        </ul>
-                        <ul className={styles.info}>
-                            <li>{parseInt(data.cfo_number).toLocaleString()}</li>
-                            <li>ФИО</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div className={styles.box}>
-                    <h3>Операция</h3>
-
-                    <div className={styles.information}>
-                        <ul className={styles.info}>
-                            <li>Тип операции:</li>
-                            <li>Сумма:</li>
-                        </ul>
-                        <ul className={styles.info}>
-                            <li>Пополнение ЦФО</li>
-                            <li>{data.amount} коинов</li>
-                        </ul>
-                    </div>
-                </div>
+                <OperationTypeTable
+                    operation_type='Пополнение ЦФО'
+                    amount={data.amount}
+                />
             </div>
 
             <button className='operations-next-btn' onClick={() => navigate('../result')}>Перевести</button>

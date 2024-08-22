@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './TransactionItemStyles.css';
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
@@ -31,7 +31,7 @@ export default function UsersAutoList({ errors, register, title }) {
                 fullWidth
                 options={users}
                 autoHighlight
-                getOptionLabel={(option) => option.phone}
+                getOptionLabel={(option) => `${option.label} ${option.phone}`}
                 renderOption={(props, option) => {
                     const { key, ...optionProps } = props;
                     return (

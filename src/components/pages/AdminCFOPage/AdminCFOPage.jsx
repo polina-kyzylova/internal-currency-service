@@ -1,15 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import styles from './AdminCFOPage.module.css';
 import { useNavigate, useParams } from 'react-router-dom';
-import GrayButtonBack from '../../atoms/GrayButtonBack/GrayButtonBack';
 import CFOAccount from '../../molecules/CFOAccount/CFOAccount';
 import TextField from '@mui/material/TextField';
 import { useForm } from "react-hook-form";
 
 import CreateIcon from '@mui/icons-material/Create';
+import WestIcon from '@mui/icons-material/West';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import DeleteCFOModal from '../../molecules/DeleteCFOModal/DeleteCFOModal';
-import { useOutletContext } from 'react-router-dom';
+
+import { useDispatch } from 'react-redux';
+import { initCFO } from '../../../store/slices/cfoSlice';
+import { updateCFO } from '../../../store/slices/cfoSlice';
+import { removeCFO } from '../../../store/slices/cfoSlice';
+
 
 
 
@@ -21,23 +26,34 @@ export default function AdminCFOPage() {
 
     const navigate = useNavigate();
     let { cfo_id } = useParams();
+    const dispatch = useDispatch();
 
 
-    /*----- Здесь нужно получить всю необходимую инфу и положить в outlet context !!!-----*/
-    const mock_cfo_data = {
+    /*----- Здесь нужно получить всю инфу ЦФО и положить в redux !!!-----*/
+    const data_from_backend = {
+        cfo_number: '333333333333',
+        cfo_balance: '9000',
         cfo_title: 'Тестовое название',
-        cfo_number: '888888888888',
-        cfo_balance: '8800',
-        cfo_owner: 'Тестовый Владелец ЦФО',
+        cfo_owner: 'Тестов Тест Тестович',
         cfo_id: cfo_id,
-    };
-    const [data, setData] = useOutletContext();
+        owner_phone: '79992223344',
+    }
 
+    /*----- При первом обращении к карточке запрашиваем все данные ЦФО и сохраняем в redux -----*/
     useEffect(() => {
-        setData(mock_cfo_data);
+        dispatch(initCFO({
+            cfo_number: data_from_backend.cfo_number,
+            cfo_balance: data_from_backend.cfo_balance,
+            cfo_title: data_from_backend.cfo_title,
+            cfo_owner: data_from_backend.cfo_owner,
+            cfo_id: cfo_id,
+        }))
     }, [])
 
-
+    function leaveCFO() {
+        dispatch(removeCFO());
+        navigate(-1);
+    }
 
     const {
         register,
@@ -46,41 +62,45 @@ export default function AdminCFOPage() {
         formState: { errors },
     } = useForm({
         defaultValues: {
-            title: mock_cfo_data.cfo_title,
-            owner: mock_cfo_data.cfo_owner,
-            cfo_number: mock_cfo_data.cfo_number,
-            cfo_balance: mock_cfo_data.cfo_balance,
+            title: data_from_backend.cfo_title,
+            owner: data_from_backend.cfo_owner,
+            cfo_number: data_from_backend.cfo_number,
+            cfo_balance: data_from_backend.cfo_balance,
         }
     })
 
     const onSubmit = (data) => {
         setModifTitle(false);
-        console.log('New CFO title: ', data);
-        setData(data);
+        dispatch(updateCFO({
+            item: 'cfo_title',
+            new_value: data.title,
+        }))
+        /*----- + update title on server -----*/
     }
-
-
 
 
     return (
         <div className={styles.container}>
             <DeleteCFOModal
                 cfo_id={cfo_id}
-                cfo_title={getValues('title')}
+                cfo_title={data_from_backend.cfo_title}
                 open={deleteModalOpen}
                 handleClose={handleClose}
             />
 
 
             <div className={styles.header}>
-                <GrayButtonBack />
+                <button className='operations-prev-btn' onClick={() => leaveCFO()}>
+                    <WestIcon sx={{ color: '#fff', fontSize: 35 }} />
+                </button>
+
                 <button className={styles.delete_btn} onClick={handleOpen}>Удалить ЦФО</button>
             </div>
 
             <div className={styles.content}>
                 <CFOAccount
-                    cfo_balance={mock_cfo_data.cfo_balance}
-                    cfo_number={mock_cfo_data.cfo_number}
+                    cfo_balance={data_from_backend.cfo_balance}
+                    cfo_number={data_from_backend.cfo_number}
                 />
 
                 <div className={styles.buttons_box}>
@@ -96,7 +116,7 @@ export default function AdminCFOPage() {
                             <p className={styles.titl}>{getValues('owner')}</p>
                         </div>
 
-                        <p className={styles.identif}>Телефон: </p>
+                        <p className={styles.identif}>Телефон: +{data_from_backend.owner_phone}</p>
                     </div>
 
                     <div className={styles.card}>
