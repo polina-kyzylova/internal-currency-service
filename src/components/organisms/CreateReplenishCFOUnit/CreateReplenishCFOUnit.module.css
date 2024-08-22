@@ -21,18 +21,6 @@
     color: var(--primary-blue);
 }
 
-.inpt_box {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-}
-
-.inpt_box label {
-    font-size: 1.2rem;
-    font-weight: var(--lbl-bold-weight);
-}
-
-
 @media (max-width: 1000px) {
     .container {
         grid-template-rows: 8rem auto 8rem;

@@ -1,0 +1,10 @@
+.transaction-form-input-box {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.transaction-form-label {
+    font-size: 1.2rem;
+    font-weight: var(--lbl-bold-weight);
+}

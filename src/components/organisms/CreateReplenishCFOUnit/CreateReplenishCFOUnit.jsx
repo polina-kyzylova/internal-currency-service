@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 import { useOutletContext } from "react-router-dom";
 import TransactionAccInfo from '../../molecules/TransactionAccInfo/TransactionAccInfo';
 import { useSelector } from 'react-redux';
-import TextField from '@mui/material/TextField';
+import AmountInput from '../../molecules/TransactionForm/AmountInput';
 
 
 
@@ -57,28 +57,10 @@ export default function CreateReplenishCFOUnit({ setConfirmReplenish }) {
                         acc_number={data.cfo_number}
                         acc_balance={data.cfo_balance}
                     />
-
-                    <div className={styles.inpt_box}>
-                        <label htmlFor='amount'>Сумма</label>
-                        <TextField
-                            id="amount"
-                            fullWidth
-                            variant="standard"
-                            error={errors.amount ? true : false}
-                            helperText={errors.amount ? errors.amount.message : null}
-                            type='number'
-                            onKeyDown={(e) => {
-                                if (e.key === "e" || e.key === "E" || e.key === "-" || e.key === "+") {
-                                    e.preventDefault()
-                                }
-                                if (e.key === "ArrowDown" && e.target.value <= 0) {
-                                    e.preventDefault()
-                                }
-                            }}
-                            {...register("amount", { required: true })}
-
-                        />
-                    </div>
+                    <AmountInput
+                        register={register}
+                        errors={errors}
+                    />
                 </div>
 
                 <input type="submit" value='Продолжить' className='operations-next-btn' />
