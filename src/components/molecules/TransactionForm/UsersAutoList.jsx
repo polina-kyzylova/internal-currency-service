@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import './TransactionItemStyles.css';
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
@@ -8,17 +8,17 @@ import PersonIcon from '@mui/icons-material/Person';
 
 
 
-export default function UsersAutoList({ errors, register, title }) {
+export default function UsersAutoList({ errors, title, setValue }) {
     const users = [
-        { label: 'Петров Петр Петрович', phone: '79999999999' },
-        { label: 'Петров Петр Петрович', phone: '79999999998' },
-        { label: 'Петров Петр Петрович', phone: '79999999997' },
-        { label: 'Петров Петр Петрович', phone: '79999999996' },
-        { label: 'Петров Петр Петрович', phone: '79999999995' },
-        { label: 'Петров Петр Петрович', phone: '79999999994' },
-        { label: 'Петров Петр Петрович', phone: '79999999993' },
-        { label: 'Петров Петр Петрович', phone: '79999999992' },
-        { label: 'Петров Петр Петрович', phone: '79999999991' },
+        { label: 'Петров Петр П.', phone: '79999999999' },
+        { label: 'Петров Петр П.', phone: '79999999998' },
+        { label: 'Петров Петр П.', phone: '79999999997' },
+        { label: 'Петров Петр П.', phone: '79999999996' },
+        { label: 'Петров Петр П.', phone: '79999999995' },
+        { label: 'Петров Петр П.', phone: '79999999994' },
+        { label: 'Петров Петр П.', phone: '79999999993' },
+        { label: 'Петров Петр П.', phone: '79999999992' },
+        { label: 'Петров Петр П.', phone: '79999999991' },
     ]
 
 
@@ -31,7 +31,12 @@ export default function UsersAutoList({ errors, register, title }) {
                 fullWidth
                 options={users}
                 autoHighlight
-                getOptionLabel={(option) => `${option.label} ${option.phone}`}
+                getOptionLabel={(option) => option.phone}
+                onChange={(event, newValue) => {
+                    setValue('user_name', newValue.label);
+                    setValue('user_phone', newValue.phone);
+                }}
+
                 renderOption={(props, option) => {
                     const { key, ...optionProps } = props;
                     return (
@@ -49,7 +54,6 @@ export default function UsersAutoList({ errors, register, title }) {
                         inputProps={{ ...params.inputProps }}
                         variant="standard"
                         error={errors.recipient ? true : false}
-                        {...register("recipient", { required: true, })}
                     />
                 )}
             />

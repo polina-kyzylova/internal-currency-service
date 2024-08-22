@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import styles from './ChangeOwnerUnit.module.css';
 import '../GeneralOperations.css';
 import { useForm } from "react-hook-form";
@@ -15,37 +15,23 @@ export default function ChangeOwnerUnit() {
     const handleOpen = () => setDeleteModalOpen(true);
     const handleClose = () => setDeleteModalOpen(false);
 
-    const [recipName, setRecipName] = useState('');
-    const [recipPhone, setRecipPhone] = useState('');
-
     const {
-        register,
         handleSubmit,
         getValues,
+        setValue,
         formState: { errors },
     } = useForm()
 
-    const onSubmit = (data) => {
-        console.log(data);
+    const onSubmit = () => {
         handleOpen();
     }
 
-
-    useEffect(() => {
-        const x = getValues('recipient');
-        const l = x.split(' ');
-        setRecipName(`${l[0]} ${l[1]} ${l[2]}`);
-        setRecipPhone(l[3]);
-
-    }, [getValues('recipient')])
-
-
-
+    
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
             <ChangeOwnerModal
-                new_owner_phone={recipPhone}
-                new_owner_name={recipName}
+                new_owner_phone={getValues('user_phone')}
+                new_owner_name={getValues('user_name')}
                 open={deleteModalOpen}
                 handleClose={handleClose}
             />
@@ -65,8 +51,8 @@ export default function ChangeOwnerUnit() {
                         />
 
                         <UsersAutoList
+                            setValue={setValue}
                             errors={errors}
-                            register={register}
                             title='Новый владелец:'
                         />
                     </div>

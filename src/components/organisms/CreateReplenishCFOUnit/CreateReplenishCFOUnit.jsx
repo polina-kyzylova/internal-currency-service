@@ -12,6 +12,7 @@ import AmountInput from '../../molecules/TransactionForm/AmountInput';
 
 export default function CreateReplenishCFOUnit({ setConfirmReplenish }) {
     const { master_acc_balance, master_acc_number } = useSelector(state => state.admin);
+    const {cfo_balance, cfo_number} = useSelector(state => state.cfo);
     const [data, setData] = useOutletContext();
 
     const {
@@ -53,8 +54,8 @@ export default function CreateReplenishCFOUnit({ setConfirmReplenish }) {
                     <TransactionAccInfo
                         title='Счет зачисления'
                         acc_type='Счет ЦФО'
-                        acc_number={data.cfo_number}
-                        acc_balance={data.cfo_balance}
+                        acc_number={cfo_number}
+                        acc_balance={cfo_balance}
                     />
                     <AmountInput
                         register={register}

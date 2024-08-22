@@ -16,19 +16,30 @@ import { globalCFOTags } from '../../../store/globalVariables';
 
 
 export default function CreateTransferCFOUnit({ setConfirmTransfer }) {
+  const [data, setData] = useOutletContext();
+  console.log(data)
+
+
+  const cfo = useSelector(state => state.cfo);
   const [recipType, setRecipType] = useState('personal');
+
   const {
     register,
     handleSubmit,
     setValue,
     setError,
     formState: { errors },
-  } = useForm()
+  } = useForm({
+    defaultValues: {
+      sender_cfo_title: cfo.cfo_title,
+      sender_cfo_number: cfo.cfo_number,
+      sender_cfo_owner: cfo.cfo_owner,
+    }
+  })
 
-  const [data, setData] = useOutletContext();
 
   const onSubmit = (d) => {
-    if (parseInt(d.amount) > 222) {
+    if (parseInt(d.amount) > cfo.cfo_balance) {
       setError('amount', { type: 'custom', message: 'Недостаточно средств для списания' });
     } else if (parseInt(d.amount) === 0) {
       setError('amount', { type: 'custom', message: 'Некорректная сумма' });
@@ -69,8 +80,8 @@ export default function CreateTransferCFOUnit({ setConfirmTransfer }) {
           <TransactionAccInfo
             title='Счет списания'
             acc_type='Счет ЦФО'
-            acc_number={data.cfo_number}
-            acc_balance={data.cfo_balance}
+            acc_number={cfo.cfo_number}
+            acc_balance={cfo.cfo_balance}
           />
 
           <div className={styles.inpt_box}>
