@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import '../GeneralOperations.css';
 import styles from './CreateTransferCFOUnit.module.css';
 import GrayButtonBack from '../../atoms/GrayButtonBack/GrayButtonBack';
@@ -11,28 +11,49 @@ import TextField from '@mui/material/TextField';
 import UsersAutoList from '../../molecules/TransactionForm/UsersAutoList';
 import CFOAutoList from '../../molecules/TransactionForm/CFOAutoList';
 import AmountInput from '../../molecules/TransactionForm/AmountInput';
+import { globalCFOTags } from '../../../store/globalVariables';
 
 
 
 export default function CreateTransferCFOUnit({ setConfirmTransfer }) {
+  const [recipType, setRecipType] = useState('personal');
   const {
     register,
     handleSubmit,
+    setValue,
     setError,
     formState: { errors },
   } = useForm()
 
   const [data, setData] = useOutletContext();
 
-  const onSubmit = (data) => {
-    if (parseInt(data.amount) > 222) {
+  const onSubmit = (d) => {
+    if (parseInt(d.amount) > 222) {
       setError('amount', { type: 'custom', message: 'Недостаточно средств для списания' });
-    } else if (parseInt(data.amount) === 0) {
+    } else if (parseInt(d.amount) === 0) {
       setError('amount', { type: 'custom', message: 'Некорректная сумма' });
     } else {
       setConfirmTransfer(true);
-      setData(data);
-      console.log(data)
+      setData({ ...data, ...d });
+    }
+  }
+
+  function chooseRecipient() {
+    if (recipType === 'personal') {
+      return (
+        <UsersAutoList
+          title='Получатель'
+          register={register}
+          errors={errors}
+        />)
+    } else {
+      return (
+        <CFOAutoList
+          title='Получатель'
+          register={register}
+          errors={errors}
+        />
+      )
     }
   }
 
@@ -43,50 +64,66 @@ export default function CreateTransferCFOUnit({ setConfirmTransfer }) {
         <GrayButtonBack />
 
         <div className={styles.content}>
-          <h1>Пополнение ЦФО</h1>
+          <h1>Распределение средств ЦФО</h1>
 
           <TransactionAccInfo
             title='Счет списания'
             acc_type='Счет ЦФО'
-            acc_number='x'
-            acc_balance='x'
+            acc_number={data.cfo_number}
+            acc_balance={data.cfo_balance}
           />
 
           <div className={styles.inpt_box}>
             <label htmlFor='recipient_type'>Тип получателя</label>
+
             <select
               name="recipient_type"
               id="recipient_type"
-              {...register("recipient_type")}
               className={styles.select_type}
+              {...register("recip_type", { required: true })}
+              onChange={(e) => setRecipType(e.target.value)}
             >
               <option value="personal">Пользователь</option>
               <option value="cfo">Другой ЦФО</option>
             </select>
           </div>
 
-
-          <UsersAutoList
-            title='Получатель'
-            register={register}
-            errors={errors}
-          />
-
-          <CFOAutoList
-            title='Получатель'
-            register={register}
-            errors={errors}
-          />
+          {chooseRecipient()}
 
           <AmountInput
             register={register}
             errors={errors}
           />
 
+          <div className={styles.mess}>
+            <div className={styles.inpt_box}>
+              <label htmlFor='message'>Сообщение</label>
 
+              <TextField
+                id="message"
+                fullWidth
+                variant="standard"
+                error={errors.message ? true : false}
+                {...register("message", { required: true })}
+              />
+            </div>
 
-
-
+            <div className={styles.tags}>
+              {globalCFOTags.map((item, index) => {
+                return (
+                  <span
+                    key={index}
+                    className={styles.message_tag}
+                    onClick={() => {
+                      setValue('message', `${item.icon}${item.label}`)
+                    }}
+                  >
+                    {item.icon} {item.label}
+                  </span>
+                )
+              })}
+            </div>
+          </div>
         </div>
 
         <input type="submit" value='Продолжить' className='operations-next-btn' />

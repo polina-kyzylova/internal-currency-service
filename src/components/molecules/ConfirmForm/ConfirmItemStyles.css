@@ -1,0 +1,29 @@
+.confirm-form-label {
+    font-size: 1.2rem;
+    font-weight: var(--lbl-bold-weight);
+    padding-bottom: 0.5rem;
+}
+
+.confirm-form-table {
+    font-size: 1.2rem;
+    border-spacing: 0 var(--grid-padding);
+}
+
+.confirm-form-table-mark {
+    width: 12rem;
+}
+
+.confirm-form-space {
+    width: var(--grid-padding);
+}
+
+.confirm-form-table-description {
+    text-align: left;
+    font-weight: var(--lbl-light-weight);
+}
+
+@media (max-width: 500px) {
+    .confirm-form-table-mark {
+        width: 8rem;
+    }
+}

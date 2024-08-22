@@ -24,7 +24,7 @@ const initialState = [
         cfo_acc_balance: 5300,
         cfo_id: 333,
         owner_id: 443,
-        title: 'Дни рождения',
+        title: 'Сервис 1',
         owner_name: 'Сидоренко И.И.',
     },
     {
@@ -32,7 +32,7 @@ const initialState = [
         cfo_acc_balance: 8100,
         cfo_id: 334,
         owner_id: 444,
-        title: 'Праздники',
+        title: 'Сервис 2',
         owner_name: 'Иваненко И.И.',
     }
 ];
