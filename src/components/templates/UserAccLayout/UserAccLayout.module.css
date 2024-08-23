@@ -29,3 +29,23 @@
     grid-template-columns: repeat(2, 1fr);
     column-gap: var(--grid-padding);
 }
+
+
+
+/* ---------- Adaptive ---------- */
+@media (max-width: 1000px) {
+    .container {
+        width: 100%;
+        height: 100%;
+        display: grid;
+        grid-template-columns: auto;
+        grid-template-rows: 1fr 1fr;
+        grid-auto-flow: row;
+        column-gap: 0;
+        row-gap: var(--grid-padding);
+    }
+
+    .analys {
+        grid-row-start: 2;
+    }
+}

@@ -3,13 +3,26 @@ import styles from './HomePage.module.css';
 import ControlUnit from '../../molecules/ControlUnit';
 import UserAccLayout from '../../templates/UserAccLayout/UserAccLayout';
 import SideMenu from '../../molecules/SideMenu/SideMenu';
+import { useSelector } from 'react-redux';
 
 export default function HomePage() {
+  const { first_name, fam_name } = useSelector(state => state.user);
+
   return (
     <div className={styles.container}>
       <div className={styles.header}>
-        <h2>Иван Иванов</h2>
+        <div className={styles.mobile_items}>
+          <p>menu</p>
+        </div>
+
+        <h2 className={styles.user}>{first_name} {fam_name}</h2>
         <ControlUnit />
+      </div>
+
+      <div className={styles.mobile_items}>
+        <div className={styles.header}>
+          <h2>{first_name} {fam_name}</h2>
+        </div>
       </div>
 
       <div className={styles.side_menu}>

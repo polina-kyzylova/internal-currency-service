@@ -9,14 +9,14 @@ export default function UserAccLayout() {
     { id: 0, value: 30, label: 'Категория A' },
     { id: 1, value: 15, label: 'Категория B' },
     { id: 2, value: 20, label: 'Категория C' },
-    { id: 3, value: 25, label: 'Категория C' },
+    { id: 3, value: 25, label: 'Категория D' },
   ]
 
   const data2 = [
     { id: 0, value: 8, label: 'Категория A' },
     { id: 1, value: 12, label: 'Категория B' },
     { id: 2, value: 25, label: 'Категория C' },
-    { id: 3, value: 80, label: 'Категория C' },
+    { id: 3, value: 80, label: 'Категория D' },
   ]
 
 
