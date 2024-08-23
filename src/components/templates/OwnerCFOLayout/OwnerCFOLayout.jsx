@@ -5,10 +5,13 @@ import CFOAccount from '../../molecules/CFOAccount/CFOAccount';
 import CFOOwnerTable from '../../molecules/CFOOwnerTable';
 import AdminAnalyticsUnit from '../../organisms/AdminAnalyticsUnit/AdminAnalyticsUnit';
 import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 
 export default function OwnerCFOLayout() {
-    const { cfo_number, cfo_balance } = useSelector(state => state.cfo);
+    const { cfo_number, cfo_balance, cfo_title } = useSelector(state => state.cfo);
+    const navigate = useNavigate();
+
     const all_cfo = [
         { label: 'A', value: 2400 },
         { label: 'B', value: 4567 },
@@ -24,11 +27,19 @@ export default function OwnerCFOLayout() {
     return (
         <div className={styles.container}>
             <div className={styles.content}>
-                <OperationsAction label='Шаблоны' />
+                <div className={styles.item}>
+                    <h1>{cfo_title}</h1>
+                    <OperationsAction label='История операций' />
+                </div>
 
                 <div className={styles.item}>
-                    <OperationsAction label='История операций' />
-                    <button className={styles.manage_btn}>Управлять участниками</button>
+                    <button
+                        className={styles.manage_btn}
+                        onClick={() => navigate('/owner/transfer-cfo')}
+                    >Перевести
+                    </button>
+
+                    <OperationsAction label='Шаблоны' />
                 </div>
 
                 <CFOAccount cfo_balance={cfo_balance} cfo_number={cfo_number} />

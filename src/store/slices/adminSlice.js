@@ -6,7 +6,7 @@ const initialState = {
 }
 
 
-export const counterSlice = createSlice({
+export const adminSlice = createSlice({
     name: 'admin',
     initialState,
     reducers: {
@@ -22,5 +22,5 @@ export const counterSlice = createSlice({
 })
 
 
-export const { initAdmin, removeAdmin } = counterSlice.actions
-export default counterSlice.reducer
+export const { initAdmin, removeAdmin } = adminSlice.actions
+export default adminSlice.reducer

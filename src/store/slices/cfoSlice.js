@@ -10,7 +10,7 @@ const initialState = {
 }
 
 
-export const counterSlice = createSlice({
+export const cfoSlice = createSlice({
     name: 'cfo',
     initialState,
     reducers: {
@@ -38,5 +38,5 @@ export const counterSlice = createSlice({
 })
 
 
-export const { initCFO, updateCFO, removeCFO } = counterSlice.actions
-export default counterSlice.reducer
+export const { initCFO, updateCFO, removeCFO } = cfoSlice.actions
+export default cfoSlice.reducer

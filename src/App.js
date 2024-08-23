@@ -47,12 +47,12 @@ function App() {
         <Route path='/admin/cfo/:cfo_id' element={<TransactionPage />}>
           <Route path='' element={<AdminCFOPage />} />
           <Route path="replenish-cfo" element={<ReplenishCFOLayout />} />                       {/* master-to-cfo transaction */}
-          <Route path="transfer-cfo" element={<TransferCFOLayout />} />        {/* cfo-to-user/cfo transaction */}
+          <Route path="transfer-cfo" element={<TransferCFOLayout />} />                         {/* cfo-to-user/cfo transaction */}
           <Route path="change-owner" element={<ChangeOwnerUnit />} />                           {/* change cfo owner */}
           <Route path="result" />                                                               {/* transactions result */}
         </Route>
 
-        {/*----- admin budget pages -----*/}
+        {/*----- admin budget page -----*/}
         <Route path="/admin/transfer-master" element={<TransactionPage />}>                      {/* master-to-user/cfo transaction */}
           <Route path='' element={<TransferMasterLayout />} />
         </Route>
@@ -62,6 +62,11 @@ function App() {
         <Route path="/owner" element={<OwnerPage />} >
           <Route path="" element={<UserAccLayout />} />
           <Route path="cfo" element={<OwnerCFOLayout />} />
+        </Route>
+
+        {/*----- owner cfo manage page -----*/}
+        <Route path="/owner/transfer-cfo" element={<TransactionPage />}>                      {/* cfo-to-user/cfo transaction */}
+          <Route path='' element={<TransferCFOLayout />} />
         </Route>
 
 
