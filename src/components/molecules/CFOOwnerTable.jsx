@@ -48,7 +48,7 @@ export default function CFOOwnerTable() {
 
                 <TableBody>
                     {rows.map((row) => (
-                        <TableRow key={row.name} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+                        <TableRow key={row.id} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
                             <TableCell sx={{ fontSize: '1rem' }}>{row.id}</TableCell>
                             <TableCell sx={{ fontSize: '1rem' }}>{row.name}</TableCell>
                             <TableCell sx={{ fontSize: '1rem' }}>{row.title}</TableCell>

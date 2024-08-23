@@ -2,9 +2,9 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
     user_type: null,
-    fam_name: 'Админов',
-    first_name: 'Админ',
-    last_name: 'Админович',
+    fam_name: 'Юзеров',
+    first_name: 'Юзер',
+    last_name: 'Юзерович',
     phone: null,
     email: null,
     personal_acc_number: '111111111111',

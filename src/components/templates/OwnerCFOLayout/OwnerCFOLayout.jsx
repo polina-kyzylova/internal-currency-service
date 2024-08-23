@@ -8,7 +8,7 @@ import { useSelector } from 'react-redux';
 
 
 export default function OwnerCFOLayout() {
-    const { cfo_acc_number, cfo_acc_balance } = useSelector(state => state.owner);
+    const { cfo_number, cfo_balance } = useSelector(state => state.cfo);
     const all_cfo = [
         { label: 'A', value: 2400 },
         { label: 'B', value: 4567 },
@@ -31,7 +31,7 @@ export default function OwnerCFOLayout() {
                     <button className={styles.manage_btn}>Управлять участниками</button>
                 </div>
 
-                <CFOAccount cfo_balance={cfo_acc_balance} cfo_number={cfo_acc_number} />
+                <CFOAccount cfo_balance={cfo_balance} cfo_number={cfo_number} />
             </div>
 
 

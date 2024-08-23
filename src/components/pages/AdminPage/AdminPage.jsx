@@ -9,10 +9,12 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
+import { useSelector } from 'react-redux';
 
 
 
 export default function AdminPage() {
+  const { first_name, fam_name } = useSelector(state => state.user);
   let item = window.location.href.split("/").pop();
   const navigate = useNavigate();
 
@@ -32,7 +34,7 @@ export default function AdminPage() {
     <div className={styles.container}>
       <div className={styles.header}>
         <div className={styles.user_info}>
-          <h2>Иван Иванов</h2>
+          <h2>{first_name} {fam_name}</h2>
           <Badge label='Администратор' />
         </div>
 

@@ -1,12 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-    cfo_number: null,
-    cfo_balance: null,
-    cfo_title: null,
-    cfo_owner: null,
+    cfo_number: '333333333333',
+    cfo_balance: '9000',
+    cfo_title: 'Тестовое название',
+    cfo_owner: 'Тестов Тест Тестович',
     cfo_id: null,
-    owner_phone: null,
+    owner_phone: '79992223344',
 }
 
 

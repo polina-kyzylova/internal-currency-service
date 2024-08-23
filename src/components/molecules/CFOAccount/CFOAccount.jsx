@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import styles from './CFOAccount.module.css';
 import cover from '../../../assets/cfo-acc.svg';
 import coin from '../../../assets/white_coin.svg';

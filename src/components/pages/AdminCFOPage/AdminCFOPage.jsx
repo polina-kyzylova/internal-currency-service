@@ -39,6 +39,7 @@ export default function AdminCFOPage() {
         owner_phone: '79992223344',
     }
 
+
     /*----- При первом обращении к карточке запрашиваем все данные ЦФО и сохраняем в redux -----*/
     useEffect(() => {
         dispatch(initCFO({
