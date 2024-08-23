@@ -37,3 +37,31 @@
 .login_btn:hover {
     background-color: var(--hover-blue);
 }
+
+
+@media (max-width: 1399px) {
+    .onboard_form {
+        padding: 0 2rem;
+        justify-content: center;
+        gap: 4vh;
+    }
+}
+
+@media (max-width: 500px) {
+    .onboard_form {
+        display: grid;
+        align-items: center;
+        justify-content: center;
+        row-gap: 2rem;
+        padding: 2rem;
+    }
+
+    .actions {
+        align-items: center;
+    }
+
+    .login_btn {
+        padding: 1rem 0;
+        width: 100%;
+    }
+}
