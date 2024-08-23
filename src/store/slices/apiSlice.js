@@ -1,7 +1,8 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { redirect } from "react-router-dom";
 
-const url = `http://178.46.152.41:5111`;
+const url = `http://188.225.36.233`;
+//const url = `http://178.46.152.41:5111`;   Denis
 const buildApiUrl = (endpoint) => `${url}${endpoint}`;
 
 let isRefreshing = false;    // Flag to indicate if token refresh is in progress
@@ -97,56 +98,16 @@ export const apiSlice = createApi({
         }
       },
     }),
-    add: builder.mutation({
-      query: ({ endpoint, id, body }) => ({
-        url: `${endpoint}${id}`,
-        method: "POST",
-        body: JSON.stringify(body),
-      }),
-    }),
-    update: builder.mutation({
-      query: ({ endpoint, id, body }) => ({
-        url: `${endpoint}${id}`,
-        method: "PUT",
-        body: JSON.stringify(body),
-      }),
-    }),
-    remove: builder.mutation({
-      query: ({ endpoint, id }) => ({
-        url: `${endpoint}${id}`,
-        method: "DELETE",
-      }),
-    }),
-
-
     getQuery: builder.mutation({
       query: (endpoint) => ({
         url: endpoint,
         method: 'GET',
       }),
     }),
-    registerUser: builder.mutation({
-      query: (body) => ({
-        url: `/auth/register`,
+    postQuery: builder.mutation({
+      query: ({ endpoint, body }) => ({
+        url: endpoint,
         method: 'POST',
-        body: JSON.stringify(body),
-      })
-    }),
-    getCode: builder.mutation({
-      query: (phone) => ({
-        url: `/auth/request-code?phoneNumber=${phone}`,
-        method: 'GET',
-      }),
-    }),
-    setupSession: builder.mutation({
-      query: (body) => ({
-        url: `/auth/login`,
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-          credentials: 'include',
-        },
         body: JSON.stringify(body),
       })
     }),
@@ -156,13 +117,7 @@ export const apiSlice = createApi({
 
 export const {
   useGetQuery,
-  useAddMutation,
-  useUpdateMutation,
-  useRemoveMutation,
   useGetQueryMutation,
-
-  useRegisterUserMutation,
-  useGetCodeMutation,
-  useSetupSessionMutation,
+  usePostQueryMutation,
 } = apiSlice;
 export { url, buildApiUrl as buildUrl };

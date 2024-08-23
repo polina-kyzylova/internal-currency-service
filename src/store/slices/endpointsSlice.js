@@ -1,8 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  profile: "/api/profile",
-  //getCode:"/auth/request-code?phoneNumber="
+  login: "/users/me/login",
+  logout: '/users/me/logout',
+  register: '/users',
 };
 
 const endpointsSlice = createSlice({
@@ -10,5 +11,5 @@ const endpointsSlice = createSlice({
   initialState,
 });
 
-export const {} = endpointsSlice.actions;
+export const { } = endpointsSlice.actions;
 export default endpointsSlice.reducer;

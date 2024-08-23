@@ -1,6 +1,6 @@
 .onboard_form {
     background-color: #fff;
-    padding: 5rem;
+    padding: 4rem;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -16,6 +16,10 @@
     display: flex;
     flex-direction: column;
     gap: 1.6rem;
+}
+
+.actions a {
+    color: var(--hover-blue);
 }
 
 .login_btn {
@@ -36,6 +40,18 @@
 
 .login_btn:hover {
     background-color: var(--hover-blue);
+}
+
+
+.inpt_box {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.inpt_box label {
+    font-size: 1.2rem;
+    font-weight: var(--lbl-bold-weight);
 }
 
 

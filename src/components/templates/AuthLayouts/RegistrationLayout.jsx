@@ -14,8 +14,9 @@ export default function RegistrationLayout() {
     } = useForm()
 
     const onSubmit = async (data) => {
-        console.log('form data:', data)
+        console.log(data)
     }
+
 
     return (
         <form className={styles.onboard_form} onSubmit={handleSubmit(onSubmit)}>

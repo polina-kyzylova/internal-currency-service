@@ -6,11 +6,15 @@ import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 import { useGetQueryMutation } from "../../../store/slices/apiSlice";
+import { usePostQueryMutation } from '../../../store/slices/apiSlice';
 
 
 export default function LoginLayout() {
-    const profileEP = useSelector((state) => state.endpoints.profile);
+    const login = useSelector((state) => state.endpoints.login);
+    const api = useSelector((state) => state.endpoints.api);
+
     const [trigger, { isLoading: loadData, error: errorData }] = useGetQueryMutation();
+    const [trig, { isLoading: trigLoad, error: errorTrig }] = usePostQueryMutation();
 
     const {
         register,
@@ -20,11 +24,11 @@ export default function LoginLayout() {
     } = useForm()
 
     const onSubmit = async (data) => {
-        const response = await trigger(`${profileEP}/personal-data`);
-        console.log('form data:', data)
-        console.log('response:', response)
-    }
+        //const response = await trigger(login);
 
+        const res = await trig({ endpoint: api, body: data });
+        console.log('POST response:', res)
+    }
 
 
     return (
@@ -66,3 +70,48 @@ export default function LoginLayout() {
         </form>
     )
 }
+
+
+
+
+/*------------------  РАБОТАЕТ  ------------------------------*/
+/*
+const accessToken = localStorage.getItem('accessToken');
+
+fetch('http://188.225.36.233/users/me/hello', {
+    method: 'GET',
+    headers: {
+        'Content-type': 'application/json; charset=UTF-8',
+        'Accept': 'application/json',
+        'Authorization': `Bearer ${accessToken}`
+    },
+
+})
+    .then((response) => response.json())
+    .then((data) => {
+        console.log(data)
+    })
+        */
+
+
+/*------------------  РАБОТАЕТ  ------------------------------*/
+/*
+fetch('http://188.225.36.233/users/me/login', {
+    method: 'POST',
+    body: JSON.stringify({
+        "username": "lalal",
+        "password": "123"
+    }),
+    headers: {
+        'Content-type': 'application/json; charset=UTF-8',
+        'Accept': 'application/json',
+    },
+    
+})
+    .then((response) => response.json())
+    .then((data) => {
+        console.log(data)
+            localStorage.setItem("accessToken", response.data.accessToken);
+            localStorage.setItem("refreshToken", response.data.refreshToken);
+    })
+*/
