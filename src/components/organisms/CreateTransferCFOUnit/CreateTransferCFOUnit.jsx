@@ -28,12 +28,11 @@ export default function CreateTransferCFOUnit({ setConfirmTransfer }) {
     formState: { errors },
   } = useForm({
     defaultValues: {
-      sender_cfo_title: cfo.cfo_title,
-      sender_cfo_number: cfo.cfo_number,
-      sender_cfo_owner: cfo.cfo_owner,
+      sender_title: cfo.cfo_title,
+      sender_number: cfo.cfo_number,
+      sender_owner: cfo.cfo_owner,
     }
   })
-
 
   const onSubmit = (d) => {
     if (parseInt(d.amount) > cfo.cfo_balance) {
@@ -61,10 +60,12 @@ export default function CreateTransferCFOUnit({ setConfirmTransfer }) {
           title='Получатель'
           register={register}
           errors={errors}
+          setValue={setValue}
         />
       )
     }
   }
+
 
 
   return (
@@ -84,7 +85,6 @@ export default function CreateTransferCFOUnit({ setConfirmTransfer }) {
 
           <div className={styles.inpt_box}>
             <label htmlFor='recipient_type'>Тип получателя</label>
-
             <select
               name="recipient_type"
               id="recipient_type"
@@ -107,7 +107,6 @@ export default function CreateTransferCFOUnit({ setConfirmTransfer }) {
           <div className={styles.mess}>
             <div className={styles.inpt_box}>
               <label htmlFor='message'>Сообщение</label>
-
               <TextField
                 id="message"
                 fullWidth

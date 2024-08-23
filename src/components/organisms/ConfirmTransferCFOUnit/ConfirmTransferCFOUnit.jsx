@@ -28,9 +28,9 @@ export default function ConfirmTransferCFOUnit({ setConfirmTransfer }) {
       return (
         <CFOInfoTable
           title='Получатель'
-          acc_number='555'
-          acc_owner='fio'
-          acc_title={data.recipient}
+          acc_number='123'
+          acc_owner={data.recip_cfo_owner}
+          acc_title={data.recip_cfo_title}
         />
       )
     }
@@ -49,9 +49,9 @@ export default function ConfirmTransferCFOUnit({ setConfirmTransfer }) {
 
         <CFOInfoTable
           title='Отправитель'
-          acc_number={parseInt(data.sender_cfo_number).toLocaleString()}
-          acc_owner={data.sender_cfo_owner}
-          acc_title={data.sender_cfo_title}
+          acc_number={parseInt(data.sender_number).toLocaleString()}
+          acc_owner={data.sender_owner}
+          acc_title={data.sender_title}
         />
 
         {chooseRecipient()}

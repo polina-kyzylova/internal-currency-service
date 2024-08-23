@@ -15,6 +15,7 @@ export default function CreateCFOPage() {
     const {
         register,
         handleSubmit,
+        setValue,
         setError,
         formState: { errors },
     } = useForm()
@@ -28,8 +29,8 @@ export default function CreateCFOPage() {
     */
 
     const onSubmit = (data) => {
-        if (data.budget > parseInt(master_acc_balance)) {
-            setError('budget', { type: 'custom', message: 'Недостаточно средств для создания ЦФО' });
+        if (data.amount > parseInt(master_acc_balance)) {
+            setError('amount', { type: 'custom', message: 'Недостаточно средств для создания ЦФО' });
 
         } else {
             console.log('CFO succesfully created: ', data)
@@ -63,6 +64,7 @@ export default function CreateCFOPage() {
                             title='Владелец'
                             register={register}
                             errors={errors}
+                            setValue={setValue}
                         />
 
                         <div className={styles.inpt_box}>

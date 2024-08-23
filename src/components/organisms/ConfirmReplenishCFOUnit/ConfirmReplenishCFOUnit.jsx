@@ -25,7 +25,7 @@ export default function ConfirmReplenishCFOUnit({ setConfirmReplenish }) {
                 <MasterInfotable
                     title='Счет списания'
                     acc_number={parseInt(data.master_acc).toLocaleString()}
-                    admin='fio'
+                    admin={data.sender_name}
                 />
 
                 <CFOInfoTable

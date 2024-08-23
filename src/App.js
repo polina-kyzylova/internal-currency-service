@@ -15,6 +15,7 @@ import OwnerCFOLayout from './components/templates/OwnerCFOLayout/OwnerCFOLayout
 import TransactionLayout from './components/templates/OperationsLayouts/TransactionLayout';
 import ReplenishCFOLayout from './components/templates/OperationsLayouts/ReplenishCFOLayout';
 import TransferCFOLayout from './components/templates/OperationsLayouts/TransferCFOLayout';
+import TransferMasterLayout from './components/templates/OperationsLayouts/TransferMasterLayout';
 
 import ResultTransactionUnit from './components/organisms/ResultTransactionUnit/ResultTransactionUnit';
 import ChangeOwnerUnit from './components/organisms/ChangeOwnerUnit/ChangeOwnerUnit';
@@ -29,31 +30,35 @@ function App() {
 
 
 
-        /*----- user page -----*/
+        {/*----- user page -----*/}
         <Route path="/user" element={<HomePage />} />
 
 
 
-        /*========== ADMIN PAGES ==========*/
+        {/*========== ADMIN PAGES ==========*/}
         <Route path="/admin" element={<AdminPage />} >
           <Route path="" element={<UserAccLayout />} />
           <Route path="cfo" element={<AdminCFOLayout />} />
           <Route path="budget" element={<AdminBudgetLayout />} />
         </Route>
 
-        /*----- admin cfo pages -----*/
+        {/*----- admin cfo pages -----*/}
         <Route path="/admin/create-cfo" element={<CreateCFOPage />} />
         <Route path='/admin/cfo/:cfo_id' element={<TransactionPage />}>
           <Route path='' element={<AdminCFOPage />} />
-          <Route path="replenish-cfo" element={<ReplenishCFOLayout />} />      /* master-to-cfo transaction */
-          <Route path="transfer-cfo" element={<TransferCFOLayout />} />        /* cfo-to-user/cfo transaction */
-          <Route path="change-owner" element={<ChangeOwnerUnit />}/>    /* change cfo owner */
-          <Route path="result" />                                              /* transactions result */
+          <Route path="replenish-cfo" element={<ReplenishCFOLayout />} />                       {/* master-to-cfo transaction */}
+          <Route path="transfer-cfo" element={<TransferCFOLayout />} />        {/* cfo-to-user/cfo transaction */}
+          <Route path="change-owner" element={<ChangeOwnerUnit />} />                           {/* change cfo owner */}
+          <Route path="result" />                                                               {/* transactions result */}
+        </Route>
+
+        {/*----- admin budget pages -----*/}
+        <Route path="/admin/transfer-master" element={<TransactionPage />}>                      {/* master-to-user/cfo transaction */}
+          <Route path='' element={<TransferMasterLayout />} />
         </Route>
 
 
-
-        /*========== CFO OWNER PAGES ==========*/
+        {/*========== CFO OWNER PAGES ==========*/}
         <Route path="/owner" element={<OwnerPage />} >
           <Route path="" element={<UserAccLayout />} />
           <Route path="cfo" element={<OwnerCFOLayout />} />
@@ -61,14 +66,14 @@ function App() {
 
 
 
-        /*----- USER-TO-USER transactions -----*/
+        {/*----- USER-TO-USER transactions -----*/}
         <Route path="/transaction/:user" element={<TransactionPage />} >
           <Route path="" element={<TransactionLayout />} />
           <Route path="result" element={<ResultTransactionUnit />} />
         </Route>
 
 
-        /*----- error URL page -----*/
+        {/*----- error URL page -----*/}
         <Route path='*' exact={true} element={<h2>Такой страницы не существует :(</h2>} />
       </Routes>
     </BrowserRouter>

@@ -11,6 +11,7 @@ import AmountInput from '../../molecules/TransactionForm/AmountInput';
 
 
 export default function CreateReplenishCFOUnit({ setConfirmReplenish }) {
+    const user = useSelector(state => state.user);
     const { master_acc_balance, master_acc_number } = useSelector(state => state.admin);
     const {cfo_title, cfo_owner, cfo_balance, cfo_number} = useSelector(state => state.cfo);
     const [data, setData] = useOutletContext();
@@ -26,6 +27,7 @@ export default function CreateReplenishCFOUnit({ setConfirmReplenish }) {
             cfo_owner: cfo_owner,
             cfo_number: cfo_number,
             cfo_title: cfo_title,
+            sender_name: `${user.fam_name} ${user.first_name} ${user.last_name[0]}.`,
         }
     })
 

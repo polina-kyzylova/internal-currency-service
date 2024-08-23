@@ -5,9 +5,11 @@ import MasterAccount from '../../molecules/MasterAccount/MasterAccount';
 
 import CFOAdminTable from '../../molecules/CFOAdminTable';
 import AdminAnalyticsUnit from '../../organisms/AdminAnalyticsUnit/AdminAnalyticsUnit';
+import { useNavigate } from 'react-router-dom';
 
 
 export default function AdminBudgetLayout() {
+  const navigate = useNavigate();
   const all_cfo = [
     { label: 'A', value: 2400 },
     { label: 'B', value: 4567 },
@@ -31,7 +33,7 @@ export default function AdminBudgetLayout() {
 
         <div className={styles.operations}>
           <button className={styles.action_btn}>Пополнить</button>
-          <button className={styles.action_btn}>Перевести</button>
+          <button className={styles.action_btn} onClick={() => navigate('/admin/transfer-master')}>Перевести</button>
           <OperationsAction label='Шаблоны' />
           <OperationsAction label='История операций' />
         </div>
