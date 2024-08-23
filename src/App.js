@@ -7,6 +7,7 @@ import AdminPage from './components/pages/AdminPage/AdminPage';
 import TransactionPage from './components/pages/TransactionPage/TransactionPage';
 import CreateCFOPage from './components/pages/CreateCFOPage/CreateCFOPage';
 import AdminCFOPage from './components/pages/AdminCFOPage/AdminCFOPage';
+import AuthPage from './components/pages/AuthPage/AuthPage';
 
 import UserAccLayout from './components/templates/UserAccLayout/UserAccLayout';
 import AdminCFOLayout from './components/templates/AdminCFOLayout/AdminCFOLayout';
@@ -16,6 +17,8 @@ import TransactionLayout from './components/templates/OperationsLayouts/Transact
 import ReplenishCFOLayout from './components/templates/OperationsLayouts/ReplenishCFOLayout';
 import TransferCFOLayout from './components/templates/OperationsLayouts/TransferCFOLayout';
 import TransferMasterLayout from './components/templates/OperationsLayouts/TransferMasterLayout';
+import LoginLayout from './components/templates/AuthLayouts/LoginLayout';
+import RegistrationLayout from './components/templates/AuthLayouts/RegistrationLayout';
 
 import ResultTransactionUnit from './components/organisms/ResultTransactionUnit/ResultTransactionUnit';
 import ChangeOwnerUnit from './components/organisms/ChangeOwnerUnit/ChangeOwnerUnit';
@@ -26,8 +29,11 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<h2>Авторизация</h2>} />
-
+        {/*----- onboard pages -----*/}
+        <Route path="/" element={<AuthPage />} >
+          <Route path='' element={<LoginLayout />} />
+          <Route path='registration' element={<RegistrationLayout />} />
+        </Route>
 
 
         {/*----- user page -----*/}

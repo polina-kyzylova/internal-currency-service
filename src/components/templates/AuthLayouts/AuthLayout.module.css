@@ -1,0 +1,39 @@
+.onboard_form {
+    background-color: #fff;
+    padding: 5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
+}
+
+.actions {
+    display: flex;
+    flex-direction: column;
+    gap: 1.6rem;
+}
+
+.login_btn {
+    width: fit-content;
+    padding: 1rem 5rem;
+
+    background-color: var(--primary-blue);
+    border-radius: 32px;
+    color: #fff;
+    font-size: var(--btn-font-size);
+    font-weight: var(--btn-font-weight);
+
+    outline: none;
+    border: none;
+    cursor: pointer;
+    transition: all .3s ease-in-out;
+}
+
+.login_btn:hover {
+    background-color: var(--hover-blue);
+}

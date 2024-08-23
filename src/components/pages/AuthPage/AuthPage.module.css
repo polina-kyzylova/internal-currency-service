@@ -1,0 +1,24 @@
+.container {
+    height: 100vh;
+    width: 100vw;
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+
+    background-color: aquamarine;
+}
+
+.onboard {
+    background-color: var(--primary-blue);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@media (min-width: 2500px) {
+    .container {
+        width: auto;
+        padding-left: 14vw;
+        padding-right: 14vw;
+        background-color: var(--light-gray);
+    }
+}

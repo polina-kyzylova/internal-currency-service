@@ -1,14 +1,15 @@
 import React from 'react';
 import styles from './AdminCFOLayout.module.css';
 import CFOCard from '../../molecules/CFOCard/CFOCard';
-import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { globalServCFO } from '../../../store/globalVariables';
+import { globalCFO } from '../../../store/globalVariables';
 
 
 
 export default function AdminCFOLayout() {
-  const cfo = useSelector(state => state.adminCFO);
-  const service_cfo = useSelector(state => state.adminServCFO);
+  const cfo = globalCFO;
+  const service_cfo = globalServCFO;
   const navigate = useNavigate();
 
 

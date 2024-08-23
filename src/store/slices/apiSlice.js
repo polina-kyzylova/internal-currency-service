@@ -1,0 +1,168 @@
+import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { redirect } from "react-router-dom";
+
+const url = `http://178.46.152.41:5111`;
+const buildApiUrl = (endpoint) => `${url}${endpoint}`;
+
+let isRefreshing = false;    // Flag to indicate if token refresh is in progress
+let refreshPromise = null;   // To hold the refresh token promise
+
+
+/* ---------- BASE AUTH QUERY ---------- */
+const baseQuery = fetchBaseQuery({
+  baseUrl: url,
+  prepareHeaders: async headers => {
+    const accessToken = localStorage.getItem('accessToken');
+    if (accessToken) {
+      headers.set('Authorization', `Bearer ${accessToken}`);
+    }
+
+    headers.set('Content-Type', 'application/json');
+    headers.set('Accept', 'application/json');
+    return headers
+  }
+});
+
+
+/* ---------- REFRESH AUTH QUERY ---------- */
+// !!! url для рефреша
+const baseQueryWithReauth = async (args, api, extraOptions) => {
+  let result = await baseQuery(args, api, extraOptions)
+
+  if (result.error && result.error.status === 401) {
+    if (!isRefreshing) {
+      isRefreshing = true // Indicate refresh is in progress
+      refreshPromise = Promise.resolve(
+        baseQuery({
+          //url: `${url}/lalalalalalalalalaalalalalalalallalalalala`,
+          method: 'POST',
+          body: { token: localStorage.getItem('refreshToken') }
+        },
+          api,
+          extraOptions
+        )
+      )
+        .then(refreshResult => {
+          if (refreshResult.data) {
+            const refreshTokenResult = refreshResult.data
+
+            // Store the new tokens
+            localStorage.setItem('accessToken', refreshTokenResult.data.accessToken)
+            localStorage.setItem('refreshToken', refreshTokenResult.data.refreshToken)
+            isRefreshing = false // Reset the flag
+            return refreshTokenResult
+          } else {
+            // Handle refresh error
+            isRefreshing = false // Ensure flag is reset for future requests
+            if (refreshResult?.error?.status === 500) {
+              localStorage.setItem("accessToken", null);
+              localStorage.setItem("refreshToken", null);
+              window.location.reload(true)
+              redirect('/')
+            }
+            return null
+          }
+        })
+        .catch((error) => {
+          console.error('Error refreshing token', error)
+          isRefreshing = false // Reset flag on error
+        })
+    }
+    await refreshPromise // Wait for the refresh token request to complete
+    result = await baseQuery(args, api, extraOptions) // Retry the initial query
+  }
+  return result
+}
+export const { } = baseQueryWithReauth
+
+
+
+
+/* ---------- QUERIES SLICE ---------- */
+export const apiSlice = createApi({
+  reducerPath: "apiSlice",
+  baseQuery: baseQuery,
+
+  endpoints: (builder) => ({
+    get: builder.query({
+      queryFn: async (endpoint, _quryApi, _options, fetchBaseQuery) => {
+        let res = await fetchBaseQuery(`${endpoint}`);
+        if (res.data) {
+          console.log("SUCCESS:", res);
+          return { data: res.data };
+        } else {
+          res.endpointAddress = endpoint;
+          console.log("ERROR:", res);
+          return { error: res };
+        }
+      },
+    }),
+    add: builder.mutation({
+      query: ({ endpoint, id, body }) => ({
+        url: `${endpoint}${id}`,
+        method: "POST",
+        body: JSON.stringify(body),
+      }),
+    }),
+    update: builder.mutation({
+      query: ({ endpoint, id, body }) => ({
+        url: `${endpoint}${id}`,
+        method: "PUT",
+        body: JSON.stringify(body),
+      }),
+    }),
+    remove: builder.mutation({
+      query: ({ endpoint, id }) => ({
+        url: `${endpoint}${id}`,
+        method: "DELETE",
+      }),
+    }),
+
+
+    getQuery: builder.mutation({
+      query: (endpoint) => ({
+        url: endpoint,
+        method: 'GET',
+      }),
+    }),
+    registerUser: builder.mutation({
+      query: (body) => ({
+        url: `/auth/register`,
+        method: 'POST',
+        body: JSON.stringify(body),
+      })
+    }),
+    getCode: builder.mutation({
+      query: (phone) => ({
+        url: `/auth/request-code?phoneNumber=${phone}`,
+        method: 'GET',
+      }),
+    }),
+    setupSession: builder.mutation({
+      query: (body) => ({
+        url: `/auth/login`,
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          credentials: 'include',
+        },
+        body: JSON.stringify(body),
+      })
+    }),
+  }),
+});
+
+
+export const {
+  useGetQuery,
+  useAddMutation,
+  useUpdateMutation,
+  useRemoveMutation,
+  useGetQueryMutation,
+
+  useRegisterUserMutation,
+  useGetCodeMutation,
+  useSetupSessionMutation,
+} = apiSlice;
+export { url, buildApiUrl as buildUrl };
