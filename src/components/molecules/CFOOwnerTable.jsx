@@ -31,6 +31,7 @@ export default function CFOOwnerTable() {
         width: '100%',
         backgroundColor: 'var(--light-gray)',
         borderRadius: 'var(--card-radius)',
+        maxHeight: '80vh'
     }
 
     return (

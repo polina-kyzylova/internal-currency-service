@@ -33,3 +33,13 @@
     font-size: var(--lbl-small-size);
     font-weight: var(--lbl-light-weight);
 }
+
+
+@media (max-width: 500px) {
+    .identif {
+        font-size: 1.2rem;
+    }
+    .titl {
+        font-size: var(--lbl-mini-size);
+    }
+}

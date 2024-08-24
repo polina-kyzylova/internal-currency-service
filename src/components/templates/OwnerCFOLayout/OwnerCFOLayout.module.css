@@ -25,11 +25,23 @@
 
 .cfo_titl {
     align-self: center;
+}
+
+.serv {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    column-gap: var(--grid-padding);
+}
+
+
+/*----- service cfo -----*/
+.cfo_service_title {
+    align-self: center;
     grid-column-start: 1;
     grid-column-end: 3;
 }
 
-.serv {
+.cfo_serv {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     column-gap: var(--grid-padding);
@@ -74,4 +86,93 @@
     display: grid;
     grid-template-columns: 2.5fr 1.5fr;
     column-gap: var(--grid-padding);
+}
+
+
+
+
+@media (max-width: 1280px) {
+    .content {
+        width: 100%;
+        height: auto;
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: var(--grid-padding);
+    }
+}
+
+@media (max-width: 1000px) {
+    .content {
+        width: 100%;
+        height: auto;
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        gap: var(--grid-padding);
+    }
+
+    .item {
+        width: 100%;
+        display: grid;
+        grid-template-rows: min-content auto;
+        row-gap: var(--grid-padding);
+    }
+
+    .cfo_service_title {
+        align-self: start;
+        grid-column-start: auto;
+        grid-column-end: auto;
+        padding-bottom: 2rem;
+        font-size: var(--lbl-small-size);
+    }
+
+    .cfo_titl {
+        font-size: var(--lbl-small-size);
+        padding-bottom: 2rem;
+        padding-bottom: 2rem;
+    }
+
+    .cfo_serv {
+        display: flex;
+        flex-direction: column;
+        gap: var(--grid-padding);
+    }
+
+    .manage_btn {
+        height: 4rem;
+        font-size: var(--lbl-mini-size);
+
+        outline: none;
+        border: none;
+        cursor: none;
+        transition: none;
+        pointer-events: none;
+    }
+}
+
+@media (max-width: 500px) {
+    .cfo_titl {
+        align-self: start;
+        grid-column-start: auto;
+        grid-column-end: auto;
+        padding-bottom: 2rem;
+        font-size: var(--lbl-small-size);
+    }
+
+    .serv {
+        display: flex;
+        flex-direction: column;
+        gap: var(--grid-padding);
+    }
+
+    .analytics h3 {
+        font-size: var(--lbl-mini-size);
+    }
+    
+    .cfo_table {
+        width: 100%;
+        display: grid;
+        grid-template-columns: auto;
+        grid-template-rows: auto auto;
+        row-gap: var(--grid-padding);
+    }
 }

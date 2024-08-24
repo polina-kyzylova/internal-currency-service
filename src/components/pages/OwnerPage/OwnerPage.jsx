@@ -34,6 +34,10 @@ export default function OwnerPage() {
   return (
     <div className={styles.container}>
       <div className={styles.header}>
+        <div className={styles.mobile_items}>
+          <p>menu</p>
+        </div>
+
         <div className={styles.user_info}>
           <h2>{first_name} {fam_name}</h2>
           <Badge label='Владелец ЦФО' />
@@ -42,9 +46,19 @@ export default function OwnerPage() {
         <ControlUnit />
       </div>
 
+
+      <div className={styles.mobile_items}>
+        <div className={styles.user_mobile_info}>
+          <h2>{first_name} {fam_name}</h2>
+          <Badge label='Владелец ЦФО' />
+        </div>
+      </div>
+
+
       <div className={styles.side_menu}>
         <SideMenu />
       </div>
+
 
       <div className={styles.content}>
         <ThemeProvider theme={theme}>

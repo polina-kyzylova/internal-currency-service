@@ -10,7 +10,7 @@ import ServiceCFOCard from '../../molecules/ServiceCFOCard/ServiceCFOCard';
 
 
 export default function OwnerCFOLayout() {
-    const { cfo_number, cfo_balance, cfo_title } = useSelector(state => state.cfo);
+    const { cfo_number, cfo_balance, cfo_title, cfo_type } = useSelector(state => state.cfo);
     const navigate = useNavigate();
 
     const all_cfo = [
@@ -24,13 +24,26 @@ export default function OwnerCFOLayout() {
         { label: 'H', value: 4800 },
     ];
 
+    function cfoRender() {
+        if (cfo_type === 'service') {
+            return (
+                <ServiceCFOCard
+                    status='ok'
+                    service_title='Lalala'
+                    service_id='123'
+                />
+            )
+        } else return null
+    }
+
+
 
     return (
         <div className={styles.container}>
             <div className={styles.content}>
                 <div className={styles.item}>
-                    <div className={styles.serv}>
-                        <h1 className={styles.cfo_titl}>{cfo_title}</h1>
+                    <div className={(cfo_type === 'service') ? styles.cfo_serv : styles.serv}>
+                        <h1 className={(cfo_type === 'service') ? styles.cfo_service_title : styles.cfo_titl}>{cfo_title}</h1>
 
                         <button
                             className={styles.manage_btn}
@@ -38,14 +51,10 @@ export default function OwnerCFOLayout() {
                         >Перевести</button>
                     </div>
 
-                    <div className={styles.serv}>
-                        <OperationsAction label='Шаблоны' />
+                    <div className={(cfo_type === 'service') ? styles.cfo_serv : styles.serv}>
                         <OperationsAction label='История операций' />
-                        <ServiceCFOCard
-                            status='ok'
-                            service_title='Lalala'
-                            service_id='123'
-                        />
+                        <OperationsAction label='Шаблоны' />
+                        {cfoRender()}
                     </div>
                 </div>
 

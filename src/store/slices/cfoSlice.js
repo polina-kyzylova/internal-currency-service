@@ -7,6 +7,7 @@ const initialState = {
     cfo_owner: 'Тестов Тест Тестович',
     cfo_id: null,
     owner_phone: '79992223344',
+    cfo_type: 'personal',
 }
 
 
@@ -21,6 +22,7 @@ export const cfoSlice = createSlice({
             state.cfo_owner = action.payload.cfo_owner;
             state.cfo_id = action.payload.cfo_id;
             state.owner_phone = action.payload.owner_phone;
+            state.cfo_type = action.payload.cfo_type;
         },
         updateCFO: (state, action) => {
             const { item, new_value } = action.payload;
@@ -33,6 +35,7 @@ export const cfoSlice = createSlice({
             state.cfo_owner = null;
             state.cfo_id = null;
             state.owner_phone = null;
+            state.cfo_type = null;
         },
     },
 })
