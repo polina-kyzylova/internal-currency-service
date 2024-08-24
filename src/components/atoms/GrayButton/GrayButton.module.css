@@ -20,6 +20,8 @@
     .btn {
         cursor: none;
         transition: none;
-        pointer-events: none;
+    }
+    .btn:hover {
+        background-color: var(--dark-gray);
     }
 }

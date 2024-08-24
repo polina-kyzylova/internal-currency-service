@@ -29,7 +29,9 @@
     .transaction_btn {
         cursor: none;
         transition: none;
-        pointer-events: none;
+    }
+    .transaction_btn:hover {
+        background-color: var(--primary-blue);
     }
 }
 

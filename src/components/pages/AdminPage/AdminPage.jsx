@@ -33,6 +33,10 @@ export default function AdminPage() {
   return (
     <div className={styles.container}>
       <div className={styles.header}>
+        <div className={styles.mobile_items}>
+          <p>menu</p>
+        </div>
+
         <div className={styles.user_info}>
           <h2>{first_name} {fam_name}</h2>
           <Badge label='Администратор' />
@@ -41,9 +45,19 @@ export default function AdminPage() {
         <ControlUnit />
       </div>
 
+
+      <div className={styles.mobile_items}>
+        <div className={styles.user_mobile_info}>
+          <h2>{first_name} {fam_name}</h2>
+          <Badge label='Администратор' />
+        </div>
+      </div>
+
+
       <div className={styles.side_menu}>
         <SideMenu />
       </div>
+
 
       <div className={styles.content}>
         <ThemeProvider theme={theme}>
@@ -53,6 +67,8 @@ export default function AdminPage() {
               onChange={handleChange}
               textColor="primary"
               indicatorColor="primary"
+              variant="scrollable"
+              scrollButtons="auto"
             >
               <Tab
                 value="budget"

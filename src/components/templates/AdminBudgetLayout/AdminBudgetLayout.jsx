@@ -26,14 +26,16 @@ export default function AdminBudgetLayout() {
     <div className={styles.container}>
       <div className={styles.content}>
         <div className={styles.oborot}>
-          <h4>Оборот всех средств (Сумма балансов ЦФО + ЦФО сервисов - коины и рубли)</h4>
-          <p>Оборот ЦФО (Сумма балансов ЦФО - коины и рубли)</p>
-          <p>Оборот ЦФО сервисов (Сумма балансов ЦФО сервисов - коины и рубли)</p>
+          <h4>Оборот всех средств</h4>
+          <p>Оборот ЦФО</p>
+          <p>Оборот ЦФО сервисов</p>
         </div>
 
         <div className={styles.operations}>
-          <button className={styles.action_btn}>Пополнить</button>
-          <button className={styles.action_btn} onClick={() => navigate('/admin/transfer-master')}>Перевести</button>
+          <div className={styles.oper_btns}>
+            <button className={styles.action_btn}>Пополнить</button>
+            <button className={styles.action_btn} onClick={() => navigate('/admin/transfer-master')}>Перевести</button>
+          </div>
           <OperationsAction label='Шаблоны' />
           <OperationsAction label='История операций' />
         </div>

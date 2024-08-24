@@ -58,3 +58,52 @@
     flex-direction: column;
     gap: var(--grid-padding);
 }
+
+
+
+
+
+
+@media (max-width: 1280px) {
+    .content {
+        width: 100%;
+        height: auto;
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: var(--grid-padding);
+    }
+}
+
+@media (max-width: 1000px) {
+    .container {
+        gap: 2rem;
+    }
+
+    .content {
+        width: 100%;
+        height: auto;
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+    }
+
+    .create_btn {
+        height: 4rem;
+        font-size: var(--lbl-mini-size);
+
+        outline: none;
+        border: none;
+        cursor: none;
+        transition: none;
+    }
+
+    .create_btn:hover {
+        background-color: var(--primary-blue);
+    }
+
+    .cards {
+        overflow-y: scroll;
+        overflow-x: hidden;
+        max-height: 80vh;
+    }
+}

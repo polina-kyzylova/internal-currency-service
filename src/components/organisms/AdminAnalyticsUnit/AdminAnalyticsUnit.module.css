@@ -60,11 +60,41 @@
 }
 
 
+
+@media (max-width: 1000px) {
+    .container {
+        grid-template-rows: auto auto 25rem;
+        row-gap: var(--global-padding);
+    }
+
+    .diagram {
+        height: 100%;
+    }
+}
+
+@media (max-width: 1000px) and (orientation: landscape) {
+    .container {
+        grid-template-rows: auto auto 40rem;
+        row-gap: var(--global-padding);
+    }
+    .diagram {
+        height: 70%;
+    }
+}
+
 @media (max-width: 500px) {
     .lbl {
         font-size: var(--lbl-mini-size);
     }
     .money {
         font-size: var(--lbl-small-size);
+    }
+    .coin {
+        align-items: center;
+    }
+    .coin img {
+        height: 1rem;
+        align-self: flex-end;
+        padding-bottom: 0.6rem;
     }
 }
