@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   login: "/users/me/login",
   logout: '/users/me/logout',
-  register: '/users',
+  registration: '/users',
 };
 
 const endpointsSlice = createSlice({

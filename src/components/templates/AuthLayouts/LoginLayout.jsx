@@ -1,49 +1,59 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from './AuthLayout.module.css';
 import { useForm } from "react-hook-form";
-import { TextField } from '@mui/material';
 import { Link } from 'react-router-dom';
+import { usePostQueryMutation } from '../../../store/slices/apiSlice';
 import { useSelector } from 'react-redux';
 
-import { useGetQueryMutation } from "../../../store/slices/apiSlice";
-import { usePostQueryMutation } from '../../../store/slices/apiSlice';
+import { TextField } from '@mui/material';
+import IconButton from '@mui/material/IconButton';
+import InputAdornment from '@mui/material/InputAdornment';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
+
+import Loader from '../../atoms/Loader';
+import Error from '../../atoms/Error';
 
 
 export default function LoginLayout() {
-    const login = useSelector((state) => state.endpoints.login);
-    const api = useSelector((state) => state.endpoints.api);
+    const [showPassword, setShowPassword] = useState(false);
 
-    const [trigger, { isLoading: loadData, error: errorData }] = useGetQueryMutation();
-    const [trig, { isLoading: trigLoad, error: errorTrig }] = usePostQueryMutation();
+    const handleClickShowPassword = () => setShowPassword((show) => !show);
+    const handleMouseDownPassword = (event) => {
+        event.preventDefault();
+    };
+
+    const loginEP = useSelector((state) => state.endpoints.login);
+    const [loginUser, { isLoading: loginLoading, error: loginError }] = usePostQueryMutation();
 
     const {
         register,
         handleSubmit,
-        setError,
         formState: { errors },
     } = useForm()
 
     const onSubmit = async (data) => {
-        //const response = await trigger(login);
-
-        const res = await trig({ endpoint: api, body: data });
-        console.log('POST response:', res)
+        const response = await loginUser({ endpoint: loginEP, body: data });
+        console.log('POST response:', response)
     }
 
 
-    return (
+    if (loginLoading) return <Loader />
+    else if (loginError) return <Error />
+    else return (
         <form className={styles.onboard_form} onSubmit={handleSubmit(onSubmit)}>
             <h1>Вход в Личный кабинет</h1>
 
             <div className={styles.content}>
                 <div className={styles.inpt_box}>
-                    <label htmlFor='login'>Логин</label>
+                    <label htmlFor='username'>Логин</label>
                     <TextField
-                        id="login"
+                        id="username"
                         fullWidth
                         variant="standard"
-                        error={errors.login ? true : false}
-                        {...register("login", { required: true })}
+                        error={errors.username ? true : false}
+                        helperText={errors.username ? 'Неверный логин' : null}
+                        {...register("username", { required: true, minLength: 2 })}
                     />
                 </div>
 
@@ -54,7 +64,22 @@ export default function LoginLayout() {
                         fullWidth
                         variant="standard"
                         error={errors.password ? true : false}
-                        {...register("password", { required: true })}
+                        helperText={errors.password ? 'Неверный пароль' : null}
+                        {...register("password", { required: true, minLength: 8 })}
+                        type={showPassword ? 'text' : 'password'}
+                        InputProps={{
+                            endAdornment:
+                                <InputAdornment position="end">
+                                    <IconButton
+                                        aria-label="toggle password visibility"
+                                        onClick={handleClickShowPassword}
+                                        onMouseDown={handleMouseDownPassword}
+                                        edge="end"
+                                    >
+                                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                                    </IconButton>
+                                </InputAdornment>
+                        }}
                     />
                 </div>
             </div>

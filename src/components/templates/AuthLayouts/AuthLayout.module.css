@@ -4,6 +4,7 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    gap: 4.5rem;
 }
 
 .content {
@@ -42,7 +43,6 @@
     background-color: var(--hover-blue);
 }
 
-
 .inpt_box {
     display: flex;
     flex-direction: column;
@@ -55,21 +55,18 @@
 }
 
 
+
 @media (max-width: 1399px) {
     .onboard_form {
-        padding: 0 2rem;
-        justify-content: center;
-        gap: 4vh;
+        padding: 2rem;
+        justify-content: space-around;
+        gap: 3rem;
     }
 }
 
 @media (max-width: 500px) {
     .onboard_form {
-        display: grid;
-        align-items: center;
-        justify-content: center;
-        row-gap: 2rem;
-        padding: 2rem;
+        padding: 3rem 2rem;
     }
 
     .actions {
@@ -79,5 +76,6 @@
     .login_btn {
         padding: 1rem 0;
         width: 100%;
+        font-size: var(--lbl-mini-size);
     }
 }
