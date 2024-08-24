@@ -1,7 +1,6 @@
 .container {
     width: 100%;
     height: 100%;
-
     display: grid;
     grid-template-columns: 2fr 1fr;
     column-gap: var(--grid-padding);
@@ -35,11 +34,9 @@
 /* ---------- Adaptive ---------- */
 @media (max-width: 1000px) {
     .container {
-        width: 100%;
-        height: 100%;
         display: grid;
-        grid-template-columns: auto;
-        grid-template-rows: 1fr 1fr;
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto;
         grid-auto-flow: row;
         column-gap: 0;
         row-gap: var(--grid-padding);
@@ -47,5 +44,14 @@
 
     .analys {
         grid-row-start: 2;
+        grid-template-rows: 4rem auto;
+    }
+
+    .content {
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: repeat(2, 1fr);
+        row-gap: var(--grid-padding);
     }
 }
+

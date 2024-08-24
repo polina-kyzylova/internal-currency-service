@@ -48,5 +48,3 @@ export default function UserAnalyticsUnit({ label, money, data }) {
         </div>
     )
 }
-
-// height={400}

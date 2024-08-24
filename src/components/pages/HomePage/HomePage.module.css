@@ -72,7 +72,9 @@
 
     .container {
         min-height: 96vh;
-        margin: 2vh;
+        max-width: 92vw;
+        width: 92vw;
+        margin: 2vh 4vw;
 
         display: grid;
         grid-template-columns: auto;

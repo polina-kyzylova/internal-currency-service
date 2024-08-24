@@ -64,3 +64,61 @@
     height: 40%;
     padding-bottom: 1rem;
 }
+
+
+
+
+@media (max-width: 1000px) {
+    .container {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .data {
+        padding: var(--global-padding);
+    }
+
+    .coin img {
+        height: 2rem;
+    }
+    
+    .balance {
+        font-size: var(--lbl-small-size);
+    }
+
+    .amount {
+        font-size: 3.5rem;
+    }
+
+    .card_cover {
+        object-fit: cover;
+        width: 50%;
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        height: 100%;
+    }
+}
+
+@media (max-width: 500px) {
+    .container {
+        width: 100%;
+        display: grid;
+        grid-template-rows: auto 4rem;
+    }
+
+    .card_cover {
+        object-fit: cover;
+        width: 100%;
+        position: absolute;
+        bottom: 0;
+        right: auto;
+        height: 20%;
+    }
+
+    .coin img {
+        height: 1.6rem;
+        padding-bottom: 0.8rem;
+    }
+}

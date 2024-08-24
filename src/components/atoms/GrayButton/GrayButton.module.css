@@ -14,3 +14,12 @@
 .btn:hover {
     background-color: var(--hover-gray);
 }
+
+
+@media (max-width: 1000px) {
+    .btn {
+        cursor: none;
+        transition: none;
+        pointer-events: none;
+    }
+}

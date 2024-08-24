@@ -24,3 +24,17 @@
 .transaction_btn:hover {
     background-color: var(--hover-blue);
 }
+
+@media (max-width: 1000px) {
+    .transaction_btn {
+        cursor: none;
+        transition: none;
+        pointer-events: none;
+    }
+}
+
+@media (max-width: 500px) {
+    .transaction_btn {
+        font-size: var(--lbl-mini-size);
+    }
+}
