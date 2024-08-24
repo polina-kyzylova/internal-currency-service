@@ -9,6 +9,7 @@ import CreateIcon from '@mui/icons-material/Create';
 import WestIcon from '@mui/icons-material/West';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import DeleteCFOModal from '../../molecules/DeleteCFOModal/DeleteCFOModal';
+import ServiceCFOCard from '../../molecules/ServiceCFOCard/ServiceCFOCard';
 
 import { useDispatch } from 'react-redux';
 import { initCFO } from '../../../store/slices/cfoSlice';
@@ -37,6 +38,9 @@ export default function AdminCFOPage() {
         cfo_owner: 'Тестов Тест Тестович',
         cfo_id: cfo_id,
         owner_phone: '79992223344',
+
+        cfo_type: 'service',
+        service_id: '123',
     }
 
 
@@ -80,6 +84,38 @@ export default function AdminCFOPage() {
     }
 
 
+    function cfoRender() {
+        if (data_from_backend.cfo_type === 'service') {
+            return (
+                <div className={styles.cfo_variant}>
+                    <ServiceCFOCard
+                        status='ok'
+                        service_title='Lalala'
+                        service_id='123'
+                    />
+
+                    <div className={styles.cfo_service_card}>
+                        <CFOAccount
+                            cfo_balance={data_from_backend.cfo_balance}
+                            cfo_number={data_from_backend.cfo_number}
+                        />
+                    </div>
+                </div>
+            )
+        } else {
+            return (
+                <CFOAccount
+                    cfo_balance={data_from_backend.cfo_balance}
+                    cfo_number={data_from_backend.cfo_number}
+                />
+            )
+        }
+
+    }
+
+
+
+
     return (
         <div className={styles.container}>
             <DeleteCFOModal
@@ -99,10 +135,7 @@ export default function AdminCFOPage() {
             </div>
 
             <div className={styles.content}>
-                <CFOAccount
-                    cfo_balance={data_from_backend.cfo_balance}
-                    cfo_number={data_from_backend.cfo_number}
-                />
+                {cfoRender()}
 
                 <div className={styles.buttons_box}>
                     <button className={styles.manage_btn} onClick={() => navigate('change-owner')}>Сменить владельца</button>

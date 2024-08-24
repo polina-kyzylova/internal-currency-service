@@ -1,0 +1,35 @@
+.cfo_service {
+    background-color: var(--light-gray);
+    border-radius: var(--card-radius);
+    padding: var(--global-padding);
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.info {
+    display: flex;
+    flex-direction: column;
+    gap: var(--grid-padding);
+}
+
+.identif {
+    color: var(--hover-gray);
+    font-size: var(--lbl-mini-size);
+}
+
+.titl {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    -webkit-box-orient: vertical;
+
+    text-wrap: wrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    overflow-wrap: break-word;
+
+    color: #000;
+    font-size: var(--lbl-small-size);
+    font-weight: var(--lbl-light-weight);
+}

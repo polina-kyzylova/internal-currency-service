@@ -34,6 +34,35 @@
     background-color: var(--hover-gray);
 }
 
+
+
+/*----- service cfo -----*/
+.cfo_variant {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);;
+    column-gap: var(--grid-padding);
+}
+
+.cfo_service {
+    background-color: var(--light-gray);
+    border-radius: var(--card-radius);
+    padding: var(--global-padding);
+    grid-column-start: 1;
+    grid-column-end: 2;
+
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+}
+
+.cfo_service_card {
+    grid-column-start: 2;
+    grid-column-end: 4;
+}
+
+
+
+
 .content {
     display: grid;
     grid-template-rows: 1fr 4rem 1fr;

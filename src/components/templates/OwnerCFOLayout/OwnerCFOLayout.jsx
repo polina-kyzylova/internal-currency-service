@@ -6,6 +6,7 @@ import CFOOwnerTable from '../../molecules/CFOOwnerTable';
 import AdminAnalyticsUnit from '../../organisms/AdminAnalyticsUnit/AdminAnalyticsUnit';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import ServiceCFOCard from '../../molecules/ServiceCFOCard/ServiceCFOCard';
 
 
 export default function OwnerCFOLayout() {
@@ -28,18 +29,24 @@ export default function OwnerCFOLayout() {
         <div className={styles.container}>
             <div className={styles.content}>
                 <div className={styles.item}>
-                    <h1>{cfo_title}</h1>
-                    <OperationsAction label='История операций' />
-                </div>
+                    <div className={styles.serv}>
+                        <h1 className={styles.cfo_titl}>{cfo_title}</h1>
 
-                <div className={styles.item}>
-                    <button
-                        className={styles.manage_btn}
-                        onClick={() => navigate('/owner/transfer-cfo')}
-                    >Перевести
-                    </button>
+                        <button
+                            className={styles.manage_btn}
+                            onClick={() => navigate('/owner/transfer-cfo')}
+                        >Перевести</button>
+                    </div>
 
-                    <OperationsAction label='Шаблоны' />
+                    <div className={styles.serv}>
+                        <OperationsAction label='Шаблоны' />
+                        <OperationsAction label='История операций' />
+                        <ServiceCFOCard
+                            status='ok'
+                            service_title='Lalala'
+                            service_id='123'
+                        />
+                    </div>
                 </div>
 
                 <CFOAccount cfo_balance={cfo_balance} cfo_number={cfo_number} />
@@ -57,3 +64,31 @@ export default function OwnerCFOLayout() {
         </div>
     )
 }
+
+
+
+/*
+                <div className={styles.item}>
+                    <h1>{cfo_title}</h1>
+
+                    <div className={styles.serv}>
+                        <OperationsAction label='Шаблоны' />
+                        <OperationsAction label='История операций' />
+                    </div>
+                </div>
+
+                <div className={styles.item}>
+                    <button
+                        className={styles.manage_btn}
+                        onClick={() => navigate('/owner/transfer-cfo')}
+                    >Перевести
+                    </button>
+
+                    <ServiceCFOCard
+                        status='ok'
+                        service_title='Lalala'
+                        service_id='123'
+                    />
+                </div>
+
+*/
