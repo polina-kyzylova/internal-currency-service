@@ -14,16 +14,16 @@ import storage from 'redux-persist/lib/storage';
 import userReducer from './slices/userSlice';
 import adminReducer from './slices/adminSlice';
 import cfoReducer from './slices/cfoSlice';
-import adminStandartCFOReducer from './slices/adminStandartCFOSlice';
-import adminServiceCFOReducer from './slices/adminServiceCFOSlice';
+import { apiSlice } from "./slices/apiSlice.js";
+import endpointsReducer from "./slices/endpointsSlice.js";
 
 
 const rootReducer = combineReducers({
+  [apiSlice.reducerPath]: apiSlice.reducer,
+  endpoints: endpointsReducer,
   user: userReducer,
   cfo: cfoReducer,
   admin: adminReducer,
-  adminCFO: adminStandartCFOReducer,
-  adminServCFO: adminServiceCFOReducer,
 });
 
 const persistConfig = {
@@ -41,8 +41,9 @@ const store = configureStore({
       serializableCheck: {
         ignoreActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }),
+    }).concat(apiSlice.middleware),
 });
+
 
 export const persistor = persistStore(store);
 export default store;
