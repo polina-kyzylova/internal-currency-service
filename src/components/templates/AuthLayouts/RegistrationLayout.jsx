@@ -63,7 +63,7 @@ export default function RegistrationLayout() {
     const onSubmit = async (data) => {
         const registResponse = await registUser({ endpoint: registEP, body: data });
 
-        if (registResponse.ok) {
+        if (!!registResponse.data) {
             localStorage.setItem("accessToken", registResponse.data.accessToken);
             localStorage.setItem("refreshToken", registResponse.data.refreshToken);
 
@@ -71,7 +71,7 @@ export default function RegistrationLayout() {
             const token = registResponse.data.accessToken;
             const decodedToken = base64Decoding(token);
 
-            if (setupResponse.ok) {
+            if (!!setupResponse.data) {
                 switch (decodedToken.role) {
                     case 'ROLE_USER':
                         dispatch(initUser({

@@ -35,7 +35,7 @@ export default function LoginLayout() {
     const userDataEP = useSelector((state) => state.endpoints.user_data);
 
     const [loginUser, { isLoading: loginLoading }] = usePostQueryMutation();
-    const [setupSession, { isLoading: setupLoading}] = useGetQueryMutation();
+    const [setupSession, { isLoading: setupLoading }] = useGetQueryMutation();
 
     const {
         register,
@@ -61,7 +61,7 @@ export default function LoginLayout() {
     const onSubmit = async (data) => {
         const loginResponse = await loginUser({ endpoint: loginEP, body: data });
 
-        if (loginResponse.ok) {
+        if (!!loginResponse.data) {
             localStorage.setItem("accessToken", loginResponse.data.accessToken);
             localStorage.setItem("refreshToken", loginResponse.data.refreshToken);
 
@@ -69,7 +69,7 @@ export default function LoginLayout() {
             const token = loginResponse.data.accessToken;
             const decodedToken = base64Decoding(token);
 
-            if (setupResponse.ok) {
+            if (!!setupResponse.data) {
                 switch (decodedToken.role) {
                     case 'ROLE_USER':
                         dispatch(initUser({
