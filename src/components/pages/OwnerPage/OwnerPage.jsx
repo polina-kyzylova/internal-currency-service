@@ -15,7 +15,7 @@ import { useSelector } from 'react-redux';
 
 
 export default function OwnerPage() {
-  const { first_name, fam_name } = useSelector(state => state.user);
+  const { name, surname } = useSelector(state => state.user);
   let item = window.location.href.split("/").pop();
   const navigate = useNavigate();
 
@@ -39,7 +39,7 @@ export default function OwnerPage() {
         </div>
 
         <div className={styles.user_info}>
-          <h2>{first_name} {fam_name}</h2>
+          <h2>{name} {surname}</h2>
           <Badge label='Владелец ЦФО' />
         </div>
 
@@ -49,7 +49,7 @@ export default function OwnerPage() {
 
       <div className={styles.mobile_items}>
         <div className={styles.user_mobile_info}>
-          <h2>{first_name} {fam_name}</h2>
+          <h2>{name} {surname}</h2>
           <Badge label='Владелец ЦФО' />
         </div>
       </div>

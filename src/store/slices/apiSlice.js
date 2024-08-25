@@ -28,14 +28,18 @@ const baseQuery = fetchBaseQuery({
 const baseQueryWithReauth = async (args, api, extraOptions) => {
   let result = await baseQuery(args, api, extraOptions)
 
-  if (result.error && result.error.status === 401) {
+  //if (result.error && result.error.status === 401) {
+  if (result.error) {
     if (!isRefreshing) {
       isRefreshing = true // Indicate refresh is in progress
+      const refreshToken = localStorage.getItem('refreshToken');
+
       refreshPromise = Promise.resolve(
         baseQuery({
-          url: `http://188.225.36.233/users/me/refresh-token`,
+          url: `/users/me/refresh-token`,
           method: 'POST',
-          body: { token: localStorage.getItem('refreshToken') }
+          headers: { Authorization: `Bearer ${refreshToken}` },
+          body: { token: localStorage.getItem('refreshToken') },
         },
           api,
           extraOptions
@@ -53,7 +57,8 @@ const baseQueryWithReauth = async (args, api, extraOptions) => {
           } else {
             // Handle refresh error
             isRefreshing = false // Ensure flag is reset for future requests
-            if (refreshResult?.error?.status === 500) {
+            //if (refreshResult?.error?.status === 500) {
+            if (refreshResult?.error?.status === 300) {
               localStorage.setItem("accessToken", null);
               localStorage.setItem("refreshToken", null);
               window.location.reload(true)
@@ -80,7 +85,7 @@ export const { } = baseQueryWithReauth
 /* ---------- QUERIES SLICE ---------- */
 export const apiSlice = createApi({
   reducerPath: "apiSlice",
-  baseQuery: baseQuery,
+  baseQuery: baseQueryWithReauth,
 
   endpoints: (builder) => ({
     get: builder.query({

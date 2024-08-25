@@ -7,7 +7,7 @@ const initialState = {
     cfo_owner: 'Тестов Тест Тестович',
     cfo_id: '123',
     owner_phone: '79992223344',
-    cfo_type: 'personal',
+    cfo_type: 'service',
 }
 
 

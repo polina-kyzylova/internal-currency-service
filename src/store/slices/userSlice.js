@@ -1,14 +1,14 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-    user_type: null,
-    user_id: null,
-    username: null,
-    surname: null,
-    name: null,
-    last_name: null,
-    email: null,
-    personal_acc_number: null,
+    user_type: 'ROLE_OWNER',
+    user_id: '123',
+    username: 'pasha',
+    surname: 'Техник',
+    name: 'Паша',
+    last_name: 'Иванович',
+    email: 'email',
+    personal_acc_number: '12345',
     personal_acc_balance: 200,
 }
 
@@ -18,7 +18,7 @@ export const userSlice = createSlice({
     initialState,
     reducers: {
         initUser: (state, action) => {
-            state.user_type = action.payload.user_type;
+            //state.user_type = action.payload.user_type;
             state.user_id = action.payload.user_id;
             state.username = action.payload.username;
             state.surname = action.payload.surname;

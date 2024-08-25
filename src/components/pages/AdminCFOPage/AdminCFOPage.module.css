@@ -149,3 +149,101 @@
 .manage_btn:hover {
     background-color: var(--hover-blue);
 }
+
+
+
+
+@media (max-width: 1000px) {
+    .container {
+        min-height: 96vh;
+        max-width: 92vw;
+        width: 92vw;
+        height: auto;
+        margin: 2vh 4vw;
+    }
+}
+
+
+@media (max-width: 500px) {
+    .container {
+        display: grid;
+        grid-template-rows: auto auto;
+        row-gap: var(--grid-padding);
+    }
+    .header {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+        align-items: center;
+        justify-content: space-between;
+    }
+    .content {
+        display: grid;
+        grid-template-rows: auto auto auto;
+        row-gap: var(--grid-padding);
+    }
+    .buttons_box {
+        display: grid;
+        grid-template-columns: auto;
+        grid-template-rows: repeat(3, 4rem);
+        column-gap: 0;
+        row-gap: var(--grid-padding);
+    }
+
+    .cfo_variant {
+        display: grid;
+        grid-template-columns: auto;
+        grid-template-rows: auto auto;
+        column-gap: 0;
+        row-gap: var(--grid-padding);
+    }
+    
+    .cfo_service {
+        background-color: var(--light-gray);
+        border-radius: var(--card-radius);
+        padding: var(--global-padding);
+        grid-column-start: auto;
+        grid-column-end: auto;
+    
+        display: flex;
+        flex-direction: column;
+        gap: 3rem;
+    }
+    
+    .cfo_service_card {
+        grid-column-start: auto;
+        grid-column-end: auto;
+    }
+    
+    .box {
+        display: grid;
+        grid-template-columns: auto;
+        grid-template-rows: repeat(2, 1fr);
+        column-gap: 0;
+        row-gap: var(--grid-padding);
+    }
+
+    .delete_btn, .manage_btn {
+        font-size: var(--lbl-mini-size);
+        outline: none;
+        border: none;
+        cursor: none;
+        transition: none;
+    }
+    
+    .delete_btn:hover {
+        background-color: var(--dark-gray);
+    }
+    .identif {
+        font-size: 1.2rem;
+    }
+    
+    .titl {
+        font-size: var(--lbl-mini-size);
+    }
+    
+    .manage_btn:hover {
+        background-color: var(--primary-blue);
+    }
+    
+}
