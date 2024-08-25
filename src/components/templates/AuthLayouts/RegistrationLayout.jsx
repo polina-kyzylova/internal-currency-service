@@ -60,8 +60,8 @@ export default function RegistrationLayout() {
 
 
     /*----- submit data -----*/
-    const onSubmit = async (data) => {
-        const registResponse = await registUser({ endpoint: registEP, body: data });
+    const onSubmit = async (formData) => {
+        const registResponse = await registUser({ endpoint: registEP, body: formData });
 
         if (!!registResponse.data) {
             localStorage.setItem("accessToken", registResponse.data.accessToken);
@@ -77,6 +77,7 @@ export default function RegistrationLayout() {
                         dispatch(initUser({
                             user_type: 'ROLE_USER',
                             user_id: setupResponse.data.user_id,
+                            username: formData.username,
                             surname: setupResponse.data.surname,
                             name: setupResponse.data.name,
                             last_name: setupResponse.data.lastname,

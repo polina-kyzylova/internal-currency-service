@@ -58,8 +58,8 @@ export default function LoginLayout() {
 
 
     /*----- submit data -----*/
-    const onSubmit = async (data) => {
-        const loginResponse = await loginUser({ endpoint: loginEP, body: data });
+    const onSubmit = async (formData) => {
+        const loginResponse = await loginUser({ endpoint: loginEP, body: formData });
 
         if (!!loginResponse.data) {
             localStorage.setItem("accessToken", loginResponse.data.accessToken);
@@ -75,12 +75,13 @@ export default function LoginLayout() {
                         dispatch(initUser({
                             user_type: 'ROLE_USER',
                             user_id: setupResponse.data.user_id,
+                            username: formData.username,
                             surname: setupResponse.data.surname,
                             name: setupResponse.data.name,
                             last_name: setupResponse.data.lastname,
                             email: setupResponse.data.email,
                             personal_acc_number: setupResponse.data.account_number,
-                            personal_acc_balance: setupResponse.data.account_balance,
+                            //personal_acc_balance: setupResponse.data.account_balance,
                         }))
                         navigate('/user')
                         break;

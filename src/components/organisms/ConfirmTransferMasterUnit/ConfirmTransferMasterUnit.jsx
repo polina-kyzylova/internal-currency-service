@@ -20,9 +20,9 @@ export default function ConfirmTransferMasterUnit({ setConfirmTransfer }) {
             return (
                 <UserInfoTable
                     title='Получатель'
-                    user_acc='321'
-                    user_name={data.user_name}
-                    user_phone={data.user_phone}
+                    acc={data.target_user_acc}
+                    name={data.target_user_surname + ' ' + data.target_user_name + ' ' + data.target_user_lastname}
+                    username={data.target_user_username}
                 />)
         } else {
             return (

@@ -6,6 +6,7 @@ const initialState = {
   registration: '/users',
   user_data: '/users/me',
   transactions_hist: '/users/me/transactions',
+  //make_transaction: '/users/me/transactions',
 };
 
 const endpointsSlice = createSlice({

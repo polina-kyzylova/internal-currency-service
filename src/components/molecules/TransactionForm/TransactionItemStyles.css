@@ -8,3 +8,20 @@
     font-size: 1.2rem;
     font-weight: var(--lbl-bold-weight);
 }
+
+.transaction-target-user-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: var(--grid-padding);
+}
+
+.transaction-target-user {
+    font-size: 1.2rem;
+}
+
+.transaction-target-username {
+    font-size: 1rem;
+    font-weight: var(--lbl-light-weight);
+    color: var(--hover-gray);
+}

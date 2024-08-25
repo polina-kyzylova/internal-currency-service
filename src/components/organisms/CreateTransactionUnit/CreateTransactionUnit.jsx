@@ -20,6 +20,7 @@ export default function CreateTransactionUnit({ setCreating }) {
         register,
         handleSubmit,
         setValue,
+        getValues,
         setError,
         formState: { errors },
     } = useForm()
@@ -57,6 +58,7 @@ export default function CreateTransactionUnit({ setCreating }) {
                         register={register}
                         errors={errors}
                         setValue={setValue}
+                        getValues={getValues}
                     />
 
                     <AmountInput

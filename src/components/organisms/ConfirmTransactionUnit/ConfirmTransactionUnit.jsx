@@ -6,91 +6,74 @@ import '../GeneralOperations.css';
 import { Avatar } from '@mui/material';
 import PersonIcon from '@mui/icons-material/Person';
 import WestIcon from '@mui/icons-material/West';
+import { useSelector } from 'react-redux';
+import { amountLiter } from '../../../hooks/amountLiter';
+import { usePostQueryMutation } from '../../../store/slices/apiSlice';
+import Loader from '../../atoms/Loader';
+import OperationTypeTable from '../../molecules/ConfirmForm/OperationTypeTable';
+import UserInfoTable from '../../molecules/ConfirmForm/UserInfoTable';
 
 
 
 export default function ConfirmTransactionUnit({ setCreating }) {
   const navigate = useNavigate();
   const [data, setData] = useOutletContext();
+  const user = useSelector(state => state.user);
+
+  const transactionEP = useSelector((state) => state.endpoints.transactions_hist);
+  const [makeTrans, { isLoading: transLoading }] = usePostQueryMutation();
 
 
-  return (
+  const makeTransaction = async () => {
+    // дернуть апи для снятия денег
+    // диспатч снять деьнги со счета + запросить новый баланс?
+    // проверить статус операции и перенаправить куда надо
+
+    let transData = {
+      "account_number": data.target_user_acc,
+      "amount": data.amount,
+    }
+    const response = await makeTrans({ endpoint: transactionEP, body: transData })
+    console.log(response)
+
+    //navigate('result')
+  }
+
+
+
+
+  if (transLoading) return <Loader />
+  else return (
     <div className={styles.container}>
       <button className='operations-prev-btn' onClick={() => setCreating(true)}>
         <WestIcon sx={{ color: '#fff', fontSize: 35 }} />
       </button>
 
-
       <div className={styles.content}>
         <h1>Подтверждение операции</h1>
 
-        <div className={styles.box}>
-          <div className={styles.ava}>
-            <Avatar sx={{ backgroundColor: 'var(--dark-gray)', marginRight: '1rem' }}>
-              <PersonIcon sx={{ color: '#fff', fontSize: 20 }} />
-            </Avatar>
-            <h3>Отправитель</h3>
-          </div>
+        <UserInfoTable
+          title='Отправитель'
+          acc={user.personal_acc_number}
+          name={user.surname + ' ' + user.name + ' ' + user.last_name}
+          username={user.username}
+        />
 
-          <div className={styles.information}>
-            <ul className={styles.info}>
-              <li>ФИО:</li>
-              <li>Счет:</li>
-              <li>Телефон:</li>
-            </ul>
+        <UserInfoTable
+          title='Получатель'
+          acc={data.target_user_acc}
+          name={data.target_user_surname + ' ' + data.target_user_name + ' ' + data.target_user_lastname}
+          username={data.target_user_username}
+        />
 
-            <ul className={styles.info}>
-              <li>Иванов Иван Иванович</li>
-              <li>111 111 111 111</li>
-              <li>+71111111111</li>
-            </ul>
-          </div>
-        </div>
-
-        <div className={styles.box}>
-          <div className={styles.ava}>
-            <Avatar sx={{ backgroundColor: 'var(--dark-gray)', marginRight: '1rem' }}>
-              <PersonIcon sx={{ color: '#fff', fontSize: 20 }} />
-            </Avatar>
-            <h3>Получатель</h3>
-          </div>
-
-          <div className={styles.information}>
-            <ul className={styles.info}>
-              <li>ФИО:</li>
-              <li>Счет:</li>
-              <li>Телефон:</li>
-            </ul>
-
-            <ul className={styles.info}>
-              <li>{data.user_name}</li>
-              <li>123</li>
-              <li>+{data.user_phone}</li>
-            </ul>
-          </div>
-        </div>
-
-        <div className={styles.box}>
-          <h3>Операция</h3>
-
-          <div className={styles.information}>
-            <ul className={styles.info}>
-              <li>Тип операции:</li>
-              <li>Сумма:</li>
-              <li>Сообщение:</li>
-            </ul>
-
-            <ul className={styles.info}>
-              <li>Перевод на счет пользователя</li>
-              <li>{data.amount} коинов</li>
-              <li>{data.message}</li>
-            </ul>
-          </div>
-        </div>
+        <OperationTypeTable
+          operation_type='Перевод на счет пользователя'
+          amount={data.amount}
+          message={data.message}
+        />
       </div>
 
-
-      <button className='operations-next-btn' onClick={() => navigate('result')}>Перевести</button>
+      <button className='operations-next-btn' onClick={() => makeTransaction()}>Перевести</button>
     </div>
   )
 }
