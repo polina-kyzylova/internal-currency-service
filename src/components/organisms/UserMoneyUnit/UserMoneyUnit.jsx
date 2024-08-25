@@ -18,7 +18,7 @@ export default function UserMoneyUnit() {
       >
         Перевести
       </button>
-      <OperationsAction label='История операций' />
+      <OperationsAction label='История операций' onClick={() => navigate('/history/user')}/>
     </div>
   )
 }

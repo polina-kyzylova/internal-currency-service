@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { removeUser } from '../../store/slices/userSlice';
 import { removeCFO } from '../../store/slices/cfoSlice';
 import { removeAdmin } from '../../store/slices/adminSlice';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { Avatar } from '@mui/material';
 import PersonIcon from '@mui/icons-material/Person';
@@ -14,12 +14,15 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import Divider from '@mui/material/Divider';
 import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
+import { usePostQueryMutation } from '../../store/slices/apiSlice';
 
 
 
 export default function UserAvatar() {
+    const [logout] = usePostQueryMutation();
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const logoutEP = useSelector((state) => state.endpoints.logout);
 
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
@@ -37,6 +40,10 @@ export default function UserAvatar() {
         dispatch(removeUser());
         dispatch(removeCFO());
         dispatch(removeAdmin());
+        localStorage.setItem('accessToken', null);
+        localStorage.setItem('refreshToken', null);
+        
+        logout({ endpoint: logoutEP, body: '' });
         navigate('/')
     };
 

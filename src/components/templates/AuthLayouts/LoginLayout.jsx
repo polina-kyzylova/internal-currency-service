@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import styles from './AuthLayout.module.css';
 import { useForm } from "react-hook-form";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { usePostQueryMutation } from '../../../store/slices/apiSlice';
-import { useSelector } from 'react-redux';
+import { useGetQueryMutation } from '../../../store/slices/apiSlice';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { TextField } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
@@ -12,19 +13,29 @@ import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
 import Loader from '../../atoms/Loader';
-import Error from '../../atoms/Error';
+import AlertTitle from '@mui/material/AlertTitle';
+import { Alert } from '@mui/material';
+import { Snackbar } from '@mui/material';
+import { base64Decoding } from '../../../hooks/base64Decoding';
+import { initUser } from '../../../store/slices/userSlice';
+
 
 
 export default function LoginLayout() {
     const [showPassword, setShowPassword] = useState(false);
-
     const handleClickShowPassword = () => setShowPassword((show) => !show);
     const handleMouseDownPassword = (event) => {
         event.preventDefault();
     };
 
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+
     const loginEP = useSelector((state) => state.endpoints.login);
-    const [loginUser, { isLoading: loginLoading, error: loginError }] = usePostQueryMutation();
+    const userDataEP = useSelector((state) => state.endpoints.user_data);
+
+    const [loginUser, { isLoading: loginLoading, error: loginError, loginIsErrored }] = usePostQueryMutation();
+    const [setupSession, { isLoading: setupLoading, error: setupError, isError: setupIsErrored }] = useGetQueryMutation();
 
     const {
         register,
@@ -32,16 +43,80 @@ export default function LoginLayout() {
         formState: { errors },
     } = useForm()
 
+
+    const [open, setOpen] = React.useState(false);
+    const handleClick = () => {
+        setOpen(true);
+    };
+
+    const handleClose = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+        setOpen(false);
+    };
+
+
+    /*----- submit data -----*/
     const onSubmit = async (data) => {
         const response = await loginUser({ endpoint: loginEP, body: data });
-        console.log('POST response:', response)
+        localStorage.setItem("accessToken", response.data.accessToken);
+        localStorage.setItem("refreshToken", response.data.refreshToken);
+
+        if (!loginIsErrored) {
+            const res = await setupSession(userDataEP);
+            const token = response.data.accessToken;
+            const decodedToken = base64Decoding(token);
+
+            if (!setupIsErrored) {
+                switch (decodedToken.role) {
+                    case 'ROLE_USER':
+                        dispatch(initUser({
+                            user_type: 'ROLE_USER',
+                            user_id: res.data.user_id,
+                            surname: res.data.surname,
+                            name: res.data.name,
+                            last_name: res.data.lastname,
+                            email: res.data.email,
+                            personal_acc_number: res.data.account_number,
+                            personal_acc_balance: res.data.account_balance,
+                        }))
+                        navigate('/user')
+                        break;
+
+                    case 'ROLE_OWNER':
+                        break;
+                    case 'ROLE_ADMIN':
+                        break;
+                }
+            }
+        } else {
+            handleClick();
+        }
     }
 
 
+
+
     if (loginLoading) return <Loader />
-    else if (loginError) return <Error />
     else return (
         <form className={styles.onboard_form} onSubmit={handleSubmit(onSubmit)}>
+            <Snackbar
+                pen={open}
+                autoHideDuration={6000}
+                onClose={handleClose}
+                anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}>
+                <Alert
+                    onClose={handleClose}
+                    severity="error"
+                    variant="filled"
+                    sx={{ width: '100%' }}
+                >
+                    <AlertTitle>Error</AlertTitle>
+                    Ошибка авторизации
+                </Alert>
+            </Snackbar>
+
             <h1>Вход в Личный кабинет</h1>
 
             <div className={styles.content}>
@@ -95,48 +170,3 @@ export default function LoginLayout() {
         </form>
     )
 }
-
-
-
-
-/*------------------  РАБОТАЕТ  ------------------------------*/
-/*
-const accessToken = localStorage.getItem('accessToken');
-
-fetch('http://188.225.36.233/users/me/hello', {
-    method: 'GET',
-    headers: {
-        'Content-type': 'application/json; charset=UTF-8',
-        'Accept': 'application/json',
-        'Authorization': `Bearer ${accessToken}`
-    },
-
-})
-    .then((response) => response.json())
-    .then((data) => {
-        console.log(data)
-    })
-        */
-
-
-/*------------------  РАБОТАЕТ  ------------------------------*/
-/*
-fetch('http://188.225.36.233/users/me/login', {
-    method: 'POST',
-    body: JSON.stringify({
-        "username": "lalal",
-        "password": "123"
-    }),
-    headers: {
-        'Content-type': 'application/json; charset=UTF-8',
-        'Accept': 'application/json',
-    },
-    
-})
-    .then((response) => response.json())
-    .then((data) => {
-        console.log(data)
-            localStorage.setItem("accessToken", response.data.accessToken);
-            localStorage.setItem("refreshToken", response.data.refreshToken);
-    })
-*/

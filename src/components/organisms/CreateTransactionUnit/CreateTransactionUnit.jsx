@@ -10,10 +10,12 @@ import GrayButtonBack from '../../atoms/GrayButtonBack/GrayButtonBack';
 import TransactionAccInfo from '../../molecules/TransactionAccInfo/TransactionAccInfo';
 import UsersAutoList from '../../molecules/TransactionForm/UsersAutoList';
 import AmountInput from '../../molecules/TransactionForm/AmountInput';
+import { useSelector } from 'react-redux';
 
 
 
 export default function CreateTransactionUnit({ setCreating }) {
+    const user = useSelector(state => state.user);
     const {
         register,
         handleSubmit,
@@ -22,11 +24,10 @@ export default function CreateTransactionUnit({ setCreating }) {
         formState: { errors },
     } = useForm()
 
-    const balance = 360;
     const [data, setData] = useOutletContext();
 
     const onSubmit = (data) => {
-        if (parseInt(data.amount) > balance) {
+        if (parseInt(data.amount) > user.personal_acc_balance) {
             setError('amount', { type: 'custom', message: 'Недостаточно средств на счете' });
         } else if (parseInt(data.amount) === 0) {
             setError('amount', { type: 'custom', message: 'Некорректная сумма' });
@@ -47,8 +48,8 @@ export default function CreateTransactionUnit({ setCreating }) {
                     <TransactionAccInfo
                         title='Счет списания'
                         acc_type='Персональный счет'
-                        acc_number='111111111111'
-                        acc_balance={balance}
+                        acc_number={user.personal_acc_number}
+                        acc_balance={user.personal_acc_balance}
                     />
 
                     <UsersAutoList

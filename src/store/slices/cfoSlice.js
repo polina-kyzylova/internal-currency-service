@@ -5,7 +5,7 @@ const initialState = {
     cfo_balance: '9000',
     cfo_title: 'Тестовое название',
     cfo_owner: 'Тестов Тест Тестович',
-    cfo_id: null,
+    cfo_id: '123',
     owner_phone: '79992223344',
     cfo_type: 'personal',
 }

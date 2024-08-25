@@ -4,6 +4,8 @@ const initialState = {
   login: "/users/me/login",
   logout: '/users/me/logout',
   registration: '/users',
+  user_data: '/users/me',
+  transactions_hist: '/users/me/transactions',
 };
 
 const endpointsSlice = createSlice({

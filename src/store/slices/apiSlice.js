@@ -2,7 +2,6 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { redirect } from "react-router-dom";
 
 const url = `http://188.225.36.233`;
-//const url = `http://178.46.152.41:5111`;   Denis
 const buildApiUrl = (endpoint) => `${url}${endpoint}`;
 
 let isRefreshing = false;    // Flag to indicate if token refresh is in progress
@@ -26,7 +25,6 @@ const baseQuery = fetchBaseQuery({
 
 
 /* ---------- REFRESH AUTH QUERY ---------- */
-// !!! url для рефреша
 const baseQueryWithReauth = async (args, api, extraOptions) => {
   let result = await baseQuery(args, api, extraOptions)
 
@@ -35,7 +33,7 @@ const baseQueryWithReauth = async (args, api, extraOptions) => {
       isRefreshing = true // Indicate refresh is in progress
       refreshPromise = Promise.resolve(
         baseQuery({
-          //url: `${url}/lalalalalalalalalaalalalalalalallalalalala`,
+          url: `http://188.225.36.233/users/me/refresh-token`,
           method: 'POST',
           body: { token: localStorage.getItem('refreshToken') }
         },

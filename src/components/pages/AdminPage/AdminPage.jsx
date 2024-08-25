@@ -30,6 +30,7 @@ export default function AdminPage() {
   };
 
 
+
   return (
     <div className={styles.container}>
       <div className={styles.header}>
@@ -93,7 +94,6 @@ export default function AdminPage() {
             </Tabs>
           </Box>
         </ThemeProvider>
-
 
         <Outlet />
       </div>

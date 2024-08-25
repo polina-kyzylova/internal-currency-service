@@ -1,7 +1,7 @@
 import React from 'react';
 
 
-export default function Error() {
+export default function Error({ error }) {
     const style = {
         zIndex: '10',
         position: 'absolute',
@@ -19,7 +19,7 @@ export default function Error() {
 
     return (
         <div style={style}>
-            <h2>Ошибка -- status --</h2>
+            <h2>Ошибка {error.status}</h2>
             <p style={{ color: 'red' }}>Перезагрузите страницу</p>
         </div>
     )

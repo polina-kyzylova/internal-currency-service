@@ -5,8 +5,9 @@ import UserAccLayout from '../../templates/UserAccLayout/UserAccLayout';
 import SideMenu from '../../molecules/SideMenu/SideMenu';
 import { useSelector } from 'react-redux';
 
+
 export default function HomePage() {
-  const { first_name, fam_name } = useSelector(state => state.user);
+  const { name, surname } = useSelector(state => state.user);
 
   return (
     <div className={styles.container}>
@@ -15,13 +16,13 @@ export default function HomePage() {
           <p>menu</p>
         </div>
 
-        <h2 className={styles.user}>{first_name} {fam_name}</h2>
+        <h2 className={styles.user}>{name} {surname}</h2>
         <ControlUnit />
       </div>
 
       <div className={styles.mobile_items}>
         <div className={styles.header}>
-          <h2>{first_name} {fam_name}</h2>
+          <h2>{name} {surname}</h2>
         </div>
       </div>
 

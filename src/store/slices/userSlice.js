@@ -2,13 +2,13 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
     user_type: null,
-    fam_name: 'Юзеров',
-    first_name: 'Юзер',
-    last_name: 'Юзерович',
-    phone: null,
+    user_id: null,
+    surname: null,
+    name: null,
+    last_name: null,
     email: null,
-    personal_acc_number: '111111111111',
-    personal_acc_balance: '360',
+    personal_acc_number: null,
+    personal_acc_balance: null,
 }
 
 
@@ -18,20 +18,20 @@ export const userSlice = createSlice({
     reducers: {
         initUser: (state, action) => {
             state.user_type = action.payload.user_type;
-            state.fam_name = action.payload.fam_name;
-            state.first_name = action.payload.first_name;
+            state.user_id = action.payload.user_id;
+            state.surname = action.payload.surname;
+            state.name = action.payload.name;
             state.last_name = action.payload.last_name;
-            state.phone = action.payload.phone;
             state.email = action.payload.email;
             state.personal_acc_number = action.payload.personal_acc_number;
             state.personal_acc_balance = action.payload.personal_acc_balance;
         },
         removeUser: (state) => {
             state.user_type = null;
-            state.fam_name = null;
-            state.first_name = null;
+            state.user_id = null;
+            state.surname = null;
+            state.name = null;
             state.last_name = null;
-            state.phone = null;
             state.email = null;
             state.personal_acc_number = null;
             state.personal_acc_balance = null;

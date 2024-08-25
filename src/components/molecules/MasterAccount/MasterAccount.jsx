@@ -6,13 +6,13 @@ import coin from '../../../assets/white_coin.svg';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import { useSelector } from 'react-redux';
-import useHideAccNumber from '../../../hooks/useHideAccNumber';
+import { hideAccNumber } from '../../../hooks/hideAccNumber';
 
 
 export default function MasterAccount() {
     const [visible, setVisible] = useState(false);
     const { master_acc_balance, master_acc_number } = useSelector(state => state.admin);
-    const hideNumber = useHideAccNumber(master_acc_number);
+    const hideNumber = hideAccNumber(master_acc_number);
 
 
     return (

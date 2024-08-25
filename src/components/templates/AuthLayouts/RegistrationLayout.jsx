@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import styles from './AuthLayout.module.css';
 import { useForm } from "react-hook-form";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { usePostQueryMutation } from '../../../store/slices/apiSlice';
-import { useSelector } from 'react-redux';
+import { useGetQueryMutation } from '../../../store/slices/apiSlice';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { TextField } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
@@ -12,7 +13,11 @@ import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
 import Loader from '../../atoms/Loader';
-import Error from '../../atoms/Error';
+import { base64Decoding } from '../../../hooks/base64Decoding';
+import { initUser } from '../../../store/slices/userSlice';
+import AlertTitle from '@mui/material/AlertTitle';
+import { Alert } from '@mui/material';
+import { Snackbar } from '@mui/material';
 
 
 
@@ -22,7 +27,10 @@ export default function RegistrationLayout() {
     const PASS_REGEXP = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,}$/;
 
     const registEP = useSelector((state) => state.endpoints.registration);
-    const [registUser, { isLoading: registLoading, error: registError }] = usePostQueryMutation();
+    const userDataEP = useSelector((state) => state.endpoints.user_data);
+
+    const [registUser, { isLoading: registLoading, error: registError, isError: registIsErrored }] = usePostQueryMutation();
+    const [setupSession, { isLoading: setupLoading, error: setupError, isError: setupIsErrored }] = useGetQueryMutation();
 
     const handleClickShowPassword = () => setShowPassword((show) => !show);
     const handleMouseDownPassword = (event) => {
@@ -32,19 +40,88 @@ export default function RegistrationLayout() {
     const {
         register,
         handleSubmit,
+        setError,
         formState: { errors },
     } = useForm()
 
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+
+
+    const [open, setOpen] = React.useState(false);
+    const handleClick = () => {
+        setOpen(true);
+    };
+
+    const handleClose = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+
+        setOpen(false);
+    };
+
+
+    /*----- submit data -----*/
     const onSubmit = async (data) => {
         const response = await registUser({ endpoint: registEP, body: data });
-        console.log('POST response:', response)
+
+        if (!registIsErrored && !response.error) {
+            localStorage.setItem("accessToken", response.data.accessToken);
+            localStorage.setItem("refreshToken", response.data.refreshToken);
+
+            const res = await setupSession(userDataEP);
+            const token = response.data.accessToken;
+            const decodedToken = base64Decoding(token);
+
+            if (!setupIsErrored) {
+                switch (decodedToken.role) {
+                    case 'ROLE_USER':
+                        dispatch(initUser({
+                            user_type: 'ROLE_USER',
+                            user_id: res.data.user_id,
+                            surname: data.surname,
+                            name: data.name,
+                            last_name: data.lastname,
+                            email: data.email,
+                            personal_acc_number: res.data.account_number,
+                            personal_acc_balance: res.data.account_balance,
+                        }))
+                        navigate('/user')
+                        break;
+
+                    case 'ROLE_OWNER':
+                        break;
+                    case 'ROLE_ADMIN':
+                        break;
+                }
+            }
+        } else {
+            handleClick();
+        }
     }
 
 
-    if (registLoading) return <Loader />
-    else if (registError) return <Error />
+
+    if (registLoading || setupLoading) return <Loader />
     else return (
         <form className={styles.onboard_form} onSubmit={handleSubmit(onSubmit)}>
+            <Snackbar
+                pen={open}
+                autoHideDuration={6000}
+                onClose={handleClose}
+                anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}>
+                <Alert
+                    onClose={handleClose}
+                    severity="error"
+                    variant="filled"
+                    sx={{ width: '100%' }}
+                >
+                    <AlertTitle>Error</AlertTitle>
+                    Ошибка регистрации
+                </Alert>
+            </Snackbar>
+
             <h1>Регистрация</h1>
 
             <div className={styles.content}>
@@ -146,3 +223,7 @@ export default function RegistrationLayout() {
         </form >
     )
 }
+
+
+
+

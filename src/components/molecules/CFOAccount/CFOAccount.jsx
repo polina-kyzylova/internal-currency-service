@@ -5,12 +5,12 @@ import coin from '../../../assets/white_coin.svg';
 
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
-import useHideAccNumber from '../../../hooks/useHideAccNumber';
+import { hideAccNumber } from '../../../hooks/hideAccNumber';
 
 
 export default function CFOAccount({ cfo_balance, cfo_number }) {
     const [visible, setVisible] = useState(false);
-    const hideNumber = useHideAccNumber(cfo_number);
+    const hideNumber = hideAccNumber(cfo_number);
 
 
     return (
