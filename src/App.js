@@ -134,7 +134,7 @@ function App() {
           //</PrivateRoute>
         } >
           <Route path="" element={<TransactionLayout />} />
-          <Route path="result" element={<ResultTransactionUnit />} />
+          <Route path="result/:status" element={<ResultTransactionUnit />} />
         </Route>
 
 

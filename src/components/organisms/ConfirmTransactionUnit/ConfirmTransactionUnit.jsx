@@ -3,11 +3,8 @@ import styles from './ConfirmTransactionUnit.module.css';
 import { useNavigate } from 'react-router-dom';
 import { useOutletContext } from "react-router-dom";
 import '../GeneralOperations.css';
-import { Avatar } from '@mui/material';
-import PersonIcon from '@mui/icons-material/Person';
 import WestIcon from '@mui/icons-material/West';
 import { useSelector } from 'react-redux';
-import { amountLiter } from '../../../hooks/amountLiter';
 import { usePostQueryMutation } from '../../../store/slices/apiSlice';
 import Loader from '../../atoms/Loader';
 import OperationTypeTable from '../../molecules/ConfirmForm/OperationTypeTable';
@@ -25,20 +22,23 @@ export default function ConfirmTransactionUnit({ setCreating }) {
 
 
   const makeTransaction = async () => {
-    // дернуть апи для снятия денег
-    // диспатч снять деьнги со счета + запросить новый баланс?
-    // проверить статус операции и перенаправить куда надо
-
     let transData = {
-      "account_number": data.target_user_acc,
+      "from_account_number": user.personal_acc_number,
+      "to_account_number": data.target_user_acc,
       "amount": data.amount,
+      "payment_purpose_id": 1,
+      "payment_comment": data.message,
     }
+
     const response = await makeTrans({ endpoint: transactionEP, body: transData })
     console.log(response)
 
-    //navigate('result')
+    if (!!response.data) {
+      navigate('result/ok')
+    } else {
+      navigate('result/error')
+    }
   }
-
 
 
 

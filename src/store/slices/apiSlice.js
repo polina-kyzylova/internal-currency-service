@@ -13,6 +13,7 @@ const baseQuery = fetchBaseQuery({
   baseUrl: url,
   prepareHeaders: async headers => {
     const accessToken = localStorage.getItem('accessToken');
+    //if (accessToken && !isRefreshing) {
     if (accessToken) {
       headers.set('Authorization', `Bearer ${accessToken}`);
     }
@@ -38,8 +39,8 @@ const baseQueryWithReauth = async (args, api, extraOptions) => {
         baseQuery({
           url: `/users/me/refresh-token`,
           method: 'POST',
-          headers: { Authorization: `Bearer ${refreshToken}` },
-          body: { token: localStorage.getItem('refreshToken') },
+          //headers: { Authorization: `Bearer ${refreshToken}` },
+          //body: { token: localStorage.getItem('refreshToken') },
         },
           api,
           extraOptions
@@ -85,7 +86,7 @@ export const { } = baseQueryWithReauth
 /* ---------- QUERIES SLICE ---------- */
 export const apiSlice = createApi({
   reducerPath: "apiSlice",
-  baseQuery: baseQueryWithReauth,
+  baseQuery: baseQuery,
 
   endpoints: (builder) => ({
     get: builder.query({
