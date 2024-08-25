@@ -22,6 +22,7 @@ import RegistrationLayout from './components/templates/AuthLayouts/RegistrationL
 
 import ResultTransactionUnit from './components/organisms/ResultTransactionUnit/ResultTransactionUnit';
 import ChangeOwnerUnit from './components/organisms/ChangeOwnerUnit/ChangeOwnerUnit';
+import OperationResult from './components/molecules/OperationResult/OperationResult';
 
 import PrivateRoute from './hooks/PrivateRoute';
 import { useSelector } from 'react-redux';
@@ -48,7 +49,7 @@ function App() {
           //<PrivateRoute
           //  isAllowed={!!token && !!user && user.user_type === 'ROLE_USER'}
           //>
-            <HomePage />
+          <HomePage />
           //</PrivateRoute>
         } />
 
@@ -58,7 +59,7 @@ function App() {
           //<PrivateRoute
           //  isAllowed={!!token && !!user && user.user_type === 'ROLE_ADMIN'}
           //>
-            <AdminPage />
+          <AdminPage />
           //</PrivateRoute>
         } >
           <Route path="" element={<UserAccLayout />} />
@@ -71,21 +72,21 @@ function App() {
           //<PrivateRoute
           //  isAllowed={!!token && !!user && user.user_type === 'ROLE_ADMIN'}
           //>
-            <CreateCFOPage />
+          <CreateCFOPage />
           //</PrivateRoute>
         } />
         <Route path='/admin/cfo/:cfo_id' element={
           //<PrivateRoute
           //  isAllowed={!!token && !!user && user.user_type === 'ROLE_ADMIN'}
           //>
-            <TransactionPage />
+          <TransactionPage />
           //</PrivateRoute>
         }>
           <Route path='' element={<AdminCFOPage />} />
           <Route path="replenish-cfo" element={<ReplenishCFOLayout />} />                       {/* master-to-cfo transaction */}
           <Route path="transfer-cfo" element={<TransferCFOLayout />} />                         {/* cfo-to-user/cfo transaction */}
           <Route path="change-owner" element={<ChangeOwnerUnit />} />                           {/* change cfo owner */}
-          <Route path="result" />                                                               {/* transactions result */}
+          <Route path="result/:status" element={<OperationResult />} />                                  {/* transactions result */}
         </Route>
 
         {/*----- admin budget page -----*/}
@@ -93,7 +94,7 @@ function App() {
           //<PrivateRoute
           //  isAllowed={!!token && !!user && user.user_type === 'ROLE_ADMIN'}
           //>
-            <TransactionPage />
+          <TransactionPage />
           //</PrivateRoute>
         }>                                                                                     {/* master-to-user/cfo transaction */}
           <Route path='' element={<TransferMasterLayout />} />
@@ -105,7 +106,7 @@ function App() {
           //<PrivateRoute
           //  isAllowed={!!token && !!user && user.user_type === 'ROLE_OWNER'}
           //>
-            <OwnerPage />
+          <OwnerPage />
           //</PrivateRoute>
         } >
           <Route path="" element={<UserAccLayout />} />
@@ -117,7 +118,7 @@ function App() {
           //<PrivateRoute
           //  isAllowed={!!token && !!user && user.user_type === 'ROLE_OWNER'}
           //>
-            <TransactionPage />
+          <TransactionPage />
           //</PrivateRoute>
         }>                                                                                     {/* cfo-to-user/cfo transaction */}
           <Route path='' element={<TransferCFOLayout />} />
@@ -130,7 +131,7 @@ function App() {
           //<PrivateRoute
           //  isAllowed={!!token && !!user}
           //>
-            <TransactionPage />
+          <TransactionPage />
           //</PrivateRoute>
         } >
           <Route path="" element={<TransactionLayout />} />
@@ -142,7 +143,7 @@ function App() {
           //<PrivateRoute
           //  isAllowed={!!token && !!user}
           //>
-            <OperationsHistoryPage />
+          <OperationsHistoryPage />
           //</PrivateRoute>
         } />
 

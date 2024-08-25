@@ -81,7 +81,7 @@ export default function LoginLayout() {
                             last_name: setupResponse.data.lastname,
                             email: setupResponse.data.email,
                             personal_acc_number: setupResponse.data.account_number,
-                            //personal_acc_balance: setupResponse.data.account_balance,
+                            personal_acc_balance: setupResponse.data.account_balance,
                         }))
                         navigate('/user')
                         break;

@@ -24,7 +24,7 @@ export default function UserMoneyAcc() {
 
     /*----- pooling -----*/
     let { data: currentData } = useGetQuery(userDataEP, {
-        pollingInterval: 4000,
+        pollingInterval: 3000,
         skipPollingIfUnfocused: true,
     });
 
