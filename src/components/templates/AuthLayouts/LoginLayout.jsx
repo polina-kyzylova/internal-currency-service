@@ -34,8 +34,8 @@ export default function LoginLayout() {
     const loginEP = useSelector((state) => state.endpoints.login);
     const userDataEP = useSelector((state) => state.endpoints.user_data);
 
-    const [loginUser, { isLoading: loginLoading, error: loginError, loginIsErrored }] = usePostQueryMutation();
-    const [setupSession, { isLoading: setupLoading, error: setupError, isError: setupIsErrored }] = useGetQueryMutation();
+    const [loginUser, { isLoading: loginLoading }] = usePostQueryMutation();
+    const [setupSession, { isLoading: setupLoading}] = useGetQueryMutation();
 
     const {
         register,
@@ -44,42 +44,43 @@ export default function LoginLayout() {
     } = useForm()
 
 
-    const [open, setOpen] = React.useState(false);
-    const handleClick = () => {
-        setOpen(true);
+    const [open, setOpen] = useState('');
+    const handleClick = (reason) => {
+        setOpen(reason);
     };
 
     const handleClose = (event, reason) => {
         if (reason === 'clickaway') {
             return;
         }
-        setOpen(false);
+        setOpen('');
     };
 
 
     /*----- submit data -----*/
     const onSubmit = async (data) => {
-        const response = await loginUser({ endpoint: loginEP, body: data });
-        localStorage.setItem("accessToken", response.data.accessToken);
-        localStorage.setItem("refreshToken", response.data.refreshToken);
+        const loginResponse = await loginUser({ endpoint: loginEP, body: data });
 
-        if (!loginIsErrored) {
-            const res = await setupSession(userDataEP);
-            const token = response.data.accessToken;
+        if (loginResponse.ok) {
+            localStorage.setItem("accessToken", loginResponse.data.accessToken);
+            localStorage.setItem("refreshToken", loginResponse.data.refreshToken);
+
+            const setupResponse = await setupSession(userDataEP);
+            const token = loginResponse.data.accessToken;
             const decodedToken = base64Decoding(token);
 
-            if (!setupIsErrored) {
+            if (setupResponse.ok) {
                 switch (decodedToken.role) {
                     case 'ROLE_USER':
                         dispatch(initUser({
                             user_type: 'ROLE_USER',
-                            user_id: res.data.user_id,
-                            surname: res.data.surname,
-                            name: res.data.name,
-                            last_name: res.data.lastname,
-                            email: res.data.email,
-                            personal_acc_number: res.data.account_number,
-                            personal_acc_balance: res.data.account_balance,
+                            user_id: setupResponse.data.user_id,
+                            surname: setupResponse.data.surname,
+                            name: setupResponse.data.name,
+                            last_name: setupResponse.data.lastname,
+                            email: setupResponse.data.email,
+                            personal_acc_number: setupResponse.data.account_number,
+                            personal_acc_balance: setupResponse.data.account_balance,
                         }))
                         navigate('/user')
                         break;
@@ -91,18 +92,17 @@ export default function LoginLayout() {
                 }
             }
         } else {
-            handleClick();
+            handleClick(loginResponse.error.data.description);
         }
     }
 
 
 
-
-    if (loginLoading) return <Loader />
+    if (loginLoading || setupLoading) return <Loader />
     else return (
         <form className={styles.onboard_form} onSubmit={handleSubmit(onSubmit)}>
             <Snackbar
-                pen={open}
+                open={!!open}
                 autoHideDuration={6000}
                 onClose={handleClose}
                 anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}>
@@ -113,7 +113,7 @@ export default function LoginLayout() {
                     sx={{ width: '100%' }}
                 >
                     <AlertTitle>Error</AlertTitle>
-                    Ошибка авторизации
+                    {open}
                 </Alert>
             </Snackbar>
 
@@ -158,7 +158,6 @@ export default function LoginLayout() {
                     />
                 </div>
             </div>
-
 
             <div className={styles.actions}>
                 <input type="submit" value='Войти' className={styles.login_btn} />

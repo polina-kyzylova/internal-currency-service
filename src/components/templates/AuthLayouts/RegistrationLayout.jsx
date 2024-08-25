@@ -29,8 +29,8 @@ export default function RegistrationLayout() {
     const registEP = useSelector((state) => state.endpoints.registration);
     const userDataEP = useSelector((state) => state.endpoints.user_data);
 
-    const [registUser, { isLoading: registLoading, error: registError, isError: registIsErrored }] = usePostQueryMutation();
-    const [setupSession, { isLoading: setupLoading, error: setupError, isError: setupIsErrored }] = useGetQueryMutation();
+    const [registUser, { isLoading: registLoading }] = usePostQueryMutation();
+    const [setupSession, { isLoading: setupLoading }] = useGetQueryMutation();
 
     const handleClickShowPassword = () => setShowPassword((show) => !show);
     const handleMouseDownPassword = (event) => {
@@ -40,52 +40,49 @@ export default function RegistrationLayout() {
     const {
         register,
         handleSubmit,
-        setError,
         formState: { errors },
     } = useForm()
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-
-    const [open, setOpen] = React.useState(false);
-    const handleClick = () => {
-        setOpen(true);
+    const [open, setOpen] = useState('');
+    const handleClick = (reason) => {
+        setOpen(reason);
     };
 
     const handleClose = (event, reason) => {
         if (reason === 'clickaway') {
             return;
         }
-
-        setOpen(false);
+        setOpen('');
     };
 
 
     /*----- submit data -----*/
     const onSubmit = async (data) => {
-        const response = await registUser({ endpoint: registEP, body: data });
+        const registResponse = await registUser({ endpoint: registEP, body: data });
 
-        if (!registIsErrored && !response.error) {
-            localStorage.setItem("accessToken", response.data.accessToken);
-            localStorage.setItem("refreshToken", response.data.refreshToken);
+        if (registResponse.ok) {
+            localStorage.setItem("accessToken", registResponse.data.accessToken);
+            localStorage.setItem("refreshToken", registResponse.data.refreshToken);
 
-            const res = await setupSession(userDataEP);
-            const token = response.data.accessToken;
+            const setupResponse = await setupSession(userDataEP);
+            const token = registResponse.data.accessToken;
             const decodedToken = base64Decoding(token);
 
-            if (!setupIsErrored) {
+            if (setupResponse.ok) {
                 switch (decodedToken.role) {
                     case 'ROLE_USER':
                         dispatch(initUser({
                             user_type: 'ROLE_USER',
-                            user_id: res.data.user_id,
-                            surname: data.surname,
-                            name: data.name,
-                            last_name: data.lastname,
-                            email: data.email,
-                            personal_acc_number: res.data.account_number,
-                            personal_acc_balance: res.data.account_balance,
+                            user_id: setupResponse.data.user_id,
+                            surname: setupResponse.data.surname,
+                            name: setupResponse.data.name,
+                            last_name: setupResponse.data.lastname,
+                            email: setupResponse.data.email,
+                            personal_acc_number: setupResponse.data.account_number,
+                            personal_acc_balance: setupResponse.data.account_balance,
                         }))
                         navigate('/user')
                         break;
@@ -97,7 +94,7 @@ export default function RegistrationLayout() {
                 }
             }
         } else {
-            handleClick();
+            handleClick(registResponse.error.data.description);
         }
     }
 
@@ -107,7 +104,7 @@ export default function RegistrationLayout() {
     else return (
         <form className={styles.onboard_form} onSubmit={handleSubmit(onSubmit)}>
             <Snackbar
-                pen={open}
+                open={!!open}
                 autoHideDuration={6000}
                 onClose={handleClose}
                 anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}>
@@ -118,7 +115,7 @@ export default function RegistrationLayout() {
                     sx={{ width: '100%' }}
                 >
                     <AlertTitle>Error</AlertTitle>
-                    Ошибка регистрации
+                    {open}
                 </Alert>
             </Snackbar>
 
@@ -211,7 +208,6 @@ export default function RegistrationLayout() {
                     />
                 </div>
             </div>
-
 
             <div className={styles.actions}>
                 <input type="submit" value='Зарегистрироваться' className={styles.login_btn} />
