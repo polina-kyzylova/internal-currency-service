@@ -45,6 +45,8 @@ export default function AdminCFOPage() {
         service_id: '123',
     }
 
+    
+
     /*----- При первом обращении к карточке запрашиваем все данные ЦФО и сохраняем в redux -----*/
     useEffect(() => {
         dispatch(initCurrentCFO({

@@ -7,7 +7,7 @@ import coin from '../../../assets/black_coin.svg';
 import { useNavigate } from 'react-router-dom';
 
 
-export default function CFOCard({ cfo_id, balance, title, owner_name }) {
+export default function CFOCard({ cfo_id, balance, title, owner_name, owner_surname, owner_lastname }) {
     const navigate = useNavigate();
     const theme = createTheme({
         palette: {
@@ -42,7 +42,7 @@ export default function CFOCard({ cfo_id, balance, title, owner_name }) {
 
                 <div className={styles.info}>
                     <p className={styles.titl}>{title}</p>
-                    <p className={styles.identif}>Владелец: {owner_name}</p>
+                    <p className={styles.identif}>Владелец: {owner_surname} {owner_name} {owner_lastname}</p>
                 </div>
             </div>
 

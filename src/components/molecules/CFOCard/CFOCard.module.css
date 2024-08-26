@@ -6,13 +6,19 @@
     display: grid;
     grid-template-columns: auto min-content;
     align-items: center;
+    gap: var(--grid-padding);
 }
 
 .content {
+    /*
     width: 100%;
     display: flex;
     align-items: center;
     gap: 2rem;
+    */
+    display: grid;
+    grid-template-columns: auto 10rem auto;
+    column-gap: var(--grid-padding);
 }
 
 .money {
@@ -73,6 +79,10 @@
 @media (max-width: 1024px) {
     .progress {
         display: none;
+    }
+    .content {
+        display: grid;
+        grid-template-columns: 12rem auto;
     }
 
     .money h4 {
