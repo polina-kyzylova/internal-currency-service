@@ -16,7 +16,7 @@ import { useGetQuery } from '../../../store/slices/apiSlice';
 export default function UserMoneyAcc() {
     const [visible, setVisible] = useState(false);
     const { personal_acc_number, personal_acc_balance } = useSelector(state => state.user);
-    const hideNumber = hideAccNumber(personal_acc_number);
+    const hideNumber = personal_acc_number ? hideAccNumber(personal_acc_number) : '';
 
     const userDataEP = useSelector((state) => state.endpoints.user_data);
     const [currentBalance, setCurrentBalance] = useState();

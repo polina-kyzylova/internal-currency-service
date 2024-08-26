@@ -10,7 +10,7 @@ import { hideAccNumber } from '../../../hooks/hideAccNumber';
 
 export default function CFOAccount({ cfo_balance, cfo_number }) {
     const [visible, setVisible] = useState(false);
-    const hideNumber = hideAccNumber(cfo_number);
+    const hideNumber = cfo_number ? hideAccNumber(cfo_number) : '';
 
 
     return (

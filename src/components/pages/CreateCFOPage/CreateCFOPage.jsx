@@ -7,7 +7,7 @@ import GrayButtonBack from '../../atoms/GrayButtonBack/GrayButtonBack';
 import { useSelector } from 'react-redux';
 import CFOownersAutoList from '../../molecules/TransactionForm/CFOownersAutoList';
 import AmountInput from '../../molecules/TransactionForm/AmountInput';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useOutletContext } from 'react-router-dom';
 import { usePostQueryMutation } from '../../../store/slices/apiSlice';
 import Loader from '../../atoms/Loader';
 
@@ -19,6 +19,26 @@ export default function CreateCFOPage() {
     const [createCFO, { isLoading: cfoLoading }] = usePostQueryMutation();
     const [currentCFO, setCurrentCFO] = useState('TEAM');
     const navigate = useNavigate();
+
+    function setTransData(data) {
+        if (!!data.amount) {
+            let transData1 = {
+                "name": data.title,
+                "fsc_type": data.type,
+                "init_balance": data.amount,
+                "owner_id": data.id,
+            }
+            return transData1
+        } else {
+            let transData2 = {
+                "name": data.title,
+                "fsc_type": data.type,
+                "init_balance": 0,
+                "owner_id": data.id,
+            }
+            return transData2
+        }
+    }
 
     const {
         register,
@@ -34,13 +54,8 @@ export default function CreateCFOPage() {
             setError('amount', { type: 'custom', message: 'Недостаточно средств для создания ЦФО' });
 
         } else {
-            let dannye = {
-                "name": data.title,
-                "fsc_type": data.type,
-                "init_balance": data.amount,
-                "owner_id": data.id,
-            }
-            const result = await createCFO({ endpoint: createCFOEP, body: dannye });
+            let x = setTransData(data);
+            const result = await createCFO({ endpoint: createCFOEP, body: x });
 
             if (!!result.data) {
                 navigate('./result/ok')

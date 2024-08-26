@@ -8,6 +8,7 @@ const initialState = {
   transactions_hist: '/users/me/transactions',
   create_cfo: '/fsc',
   purposes_tags: '/users/me/transactions/payments-purposes',
+  get_cfo_info: '/getFscInfo',
 };
 
 const endpointsSlice = createSlice({

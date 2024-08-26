@@ -11,10 +11,12 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import DeleteCFOModal from '../../molecules/DeleteCFOModal/DeleteCFOModal';
 import ServiceCFOCard from '../../molecules/ServiceCFOCard/ServiceCFOCard';
 
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { initCurrentCFO } from '../../../store/slices/adminSlice';
 import { removeCurrentCFO } from '../../../store/slices/adminSlice';
 import { updateCurrentCFO } from '../../../store/slices/adminSlice';
+import { useGetQueryMutation } from '../../../store/slices/apiSlice';
+import Loader from '../../atoms/Loader';
 
 
 
@@ -32,36 +34,35 @@ export default function AdminCFOPage() {
 
 
     /*----- Здесь нужно получить всю инфу ЦФО и положить в redux !!!-----*/
-    const mock = {
-        current_cfo_number: '121212121212',
-        current_cfo_balance: 5000,
-        current_cfo_title: 'Мое админское ЦФО',
-        current_owner_username: 'alex',
-        current_owner_name: 'Алексей',
-        current_owner_surname: 'Щербаков',
-        current_owner_lastname: 'Дмитриевич',
-        cfo_id: cfo_id,
-        current_cfo_type: 'service',
-        service_id: '123',
+    //const cfoInfoEP = useSelector((state) => state.endpoints.get_cfo_info);
+    const [getCFOInfo, { isLoading: infoLoading }] = useGetQueryMutation();
+
+    const getMe = async () => {
+        const result = await getCFOInfo(`/fsc/${cfo_id}`);
+        console.log(result);
+
+        if (!!result.data) {
+            dispatch(initCurrentCFO({
+                current_cfo_number: result.data.account_number,
+                current_cfo_balance: result.data.balance,
+                current_cfo_title: result.data.name,
+                current_owner_username: result.data.owner_email,
+                current_owner_name: null,
+                current_owner_surname: null,
+                current_owner_lastname: null,
+                current_cfo_id: cfo_id,
+                current_cfo_type: result.data.fsc_type,
+                service_id: null,
+                current_owner_fullname: result.data.owner_full_name,
+            }))
+        }
     }
 
-    
-
-    /*----- При первом обращении к карточке запрашиваем все данные ЦФО и сохраняем в redux -----*/
     useEffect(() => {
-        dispatch(initCurrentCFO({
-            current_cfo_number: mock.current_cfo_number,
-            current_cfo_balance: mock.current_cfo_balance,
-            current_cfo_title: mock.current_cfo_title,
-            current_owner_username: mock.current_owner_username,
-            current_owner_name: mock.current_owner_name,
-            current_owner_surname: mock.current_owner_surname,
-            current_owner_lastname: mock.current_owner_lastname,
-            current_cfo_id: cfo_id,
-            current_cfo_type: mock.current_cfo_type,
-            service_id: mock.service_id
-        }))
+        getMe()
     }, [])
+
+    const admin = useSelector(state => state.admin);
 
     function leaveCFO() {
         dispatch(removeCurrentCFO());
@@ -86,7 +87,7 @@ export default function AdminCFOPage() {
 
 
     function cfoRender() {
-        if (mock.cfo_type === 'service') {
+        if (admin.current_cfo_type !== 'TEAM') {
             return (
                 <div className={styles.cfo_variant}>
                     <ServiceCFOCard
@@ -97,8 +98,8 @@ export default function AdminCFOPage() {
 
                     <div className={styles.cfo_service_card}>
                         <CFOAccount
-                            cfo_balance={mock.current_cfo_balance}
-                            cfo_number={mock.current_cfo_number}
+                            cfo_balance={admin.current_cfo_balance}
+                            cfo_number={admin.current_cfo_number}
                         />
                     </div>
                 </div>
@@ -106,8 +107,8 @@ export default function AdminCFOPage() {
         } else {
             return (
                 <CFOAccount
-                    cfo_balance={mock.current_cfo_balance}
-                    cfo_number={mock.current_cfo_number}
+                    cfo_balance={admin.current_cfo_balance}
+                    cfo_number={admin.current_cfo_number}
                 />
             )
         }
@@ -116,12 +117,12 @@ export default function AdminCFOPage() {
 
 
 
-
-    return (
+    if (infoLoading) return <Loader />
+    else return (
         <div className={styles.container}>
             <DeleteCFOModal
                 cfo_id={cfo_id}
-                cfo_title={mock.current_cfo_title}
+                cfo_title={admin.current_cfo_title}
                 open={deleteModalOpen}
                 handleClose={handleClose}
             />
@@ -148,11 +149,11 @@ export default function AdminCFOPage() {
                         <div className={styles.info}>
                             <p className={styles.identif}>Владелец:</p>
                             <p className={styles.titl}>
-                                {mock.current_owner_surname + ' ' + mock.current_owner_name + ' ' + mock.current_owner_lastname}
+                                {admin.current_owner_fullname}
                             </p>
                         </div>
 
-                        <p className={styles.identif}>Username: {mock.current_owner_username}</p>
+                        <p className={styles.identif}>Email: {admin.current_owner_username}</p>
                     </div>
 
                     <div className={styles.card}>
@@ -175,7 +176,7 @@ export default function AdminCFOPage() {
                                 </form>
                                 :
                                 <div className={styles.modif_item}>
-                                    <p className={styles.titl}>{mock.current_cfo_title}</p>
+                                    <p className={styles.titl}>{admin.current_cfo_title}</p>
                                     <button onClick={() => setModifTitle(true)}>
                                         <CreateIcon />
                                     </button>

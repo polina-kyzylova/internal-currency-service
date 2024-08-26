@@ -10,15 +10,18 @@
 }
 
 .content {
-    /*
+    
     width: 100%;
     display: flex;
     align-items: center;
     gap: 2rem;
-    */
+    
+    /*
     display: grid;
-    grid-template-columns: auto 10rem auto;
+    grid-template-columns: 10rem auto;
     column-gap: var(--grid-padding);
+    align-items: center;
+    */
 }
 
 .money {

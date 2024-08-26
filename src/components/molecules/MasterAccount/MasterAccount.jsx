@@ -12,7 +12,7 @@ import { hideAccNumber } from '../../../hooks/hideAccNumber';
 export default function MasterAccount() {
     const [visible, setVisible] = useState(false);
     const { master_acc_balance, master_acc_number } = useSelector(state => state.admin);
-    const hideNumber = hideAccNumber(master_acc_number);
+    const hideNumber = master_acc_number ? hideAccNumber(master_acc_number) : '';
 
 
     return (

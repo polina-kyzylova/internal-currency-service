@@ -14,6 +14,7 @@ const initialState = {
     current_cfo_id: null,
     current_cfo_type: null,
     service_id: null,
+    current_owner_fullname: null,
 }
 
 
@@ -36,6 +37,7 @@ export const adminSlice = createSlice({
             state.current_cfo_id = action.payload.current_cfo_id;
             state.current_cfo_type = action.payload.current_cfo_type;
             state.service_id = action.payload.service_id;
+            state.current_owner_fullname = action.payload.current_owner_fullname;
         },
         updateCurrentCFO: (state, action) => {
             const { item, new_value } = action.payload;
@@ -52,6 +54,7 @@ export const adminSlice = createSlice({
             state.current_cfo_id = null;
             state.current_cfo_type = null;
             state.service_id = null;
+            state.current_owner_fullname = null;
         },
         removeAdmin: (state) => {
             state.master_acc_number = null;
@@ -66,6 +69,7 @@ export const adminSlice = createSlice({
             state.current_cfo_id = null;
             state.current_cfo_type = null;
             state.service_id = null;
+            state.current_owner_fullname = null;
         },
     },
 })
