@@ -9,6 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import ServiceCFOCard from '../../molecules/ServiceCFOCard/ServiceCFOCard';
 
 
+
 export default function OwnerCFOLayout() {
     const { cfo_number, cfo_balance, cfo_title, cfo_type } = useSelector(state => state.cfo);
     const navigate = useNavigate();
@@ -35,7 +36,6 @@ export default function OwnerCFOLayout() {
             )
         } else return null
     }
-
 
 
     return (
@@ -73,31 +73,3 @@ export default function OwnerCFOLayout() {
         </div>
     )
 }
-
-
-
-/*
-                <div className={styles.item}>
-                    <h1>{cfo_title}</h1>
-
-                    <div className={styles.serv}>
-                        <OperationsAction label='Шаблоны' />
-                        <OperationsAction label='История операций' />
-                    </div>
-                </div>
-
-                <div className={styles.item}>
-                    <button
-                        className={styles.manage_btn}
-                        onClick={() => navigate('/owner/transfer-cfo')}
-                    >Перевести
-                    </button>
-
-                    <ServiceCFOCard
-                        status='ok'
-                        service_title='Lalala'
-                        service_id='123'
-                    />
-                </div>
-
-*/

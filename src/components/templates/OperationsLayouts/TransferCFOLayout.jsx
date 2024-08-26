@@ -4,13 +4,13 @@ import CreateTransferCFOUnit from '../../organisms/CreateTransferCFOUnit/CreateT
 import ConfirmTransferCFOUnit from '../../organisms/ConfirmTransferCFOUnit/ConfirmTransferCFOUnit';
 
 
-export default function TransferCFOLayout() {
+export default function TransferCFOLayout({ current_user }) {
   const [confirmTransfer, setConfirmTransfer] = useState(false);
 
   return (
     <div className='cfo-transaction-card'>
       {!confirmTransfer ?
-        <CreateTransferCFOUnit setConfirmTransfer={setConfirmTransfer} />
+        <CreateTransferCFOUnit setConfirmTransfer={setConfirmTransfer} current_user={current_user} />
         :
         <ConfirmTransferCFOUnit setConfirmTransfer={setConfirmTransfer} />
       }

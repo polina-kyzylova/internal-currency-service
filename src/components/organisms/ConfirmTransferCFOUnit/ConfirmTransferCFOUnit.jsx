@@ -36,6 +36,12 @@ export default function ConfirmTransferCFOUnit({ setConfirmTransfer }) {
     }
   }
 
+  function makeTransaction() {
+    console.log(data)
+    if (data.current_user === 'admin') navigate('../result/ok')
+    if (data.current_user === 'owner') navigate('result/ok')
+  }
+
 
   return (
     <div className={styles.container}>
@@ -49,9 +55,9 @@ export default function ConfirmTransferCFOUnit({ setConfirmTransfer }) {
 
         <CFOInfoTable
           title='Отправитель'
-          acc_number={parseInt(data.sender_number).toLocaleString()}
-          acc_owner={data.sender_owner}
-          acc_title={data.sender_title}
+          acc_number={parseInt(data.current_cfo_number).toLocaleString()}
+          acc_owner={data.current_cfo_owner}
+          acc_title={data.current_cfo_title}
         />
 
         {chooseRecipient()}
@@ -64,7 +70,7 @@ export default function ConfirmTransferCFOUnit({ setConfirmTransfer }) {
       </div>
 
 
-      <button className='operations-next-btn' onClick={() => navigate('../result')}>Перевести</button>
+      <button className='operations-next-btn' onClick={() => makeTransaction()}>Перевести</button>
     </div>
   )
 }

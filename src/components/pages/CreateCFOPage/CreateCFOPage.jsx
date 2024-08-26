@@ -7,15 +7,19 @@ import GrayButtonBack from '../../atoms/GrayButtonBack/GrayButtonBack';
 import { useSelector } from 'react-redux';
 import UserAutoList from '../../molecules/TransactionForm/UsersAutoList';
 import AmountInput from '../../molecules/TransactionForm/AmountInput';
+import { useNavigate } from 'react-router-dom';
 
 
 
 export default function CreateCFOPage() {
     const { master_acc_balance } = useSelector(state => state.admin);
+    const navigate = useNavigate();
+
     const {
         register,
         handleSubmit,
         setValue,
+        getValues,
         setError,
         formState: { errors },
     } = useForm()
@@ -34,6 +38,8 @@ export default function CreateCFOPage() {
 
         } else {
             console.log('CFO succesfully created: ', data)
+            navigate('./result/error')
+            
         }
     }
 
@@ -65,6 +71,7 @@ export default function CreateCFOPage() {
                             register={register}
                             errors={errors}
                             setValue={setValue}
+                            getValues={getValues}
                         />
 
                         <div className={styles.inpt_box}>

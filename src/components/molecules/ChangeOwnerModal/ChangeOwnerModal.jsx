@@ -6,7 +6,7 @@ import {updateCFO} from '../../../store/slices/cfoSlice';
 import { useNavigate } from 'react-router-dom';
 
 
-export default function ChangeOwnerModal({ handleClose, open, new_owner_name, new_owner_phone }) {
+export default function ChangeOwnerModal({ handleClose, open, username, name, lastname, surname }) {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -37,8 +37,8 @@ export default function ChangeOwnerModal({ handleClose, open, new_owner_name, ne
                     <h2 className={styles.modal_title}>Вы уверены, что хотите сменить владельца ЦФО?</h2>
 
                     <div className={styles.modal_data}>
-                        <p>Новый владелец: <span>{new_owner_name}</span></p>
-                        <p>Телефон: <span>+{new_owner_phone}</span></p>
+                        <p>Новый владелец: <span>{surname} {name} {lastname}</span></p>
+                        <p>Username: <span>{username}</span></p>
                     </div>
                 </div>
 

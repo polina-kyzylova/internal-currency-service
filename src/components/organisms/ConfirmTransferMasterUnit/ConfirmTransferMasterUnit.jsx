@@ -36,6 +36,12 @@ export default function ConfirmTransferMasterUnit({ setConfirmTransfer }) {
         }
     }
 
+    function makeTransaction() {
+        console.log('master - to - user/cfo transaction', data)
+        navigate('./result/ok')
+    }
+
+
 
     return (
         <div className={styles.container}>
@@ -63,7 +69,7 @@ export default function ConfirmTransferMasterUnit({ setConfirmTransfer }) {
             </div>
 
 
-            <button className='operations-next-btn' onClick={() => navigate('../result')}>Перевести</button>
+            <button className='operations-next-btn' onClick={() => makeTransaction()}>Перевести</button>
         </div>
     )
 }

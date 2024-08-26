@@ -10,7 +10,7 @@ import ChangeOwnerModal from '../../molecules/ChangeOwnerModal/ChangeOwnerModal'
 
 
 export default function ChangeOwnerUnit() {
-    const cfo = useSelector(state => state.cfo);
+    const cfo = useSelector(state => state.admin);
     const [deleteModalOpen, setDeleteModalOpen] = useState(false);
     const handleOpen = () => setDeleteModalOpen(true);
     const handleClose = () => setDeleteModalOpen(false);
@@ -31,8 +31,10 @@ export default function ChangeOwnerUnit() {
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
             <ChangeOwnerModal
-                new_owner_phone={getValues('user_phone')}
-                new_owner_name={getValues('user_name')}
+                username={getValues('target_user_username')}
+                name={getValues('target_user_name')}
+                surname={getValues('target_user_surname')}
+                lastname={getValues('target_user_lastname')}
                 open={deleteModalOpen}
                 handleClose={handleClose}
             />
@@ -46,9 +48,9 @@ export default function ChangeOwnerUnit() {
 
                         <CFOInfoTable
                             title='Информация о ЦФО'
-                            acc_number={parseInt(cfo.cfo_number).toLocaleString()}
-                            acc_owner={cfo.cfo_owner}
-                            acc_title={cfo.cfo_title}
+                            acc_number={parseInt(cfo.current_cfo_number).toLocaleString()}
+                            acc_owner={cfo.current_owner_surname + ' ' + cfo.current_owner_name + ' ' + cfo.current_owner_lastname}
+                            acc_title={cfo.current_cfo_title}
                         />
 
                         <UsersAutoList
@@ -56,6 +58,7 @@ export default function ChangeOwnerUnit() {
                             setValue={setValue}
                             errors={errors}
                             title='Новый владелец:'
+                            getValues={getValues}
                         />
                     </div>
 

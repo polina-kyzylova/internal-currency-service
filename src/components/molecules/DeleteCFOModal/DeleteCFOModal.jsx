@@ -3,7 +3,7 @@ import styles from './DeleteCFOModal.module.css';
 import Modal from '@mui/material/Modal';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { removeCFO } from '../../../store/slices/cfoSlice';
+import { removeCurrentCFO } from '../../../store/slices/adminSlice';
 
 
 export default function DeleteCFOModal({ cfo_id, cfo_title, open, handleClose }) {
@@ -12,7 +12,7 @@ export default function DeleteCFOModal({ cfo_id, cfo_title, open, handleClose })
 
     function deleteCFO() {
         handleClose();
-        dispatch(removeCFO());
+        dispatch(removeCurrentCFO());
         navigate(-1);
         /*----- запрос на удаление ЦФО-----*/
     }

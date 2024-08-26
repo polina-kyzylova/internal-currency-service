@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import '../GeneralOperations.css';
 import styles from './CreateTransferCFOUnit.module.css';
 import GrayButtonBack from '../../atoms/GrayButtonBack/GrayButtonBack';
@@ -15,35 +15,63 @@ import { globalCFOTags } from '../../../store/globalVariables';
 
 
 
-export default function CreateTransferCFOUnit({ setConfirmTransfer }) {
+export default function CreateTransferCFOUnit({ setConfirmTransfer, current_user }) {
   const [data, setData] = useOutletContext();
-  const cfo = useSelector(state => state.cfo);
+  const admin = useSelector(state => state.admin);
+  const owner = useSelector(state => state.cfo);
+  const user = useSelector(state => state.user);
+
   const [recipType, setRecipType] = useState('personal');
+  const [defValues, setDefValues] = useState();
+
+  useEffect(() => {
+    if (current_user === 'admin') {
+      setDefValues({
+        current_cfo_title: admin.current_cfo_title,
+        current_cfo_number: admin.current_cfo_number,
+        current_cfo_balance: admin.current_cfo_balance,
+        current_cfo_owner: admin.current_owner_surname + ' ' + admin.current_owner_name + ' ' + admin.current_owner_lastname,
+        current_user: 'admin',
+      })
+    }
+    if (current_user === 'owner') {
+      setDefValues({
+        current_cfo_title: owner.cfo_title,
+        current_cfo_number: owner.cfo_number,
+        current_cfo_balance: owner.cfo_balance,
+        current_cfo_owner: user.surname + ' ' + user.name + ' ' + user.last_name,
+        current_user: 'owner',
+      })
+    }
+  }, [current_user])
+
 
   const {
     register,
     handleSubmit,
     setValue,
+    getValues,
     setError,
     formState: { errors },
-  } = useForm({
-    defaultValues: {
-      sender_title: cfo.cfo_title,
-      sender_number: cfo.cfo_number,
-      sender_owner: cfo.cfo_owner,
-    }
-  })
+  } = useForm()
 
   const onSubmit = (d) => {
-    if (parseInt(d.amount) > cfo.cfo_balance) {
-      setError('amount', { type: 'custom', message: 'Недостаточно средств для списания' });
-    } else if (parseInt(d.amount) === 0) {
+    if (parseInt(d.amount) === 0) {
       setError('amount', { type: 'custom', message: 'Некорректная сумма' });
     } else {
-      setConfirmTransfer(true);
-      setData({ ...data, ...d });
+      if (current_user === 'owner' && parseInt(d.amount) > owner.cfo_balance) {
+        setError('amount', { type: 'custom', message: 'Недостаточно средств для списания' });
+      }
+      else if (current_user === 'admin' && parseInt(d.amount) > admin.current_cfo_balance) {
+        setError('amount', { type: 'custom', message: 'Недостаточно средств для списания' });
+      }
+      else {
+        setConfirmTransfer(true);
+        setData({...defValues, ...d})
+      }
     }
   }
+
 
   function chooseRecipient() {
     if (recipType === 'personal') {
@@ -53,6 +81,7 @@ export default function CreateTransferCFOUnit({ setConfirmTransfer }) {
           register={register}
           errors={errors}
           setValue={setValue}
+          getValues={getValues}
         />)
     } else {
       return (
@@ -79,8 +108,8 @@ export default function CreateTransferCFOUnit({ setConfirmTransfer }) {
           <TransactionAccInfo
             title='Счет списания'
             acc_type='Счет ЦФО'
-            acc_number={cfo.cfo_number}
-            acc_balance={cfo.cfo_balance}
+            acc_number={current_user === 'owner' ? owner.cfo_number : admin.current_cfo_number}
+            acc_balance={current_user === 'owner' ? owner.cfo_balance : admin.current_cfo_balance}
           />
 
           <div className={styles.inpt_box}>

@@ -44,23 +44,27 @@ function App() {
         </Route>
 
 
+
         {/*========== USER PAGES ==========*/}
         <Route path="/user" element={
-          //<PrivateRoute
-          //  isAllowed={!!token && !!user && user.user_type === 'ROLE_USER'}
-          //>
-          <HomePage />
-          //</PrivateRoute>
+          <PrivateRoute
+            //  isAllowed={!!token && !!user && user.user_type === 'ROLE_USER'}
+            isAllowed={!!token && !!user}
+          >
+            <HomePage />
+          </PrivateRoute>
         } />
+
 
 
         {/*========== ADMIN PAGES ==========*/}
         <Route path="/admin" element={
-          //<PrivateRoute
-          //  isAllowed={!!token && !!user && user.user_type === 'ROLE_ADMIN'}
-          //>
-          <AdminPage />
-          //</PrivateRoute>
+          <PrivateRoute
+            //isAllowed={!!token && !!user && user.user_type === 'ROLE_ADMIN'}
+            isAllowed={!!token && !!user}
+          >
+            <AdminPage />
+          </PrivateRoute>
         } >
           <Route path="" element={<UserAccLayout />} />
           <Route path="cfo" element={<AdminCFOLayout />} />
@@ -69,45 +73,56 @@ function App() {
 
         {/*----- admin cfo pages -----*/}
         <Route path="/admin/create-cfo" element={
-          //<PrivateRoute
-          //  isAllowed={!!token && !!user && user.user_type === 'ROLE_ADMIN'}
-          //>
-          <CreateCFOPage />
-          //</PrivateRoute>
-        } />
+          <PrivateRoute
+            //isAllowed={!!token && !!user && user.user_type === 'ROLE_ADMIN'}
+            isAllowed={!!token && !!user}
+          >
+            <TransactionPage />
+          </PrivateRoute>
+        }
+        >
+          <Route path="" element={<CreateCFOPage />} />
+          <Route path="result/:status" element={<OperationResult />} />
+        </Route>
+
         <Route path='/admin/cfo/:cfo_id' element={
-          //<PrivateRoute
-          //  isAllowed={!!token && !!user && user.user_type === 'ROLE_ADMIN'}
-          //>
-          <TransactionPage />
-          //</PrivateRoute>
+          <PrivateRoute
+            //  isAllowed={!!token && !!user && user.user_type === 'ROLE_ADMIN'}
+            isAllowed={!!token && !!user}
+          >
+            <TransactionPage />
+          </PrivateRoute>
         }>
           <Route path='' element={<AdminCFOPage />} />
           <Route path="replenish-cfo" element={<ReplenishCFOLayout />} />                       {/* master-to-cfo transaction */}
-          <Route path="transfer-cfo" element={<TransferCFOLayout />} />                         {/* cfo-to-user/cfo transaction */}
+          <Route path="transfer-cfo" element={<TransferCFOLayout current_user='admin' />} />                         {/* cfo-to-user/cfo transaction */}
           <Route path="change-owner" element={<ChangeOwnerUnit />} />                           {/* change cfo owner */}
-          <Route path="result/:status" element={<OperationResult />} />                                  {/* transactions result */}
+          <Route path="result/:status" element={<OperationResult />} />                         {/* transactions result */}
         </Route>
 
         {/*----- admin budget page -----*/}
         <Route path="/admin/transfer-master" element={
-          //<PrivateRoute
-          //  isAllowed={!!token && !!user && user.user_type === 'ROLE_ADMIN'}
-          //>
-          <TransactionPage />
-          //</PrivateRoute>
+          <PrivateRoute
+            //  isAllowed={!!token && !!user && user.user_type === 'ROLE_ADMIN'}
+            isAllowed={!!token && !!user}
+          >
+            <TransactionPage />
+          </PrivateRoute>
         }>                                                                                     {/* master-to-user/cfo transaction */}
           <Route path='' element={<TransferMasterLayout />} />
+          <Route path="result/:status" element={<OperationResult />} />
         </Route>
+
 
 
         {/*========== CFO OWNER PAGES ==========*/}
         <Route path="/owner" element={
-          //<PrivateRoute
-          //  isAllowed={!!token && !!user && user.user_type === 'ROLE_OWNER'}
-          //>
-          <OwnerPage />
-          //</PrivateRoute>
+          <PrivateRoute
+            //isAllowed={!!token && !!user && user.user_type === 'ROLE_OWNER'}
+            isAllowed={!!token && !!user}
+          >
+            <OwnerPage />
+          </PrivateRoute>
         } >
           <Route path="" element={<UserAccLayout />} />
           <Route path="cfo" element={<OwnerCFOLayout />} />
@@ -115,24 +130,26 @@ function App() {
 
         {/*----- owner cfo manage page -----*/}
         <Route path="/owner/transfer-cfo" element={
-          //<PrivateRoute
-          //  isAllowed={!!token && !!user && user.user_type === 'ROLE_OWNER'}
-          //>
-          <TransactionPage />
-          //</PrivateRoute>
+          <PrivateRoute
+            //  isAllowed={!!token && !!user && user.user_type === 'ROLE_OWNER'}
+            isAllowed={!!token && !!user}
+          >
+            <TransactionPage />
+          </PrivateRoute>
         }>                                                                                     {/* cfo-to-user/cfo transaction */}
-          <Route path='' element={<TransferCFOLayout />} />
+          <Route path='' element={<TransferCFOLayout current_user='owner' />} />
+          <Route path="result/:status" element={<OperationResult />} />  
         </Route>
 
 
 
         {/*----- USER-TO-USER transactions -----*/}
         <Route path="/transaction/:user" element={
-          //<PrivateRoute
-          //  isAllowed={!!token && !!user}
-          //>
-          <TransactionPage />
-          //</PrivateRoute>
+          <PrivateRoute
+            isAllowed={!!token && !!user}
+          >
+            <TransactionPage />
+          </PrivateRoute>
         } >
           <Route path="" element={<TransactionLayout />} />
           <Route path="result/:status" element={<ResultTransactionUnit />} />
@@ -140,18 +157,18 @@ function App() {
 
 
         <Route path='/history/:user' element={
-          //<PrivateRoute
-          //  isAllowed={!!token && !!user}
-          //>
-          <OperationsHistoryPage />
-          //</PrivateRoute>
+          <PrivateRoute
+            isAllowed={!!token && !!user}
+          >
+            <OperationsHistoryPage />
+          </PrivateRoute>
         } />
 
 
         {/*----- error URL page -----*/}
         <Route path='*' exact={true} element={<h2>Такой страницы не существует :(</h2>} />
       </Routes>
-    </BrowserRouter>
+    </BrowserRouter >
   );
 }
 

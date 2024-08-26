@@ -15,6 +15,7 @@ import AmountInput from '../../molecules/TransactionForm/AmountInput';
 import { globalCFOTags } from '../../../store/globalVariables';
 
 
+
 export default function CreateTransferMasterUnit({ setConfirmTransfer }) {
     const [data, setData] = useOutletContext();
     const [recipType, setRecipType] = useState('personal');
@@ -25,12 +26,13 @@ export default function CreateTransferMasterUnit({ setConfirmTransfer }) {
         register,
         handleSubmit,
         setValue,
+        getValues,
         setError,
         formState: { errors },
     } = useForm({
         defaultValues: {
             sender_number: admin.master_acc_number,
-            sender_name: `${user.fam_name} ${user.first_name} ${user.last_name[0]}.`,
+            sender_name: `${user.surname} ${user.name} ${user.last_name}`,
         }
     })
 
@@ -53,6 +55,7 @@ export default function CreateTransferMasterUnit({ setConfirmTransfer }) {
                     register={register}
                     errors={errors}
                     setValue={setValue}
+                    getValues={getValues}
                 />)
         } else {
             return (

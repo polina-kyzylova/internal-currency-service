@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styles from './AdminCFOPage.module.css';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useOutletContext, useParams } from 'react-router-dom';
 import CFOAccount from '../../molecules/CFOAccount/CFOAccount';
 import TextField from '@mui/material/TextField';
 import { useForm } from "react-hook-form";
@@ -12,9 +12,9 @@ import DeleteCFOModal from '../../molecules/DeleteCFOModal/DeleteCFOModal';
 import ServiceCFOCard from '../../molecules/ServiceCFOCard/ServiceCFOCard';
 
 import { useDispatch } from 'react-redux';
-import { initCFO } from '../../../store/slices/cfoSlice';
-import { updateCFO } from '../../../store/slices/cfoSlice';
-import { removeCFO } from '../../../store/slices/cfoSlice';
+import { initCurrentCFO } from '../../../store/slices/adminSlice';
+import { removeCurrentCFO } from '../../../store/slices/adminSlice';
+import { updateCurrentCFO } from '../../../store/slices/adminSlice';
 
 
 
@@ -22,6 +22,7 @@ import { removeCFO } from '../../../store/slices/cfoSlice';
 export default function AdminCFOPage() {
     const [modifTitle, setModifTitle] = useState(false);
     const [deleteModalOpen, setDeleteModalOpen] = useState(false);
+    const [data, setData] = useOutletContext();
     const handleOpen = () => setDeleteModalOpen(true);
     const handleClose = () => setDeleteModalOpen(false);
 
@@ -31,53 +32,51 @@ export default function AdminCFOPage() {
 
 
     /*----- Здесь нужно получить всю инфу ЦФО и положить в redux !!!-----*/
-    const data_from_backend = {
-        cfo_number: '333333333333',
-        cfo_balance: '9000',
-        cfo_title: 'Тестовое название',
-        cfo_owner: 'Тестов Тест Тестович',
+    const mock = {
+        current_cfo_number: '121212121212',
+        current_cfo_balance: 5000,
+        current_cfo_title: 'Мое админское ЦФО',
+        current_owner_username: 'alex',
+        current_owner_name: 'Алексей',
+        current_owner_surname: 'Щербаков',
+        current_owner_lastname: 'Дмитриевич',
         cfo_id: cfo_id,
-        owner_phone: '79992223344',
-
-        cfo_type: 'service',
+        current_cfo_type: 'personal',
         service_id: '123',
     }
 
-
     /*----- При первом обращении к карточке запрашиваем все данные ЦФО и сохраняем в redux -----*/
     useEffect(() => {
-        dispatch(initCFO({
-            cfo_number: data_from_backend.cfo_number,
-            cfo_balance: data_from_backend.cfo_balance,
-            cfo_title: data_from_backend.cfo_title,
-            cfo_owner: data_from_backend.cfo_owner,
-            cfo_id: cfo_id,
+        dispatch(initCurrentCFO({
+            current_cfo_number: mock.current_cfo_number,
+            current_cfo_balance: mock.current_cfo_balance,
+            current_cfo_title: mock.current_cfo_title,
+            current_owner_username: mock.current_owner_username,
+            current_owner_name: mock.current_owner_name,
+            current_owner_surname: mock.current_owner_surname,
+            current_owner_lastname: mock.current_owner_lastname,
+            current_cfo_id: cfo_id,
+            current_cfo_type: mock.current_cfo_type,
+            service_id: mock.service_id
         }))
     }, [])
 
     function leaveCFO() {
-        dispatch(removeCFO());
+        dispatch(removeCurrentCFO());
         navigate(-1);
     }
 
     const {
         register,
         handleSubmit,
-        getValues,
         formState: { errors },
-    } = useForm({
-        defaultValues: {
-            title: data_from_backend.cfo_title,
-            owner: data_from_backend.cfo_owner,
-            cfo_number: data_from_backend.cfo_number,
-            cfo_balance: data_from_backend.cfo_balance,
-        }
-    })
+    } = useForm();
 
     const onSubmit = (data) => {
+        setData(data);
         setModifTitle(false);
-        dispatch(updateCFO({
-            item: 'cfo_title',
+        dispatch(updateCurrentCFO({
+            item: 'current_cfo_title',
             new_value: data.title,
         }))
         /*----- + update title on server -----*/
@@ -85,7 +84,7 @@ export default function AdminCFOPage() {
 
 
     function cfoRender() {
-        if (data_from_backend.cfo_type === 'service') {
+        if (mock.cfo_type === 'service') {
             return (
                 <div className={styles.cfo_variant}>
                     <ServiceCFOCard
@@ -96,8 +95,8 @@ export default function AdminCFOPage() {
 
                     <div className={styles.cfo_service_card}>
                         <CFOAccount
-                            cfo_balance={data_from_backend.cfo_balance}
-                            cfo_number={data_from_backend.cfo_number}
+                            cfo_balance={mock.current_cfo_balance}
+                            cfo_number={mock.current_cfo_number}
                         />
                     </div>
                 </div>
@@ -105,8 +104,8 @@ export default function AdminCFOPage() {
         } else {
             return (
                 <CFOAccount
-                    cfo_balance={data_from_backend.cfo_balance}
-                    cfo_number={data_from_backend.cfo_number}
+                    cfo_balance={mock.current_cfo_balance}
+                    cfo_number={mock.current_cfo_number}
                 />
             )
         }
@@ -120,11 +119,10 @@ export default function AdminCFOPage() {
         <div className={styles.container}>
             <DeleteCFOModal
                 cfo_id={cfo_id}
-                cfo_title={data_from_backend.cfo_title}
+                cfo_title={mock.current_cfo_title}
                 open={deleteModalOpen}
                 handleClose={handleClose}
             />
-
 
             <div className={styles.header}>
                 <button className='operations-prev-btn' onClick={() => leaveCFO()}>
@@ -147,10 +145,12 @@ export default function AdminCFOPage() {
                     <div className={styles.card}>
                         <div className={styles.info}>
                             <p className={styles.identif}>Владелец:</p>
-                            <p className={styles.titl}>{getValues('owner')}</p>
+                            <p className={styles.titl}>
+                                {mock.current_owner_surname + ' ' + mock.current_owner_name + ' ' + mock.current_owner_lastname}
+                            </p>
                         </div>
 
-                        <p className={styles.identif}>Телефон: +{data_from_backend.owner_phone}</p>
+                        <p className={styles.identif}>Username: {mock.current_owner_username}</p>
                     </div>
 
                     <div className={styles.card}>
@@ -173,7 +173,7 @@ export default function AdminCFOPage() {
                                 </form>
                                 :
                                 <div className={styles.modif_item}>
-                                    <p className={styles.titl}>{getValues('title')}</p>
+                                    <p className={styles.titl}>{mock.current_cfo_title}</p>
                                     <button onClick={() => setModifTitle(true)}>
                                         <CreateIcon />
                                     </button>

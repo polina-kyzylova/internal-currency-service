@@ -13,6 +13,12 @@ export default function ConfirmReplenishCFOUnit({ setConfirmReplenish }) {
     const navigate = useNavigate();
     const [data, setData] = useOutletContext();
 
+    function makeTransaction() {
+        console.log(data)
+        navigate('../result/ok')
+    }
+
+
     return (
         <div className={styles.container}>
             <button className='operations-prev-btn' onClick={() => setConfirmReplenish(false)}>
@@ -41,7 +47,7 @@ export default function ConfirmReplenishCFOUnit({ setConfirmReplenish }) {
                 />
             </div>
 
-            <button className='operations-next-btn' onClick={() => navigate('../result')}>Перевести</button>
+            <button className='operations-next-btn' onClick={() => makeTransaction()}>Перевести</button>
         </div>
     )
 }

@@ -12,8 +12,7 @@ import AmountInput from '../../molecules/TransactionForm/AmountInput';
 
 export default function CreateReplenishCFOUnit({ setConfirmReplenish }) {
     const user = useSelector(state => state.user);
-    const { master_acc_balance, master_acc_number } = useSelector(state => state.admin);
-    const {cfo_title, cfo_owner, cfo_balance, cfo_number} = useSelector(state => state.cfo);
+    const admin = useSelector(state => state.admin);
     const [data, setData] = useOutletContext();
 
     const {
@@ -23,22 +22,22 @@ export default function CreateReplenishCFOUnit({ setConfirmReplenish }) {
         formState: { errors },
     } = useForm({
         defaultValues: {
-            master_acc: master_acc_number,
-            cfo_owner: cfo_owner,
-            cfo_number: cfo_number,
-            cfo_title: cfo_title,
-            sender_name: `${user.fam_name} ${user.first_name} ${user.last_name[0]}.`,
+            master_acc: admin.master_acc_number,
+            cfo_owner: admin.current_owner_surname + ' ' + admin.current_owner_name + ' ' + admin.current_owner_lastname,
+            cfo_number: admin.current_cfo_number,
+            cfo_title: admin.current_cfo_title,
+            sender_name: `${user.surname} ${user.name} ${user.last_name}`,
         }
     })
 
     const onSubmit = (d) => {
-        if (parseInt(d.amount) > master_acc_balance) {
+        if (parseInt(d.amount) > admin.master_acc_balance) {
             setError('amount', { type: 'custom', message: 'Недостаточно средств для списания' });
         } else if (parseInt(d.amount) === 0) {
             setError('amount', { type: 'custom', message: 'Некорректная сумма' });
         } else {
             setConfirmReplenish(true);
-            setData({ ...data, ...d });
+            setData({...d})
         }
     }
 
@@ -53,14 +52,14 @@ export default function CreateReplenishCFOUnit({ setConfirmReplenish }) {
                     <TransactionAccInfo
                         title='Счет списания'
                         acc_type='Мастер-счет'
-                        acc_number={master_acc_number}
-                        acc_balance={master_acc_balance}
+                        acc_number={admin.master_acc_number}
+                        acc_balance={admin.master_acc_balance}
                     />
                     <TransactionAccInfo
                         title='Счет зачисления'
                         acc_type='Счет ЦФО'
-                        acc_number={cfo_number}
-                        acc_balance={cfo_balance}
+                        acc_number={admin.current_cfo_number}
+                        acc_balance={admin.current_cfo_balance}
                     />
                     <AmountInput
                         register={register}

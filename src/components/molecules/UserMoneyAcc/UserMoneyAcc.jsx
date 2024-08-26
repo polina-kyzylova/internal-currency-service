@@ -37,9 +37,12 @@ export default function UserMoneyAcc() {
 
     /*----- check pooling result -----*/
     useEffect(() => {
-        setCurrentBalance(currentData.account_balance)
-        if (personal_acc_balance !== currentData.account_balance) updateStore()
+        if (!!currentData) {
+            setCurrentBalance(currentData.account_balance)
+            if (personal_acc_balance !== currentData.account_balance) updateStore()
+        }
     }, [currentData]);
+
 
 
 
@@ -48,7 +51,7 @@ export default function UserMoneyAcc() {
             <div className={styles.data}>
                 <p className={styles.balance}>Баланс</p>
                 <div className={styles.coin}>
-                    {currentBalance ? <p className={styles.amount}>{parseInt(currentBalance).toLocaleString()}</p> : null}
+                    {currentBalance ? <p className={styles.amount}>{parseInt(currentBalance).toLocaleString()}</p> : personal_acc_balance}
                     <img src={coin} alt='coin' />
                 </div>
 
