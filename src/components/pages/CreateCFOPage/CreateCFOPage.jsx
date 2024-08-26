@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from './CreateCFOPage.module.css';
 import { useForm } from "react-hook-form";
 
@@ -9,6 +9,7 @@ import CFOownersAutoList from '../../molecules/TransactionForm/CFOownersAutoList
 import AmountInput from '../../molecules/TransactionForm/AmountInput';
 import { useNavigate } from 'react-router-dom';
 import { usePostQueryMutation } from '../../../store/slices/apiSlice';
+import Loader from '../../atoms/Loader';
 
 
 
@@ -16,6 +17,7 @@ export default function CreateCFOPage() {
     const { master_acc_balance } = useSelector(state => state.admin);
     const createCFOEP = useSelector((state) => state.endpoints.create_cfo);
     const [createCFO, { isLoading: cfoLoading }] = usePostQueryMutation();
+    const [currentCFO, setCurrentCFO] = useState('TEAM');
     const navigate = useNavigate();
 
     const {
@@ -49,9 +51,8 @@ export default function CreateCFOPage() {
     }
 
 
-
-
-    return (
+    if (cfoLoading) return <Loader />
+    else return (
         <form onSubmit={handleSubmit(onSubmit)}>
             <div className={styles.card}>
                 <div className={styles.container}>
@@ -67,6 +68,7 @@ export default function CreateCFOPage() {
                                 id="cfo_type"
                                 {...register("type")}
                                 className={styles.select_type}
+                                onChange={(e) => setCurrentCFO(e.target.value)}
                             >
                                 <option value="TEAM">ЦФО</option>
                                 <option value="STORE">ЦФО сервиса</option>
@@ -92,10 +94,12 @@ export default function CreateCFOPage() {
                             />
                         </div>
 
-                        <AmountInput
-                            register={register}
-                            errors={errors}
-                        />
+                        {currentCFO === 'TEAM' ?
+                            <AmountInput
+                                register={register}
+                                errors={errors}
+                            /> : null
+                        }
                     </div>
 
 

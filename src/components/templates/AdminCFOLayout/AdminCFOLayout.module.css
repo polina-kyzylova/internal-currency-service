@@ -59,6 +59,10 @@
     gap: var(--grid-padding);
 }
 
+.dis_cfo {
+    font-size: 1.1rem;
+    color: var(--hover-gray);
+}
 
 
 
