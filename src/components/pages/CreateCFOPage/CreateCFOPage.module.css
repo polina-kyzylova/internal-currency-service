@@ -1,52 +1,18 @@
-.container {
-    min-height: 96vh;
-    margin: 2vh 16vw;
-    display: grid;
-    background-color: var(--light-gray);
-    border-radius: var(--card-radius);
-}
-
-@media (max-width: 1000px) {
-    .container {
-        min-height: 100vh;
-        margin: 0;
-        display: grid;
-        border-radius: 0;
-    }
-}
-
 .card {
+    height: 100%;
+    width: 100%;
+    display: grid;
+}
+
+.container {
     display: grid;
     grid-template-rows: 4rem auto 4rem;
     row-gap: var(--grid-padding);
     justify-items: center;
+    background-color: var(--light-gray);
+    border-radius: var(--card-radius);
     padding: var(--global-padding);
 }
-
-
-
-/*----- Gray btn -----*/
-.previous_btn {
-    height: 4rem;
-    width: 4rem;
-
-    align-self: start;
-    justify-self: start;
-
-    border: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 100%;
-    background-color: var(--dark-gray);
-    cursor: pointer;
-    transition: all .3s ease-in-out;
-}
-
-.previous_btn:hover {
-    background-color: var(--hover-gray);
-}
-
 
 
 /*----- Main content -----*/
@@ -98,8 +64,6 @@
 }
 
 
-
-
 /*----- Create btn -----*/
 .create_btn {
     width: fit-content;
@@ -121,4 +85,33 @@
 
 .create_btn:hover {
     background-color: var(--hover-blue);
+}
+
+
+
+
+@media (max-width: 1000px) {
+    .container {
+        border-radius: 0;
+        row-gap: 3rem;
+    }
+    .content {
+        width: 100%;
+        gap: 3rem;
+    }
+    .content h1 {
+        font-size: var(--lbl-mini-size);
+    }
+
+    .create_btn {
+        font-size: var(--lbl-mini-size);
+        outline: none;
+        border: none;
+        cursor: none;
+        transition: none
+    }
+    
+    .create_btn:hover {
+        background-color: var(--primary-blue);
+    }
 }

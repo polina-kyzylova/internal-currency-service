@@ -39,15 +39,15 @@ export default function CreateCFOPage() {
         } else {
             console.log('CFO succesfully created: ', data)
             navigate('./result/error')
-            
+
         }
     }
 
 
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
-            <div className={styles.container}>
-                <div className={styles.card}>
+            <div className={styles.card}>
+                <div className={styles.container}>
                     <GrayButtonBack />
 
                     <div className={styles.content}>

@@ -4,6 +4,14 @@
     display: grid;
 }
 
+@media (min-width: 2000px) {
+    .container {
+        width: 1400px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
 @media (max-width: 1000px) {
     .container {
         min-height: 100vh;
