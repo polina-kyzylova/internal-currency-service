@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './CreateTransactionUnit.module.css';
 import '../GeneralOperations.css';
 import { globalTags } from '../../../store/globalVariables';
@@ -10,6 +10,7 @@ import GrayButtonBack from '../../atoms/GrayButtonBack/GrayButtonBack';
 import TransactionAccInfo from '../../molecules/TransactionAccInfo/TransactionAccInfo';
 import UsersAutoList from '../../molecules/TransactionForm/UsersAutoList';
 import AmountInput from '../../molecules/TransactionForm/AmountInput';
+import { useGetQueryMutation } from '../../../store/slices/apiSlice';
 import { useSelector } from 'react-redux';
 
 
@@ -37,6 +38,20 @@ export default function CreateTransactionUnit({ setCreating }) {
             setData(data);
         }
     }
+
+    const [postReq] = useGetQueryMutation();
+    const transTagsEP = useSelector((state) => state.endpoints.purposes_tags);
+    const [purposeTags, setPurposeTags] = useState();
+
+    const getPaymentPurposes = async () => {
+        const res = await postReq(transTagsEP)
+        if (!!res.data) setPurposeTags([...res.data.payment_purposes])
+    }
+
+    useEffect(() => {
+        getPaymentPurposes();
+    }, [])
+
 
 
     return (
@@ -75,27 +90,32 @@ export default function CreateTransactionUnit({ setCreating }) {
                                 variant="standard"
                                 error={errors.message ? true : false}
                                 {...register("message", { required: true })}
+                                onKeyDown={(e) => {
+                                    setValue('message', `${e.target.value}`)
+                                    setValue('id', `${purposeTags.filter((item) => item.name === 'Другое').map(item => item.id)}`)
+                                }}
                             />
                         </div>
 
                         <div className={styles.tags}>
-                            {globalTags.map((item, index) => {
-                                return (
-                                    <span
-                                        key={index}
-                                        className={styles.message_tag}
-                                        onClick={() => {
-                                            setValue('message', `${item.icon}${item.label}`)
-                                        }}
-                                    >
-                                        {item.icon} {item.label}
-                                    </span>
-                                )
-                            })}
+                            {!!purposeTags ?
+                                purposeTags.filter((item) => item.name !== 'Другое').map((item) => {
+                                    return (
+                                        <span
+                                            key={item.id}
+                                            className={styles.message_tag}
+                                            onClick={() => {
+                                                setValue('message', `${item.name}`)
+                                                setValue('id', `${item.id}`)
+                                            }}
+                                        >
+                                            {item.name}
+                                        </span>
+                                    )
+                                }) : null}
                         </div>
                     </div>
                 </div>
-
 
                 <input type="submit" value='Продолжить' className='operations-next-btn' />
             </div>

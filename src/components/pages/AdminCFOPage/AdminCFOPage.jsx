@@ -41,7 +41,7 @@ export default function AdminCFOPage() {
         current_owner_surname: 'Щербаков',
         current_owner_lastname: 'Дмитриевич',
         cfo_id: cfo_id,
-        current_cfo_type: 'personal',
+        current_cfo_type: 'service',
         service_id: '123',
     }
 

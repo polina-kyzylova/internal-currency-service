@@ -20,18 +20,16 @@ export default function ConfirmTransactionUnit({ setCreating }) {
   const transactionEP = useSelector((state) => state.endpoints.transactions_hist);
   const [makeTrans, { isLoading: transLoading }] = usePostQueryMutation();
 
-
   const makeTransaction = async () => {
     let transData = {
       "from_account_number": user.personal_acc_number,
       "to_account_number": data.target_user_acc,
       "amount": data.amount,
-      "payment_purpose_id": 1,
+      "payment_purpose_id": data.id,
       "payment_comment": data.message,
     }
 
     const response = await makeTrans({ endpoint: transactionEP, body: transData })
-    console.log(response)
 
     if (!!response.data) {
       navigate('result/ok')
@@ -39,7 +37,6 @@ export default function ConfirmTransactionUnit({ setCreating }) {
       navigate('result/error')
     }
   }
-
 
 
   if (transLoading) return <Loader />

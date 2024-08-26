@@ -5,14 +5,17 @@ import { useForm } from "react-hook-form";
 import TextField from '@mui/material/TextField';
 import GrayButtonBack from '../../atoms/GrayButtonBack/GrayButtonBack';
 import { useSelector } from 'react-redux';
-import UserAutoList from '../../molecules/TransactionForm/UsersAutoList';
+import CFOownersAutoList from '../../molecules/TransactionForm/CFOownersAutoList';
 import AmountInput from '../../molecules/TransactionForm/AmountInput';
 import { useNavigate } from 'react-router-dom';
+import { usePostQueryMutation } from '../../../store/slices/apiSlice';
 
 
 
 export default function CreateCFOPage() {
     const { master_acc_balance } = useSelector(state => state.admin);
+    const createCFOEP = useSelector((state) => state.endpoints.create_cfo);
+    const [createCFO, { isLoading: cfoLoading }] = usePostQueryMutation();
     const navigate = useNavigate();
 
     const {
@@ -24,24 +27,28 @@ export default function CreateCFOPage() {
         formState: { errors },
     } = useForm()
 
-
-    /* ---------- Check unique name before create new CFO ---------
-        DEBOUNCE + QUERY
-        if (getValues('title') in titles) {
-            setError('title', { type: 'custom', message: 'Название уже используется' });
-        }
-    */
-
-    const onSubmit = (data) => {
+    const onSubmit = async (data) => {
         if (data.amount > parseInt(master_acc_balance)) {
             setError('amount', { type: 'custom', message: 'Недостаточно средств для создания ЦФО' });
 
         } else {
-            console.log('CFO succesfully created: ', data)
-            navigate('./result/error')
+            let dannye = {
+                "name": data.title,
+                "fsc_type": data.type,
+                "init_balance": data.amount,
+                "owner_id": data.id,
+            }
+            const result = await createCFO({ endpoint: createCFOEP, body: dannye });
 
+            if (!!result.data) {
+                navigate('./result/ok')
+            } else {
+                navigate('./result/error')
+            }
         }
     }
+
+
 
 
     return (
@@ -61,12 +68,12 @@ export default function CreateCFOPage() {
                                 {...register("type")}
                                 className={styles.select_type}
                             >
-                                <option value="standart">ЦФО</option>
-                                <option value="service">ЦФО сервиса</option>
+                                <option value="TEAM">ЦФО</option>
+                                <option value="STORE">ЦФО сервиса</option>
                             </select>
                         </div>
 
-                        <UserAutoList
+                        <CFOownersAutoList
                             title='Владелец'
                             register={register}
                             errors={errors}

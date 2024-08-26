@@ -51,7 +51,10 @@ export default function UserMoneyAcc() {
             <div className={styles.data}>
                 <p className={styles.balance}>Баланс</p>
                 <div className={styles.coin}>
-                    {currentBalance ? <p className={styles.amount}>{parseInt(currentBalance).toLocaleString()}</p> : personal_acc_balance}
+                    {currentBalance ?
+                        <p className={styles.amount}>{parseInt(currentBalance).toLocaleString()}</p>
+                        : <p className={styles.amount}>{parseInt(personal_acc_balance).toLocaleString()}</p>
+                    }
                     <img src={coin} alt='coin' />
                 </div>
 
