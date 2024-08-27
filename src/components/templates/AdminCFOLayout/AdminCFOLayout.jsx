@@ -14,12 +14,12 @@ export default function AdminCFOLayout() {
   const [allServiceCFO, setAllServiceCFO] = useState([]);
 
   /*----- pooling -----*/
-  let { data: allTeamCFOList, isSuccess: teamSuccess } = useGetQuery(`/fsc?fscType=TEAM&page=1&size=${cfoListSize}`, {
+  let { data: allTeamCFOList } = useGetQuery(`/fsc?fscType=TEAM&page=1&size=${cfoListSize}`, {
     pollingInterval: 3000,
     skipPollingIfUnfocused: true,
   });
 
-  let { data: allServiceCFOList, isSuccess: serviceSuccess } = useGetQuery(`/fsc?fscType=STORE&page=1&size=${cfoListSize}`, {
+  let { data: allServiceCFOList } = useGetQuery(`/fsc?fscType=STORE&page=1&size=${cfoListSize}`, {
     pollingInterval: 3000,
     skipPollingIfUnfocused: true,
   });
@@ -27,9 +27,9 @@ export default function AdminCFOLayout() {
 
   /*----- check pooling result -----*/
   useEffect(() => {
-    if (teamSuccess) setAllTeamCFO(allTeamCFOList.data)
-    if (serviceSuccess) setAllServiceCFO(allServiceCFOList.data)
-    console.log(allTeamCFOList.data)
+    if (!!allTeamCFOList) setAllTeamCFO(allTeamCFOList.data)
+    if (!!allServiceCFOList) setAllServiceCFO(allServiceCFOList.data)
+    console.log(allTeamCFOList)
   }, [allTeamCFOList, allServiceCFOList]);
 
 

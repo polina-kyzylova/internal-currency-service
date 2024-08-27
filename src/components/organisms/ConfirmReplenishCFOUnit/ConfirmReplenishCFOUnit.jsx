@@ -8,17 +8,31 @@ import OperationTypeTable from '../../molecules/ConfirmForm/OperationTypeTable';
 import CFOInfoTable from '../../molecules/ConfirmForm/CFOInfoTable';
 import MasterInfotable from '../../molecules/ConfirmForm/MasterInfoTable';
 
+import { usePostQueryMutation } from '../../../store/slices/apiSlice';
+import { useSelector } from 'react-redux';
+import Loader from '../../atoms/Loader';
+
 
 export default function ConfirmReplenishCFOUnit({ setConfirmReplenish }) {
     const navigate = useNavigate();
     const [data, setData] = useOutletContext();
 
-    function makeTransaction() {
-        console.log(data)
-        navigate('../result/ok')
+    const transactionEP = useSelector((state) => state.endpoints.replenish_cfo);
+    const [replenishCFO, { isLoading: transLoading }] = usePostQueryMutation();
+
+    const replenish = async () => {
+        let repBody = {
+            "id": data.cfo_id,
+            "amount": data.amount
+        }
+        const result = await replenishCFO({ endpoint: transactionEP, body: repBody })
+
+        if (!!result.data) navigate('../result/ok')
+        else navigate('../result/error')
     }
 
 
+    if (transLoading) return <Loader />
     return (
         <div className={styles.container}>
             <button className='operations-prev-btn' onClick={() => setConfirmReplenish(false)}>
@@ -47,7 +61,7 @@ export default function ConfirmReplenishCFOUnit({ setConfirmReplenish }) {
                 />
             </div>
 
-            <button className='operations-next-btn' onClick={() => makeTransaction()}>Перевести</button>
+            <button className='operations-next-btn' onClick={() => replenish()}>Перевести</button>
         </div>
     )
 }

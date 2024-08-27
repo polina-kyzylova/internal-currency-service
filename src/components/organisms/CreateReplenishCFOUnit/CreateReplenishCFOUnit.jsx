@@ -26,6 +26,7 @@ export default function CreateReplenishCFOUnit({ setConfirmReplenish }) {
             cfo_owner: admin.current_owner_surname + ' ' + admin.current_owner_name + ' ' + admin.current_owner_lastname,
             cfo_number: admin.current_cfo_number,
             cfo_title: admin.current_cfo_title,
+            cfo_id: admin.current_cfo_id,
             sender_name: `${user.surname} ${user.name} ${user.last_name}`,
         }
     })

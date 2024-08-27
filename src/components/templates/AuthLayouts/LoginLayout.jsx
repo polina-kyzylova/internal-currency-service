@@ -87,8 +87,32 @@ export default function LoginLayout() {
                         break;
 
                     case 'ROLE_OWNER':
+                        dispatch(initUser({
+                            user_type: 'ROLE_OWNER',
+                            user_id: setupResponse.data.user_id,
+                            username: formData.username,
+                            surname: setupResponse.data.surname,
+                            name: setupResponse.data.name,
+                            last_name: setupResponse.data.lastname,
+                            email: setupResponse.data.email,
+                            personal_acc_number: setupResponse.data.account_number,
+                            personal_acc_balance: setupResponse.data.account_balance,
+                        }))
+                        navigate('/owner')
                         break;
                     case 'ROLE_ADMIN':
+                        dispatch(initUser({
+                            user_type: 'ROLE_ADMIN',
+                            user_id: setupResponse.data.user_id,
+                            username: formData.username,
+                            surname: setupResponse.data.surname,
+                            name: setupResponse.data.name,
+                            last_name: setupResponse.data.lastname,
+                            email: setupResponse.data.email,
+                            personal_acc_number: setupResponse.data.account_number,
+                            personal_acc_balance: setupResponse.data.account_balance,
+                        }))
+                        navigate('/admin')
                         break;
                 }
             }
