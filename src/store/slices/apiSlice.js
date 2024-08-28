@@ -1,7 +1,8 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { redirect } from "react-router-dom";
 
-const url = `http://188.225.36.233`;
+//const url = `http://188.225.36.233`;
+const url = `http://10.4.56.71:81`;
 const buildApiUrl = (endpoint) => `${url}${endpoint}`;
 
 let isRefreshing = false;    // Flag to indicate if token refresh is in progress
@@ -115,6 +116,19 @@ export const apiSlice = createApi({
         body: JSON.stringify(body),
       })
     }),
+    cfoTransferQuery: builder.mutation({
+      query: ({ id, body }) => ({
+        url: `/fsc/${id}/transactions`,
+        method: "POST",
+        body: JSON.stringify(body),
+      }),
+    }),
+    getCFOList: builder.mutation({
+      query: ({ name, page, size }) => ({
+        url: `/fsc/active-team-fsc?name=${name}&page=${page}&size=${size}`,
+        method: "GET",
+      })
+    })
   }),
 });
 
@@ -123,5 +137,7 @@ export const {
   useGetQuery,
   useGetQueryMutation,
   usePostQueryMutation,
+  useCfoTransferQueryMutation,
+  useGetCFOListMutation,
 } = apiSlice;
 export { url, buildApiUrl as buildUrl };

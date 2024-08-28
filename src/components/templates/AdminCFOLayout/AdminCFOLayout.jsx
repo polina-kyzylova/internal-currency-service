@@ -29,7 +29,6 @@ export default function AdminCFOLayout() {
   useEffect(() => {
     if (!!allTeamCFOList) setAllTeamCFO(allTeamCFOList.data)
     if (!!allServiceCFOList) setAllServiceCFO(allServiceCFOList.data)
-    console.log(allTeamCFOList)
   }, [allTeamCFOList, allServiceCFOList]);
 
 
@@ -48,7 +47,7 @@ export default function AdminCFOLayout() {
           <h3>ЦФО сервисов</h3>
 
           <div className={styles.cards}>
-            {!!allServiceCFOList ?
+            {!!allServiceCFO.length ?
               allServiceCFO.map(item => {
                 return <CFOCard
                   key={item.id}
@@ -69,7 +68,7 @@ export default function AdminCFOLayout() {
           <h3>ЦФО</h3>
 
           <div className={styles.cards}>
-            {!!allTeamCFOList ?
+            {!!allTeamCFO.length ?
               allTeamCFO.map(item => {
                 return <CFOCard
                   key={item.id}
