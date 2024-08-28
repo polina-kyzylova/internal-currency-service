@@ -18,7 +18,6 @@ export const userSlice = createSlice({
     initialState,
     reducers: {
         initUser: (state, action) => {
-            state.user_type = action.payload.user_type;
             state.user_id = action.payload.user_id;
             state.username = action.payload.username;
             state.surname = action.payload.surname;
@@ -27,6 +26,9 @@ export const userSlice = createSlice({
             state.email = action.payload.email;
             state.personal_acc_number = action.payload.personal_acc_number;
             state.personal_acc_balance = action.payload.personal_acc_balance;
+        },
+        setUserRole: (state, action) => {
+            state.user_type = action.payload.user_type;
         },
         updateUserBalance: (state, action) => {
             state.personal_acc_balance = action.payload.personal_acc_balance;
@@ -46,5 +48,5 @@ export const userSlice = createSlice({
 })
 
 
-export const { initUser, updateUserBalance, removeUser } = userSlice.actions
+export const { initUser, setUserRole, updateUserBalance, removeUser } = userSlice.actions
 export default userSlice.reducer

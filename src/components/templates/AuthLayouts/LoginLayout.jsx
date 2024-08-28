@@ -17,7 +17,10 @@ import AlertTitle from '@mui/material/AlertTitle';
 import { Alert } from '@mui/material';
 import { Snackbar } from '@mui/material';
 import { base64Decoding } from '../../../hooks/base64Decoding';
-import { initUser } from '../../../store/slices/userSlice';
+import { initUser, setUserRole } from '../../../store/slices/userSlice';
+import { initAdmin } from '../../../store/slices/adminSlice';
+
+
 
 
 
@@ -57,6 +60,27 @@ export default function LoginLayout() {
     };
 
 
+
+    const masterEP = useSelector((state) => state.endpoints.master_data);
+    const [getMaster] = useGetQueryMutation();
+
+    const setupAdmin = async () => {
+        const result = await getMaster(masterEP);
+        console.log(result)
+
+        if (!!result) {
+            dispatch(setUserRole({
+                user_type: 'ROLE_ADMIN',
+            }))
+            dispatch(initAdmin({
+            master_acc_number: result.account_number,
+            master_acc_balance: result.amount,
+            }))
+            navigate('/admin')
+        }
+    }
+
+
     /*----- submit data -----*/
     const onSubmit = async (formData) => {
         const loginResponse = await loginUser({ endpoint: loginEP, body: formData });
@@ -70,49 +94,34 @@ export default function LoginLayout() {
             const decodedToken = base64Decoding(token);
 
             if (!!setupResponse.data) {
+                dispatch(initUser({
+                    user_id: setupResponse.data.user_id,
+                    username: formData.username,
+                    surname: setupResponse.data.surname,
+                    name: setupResponse.data.name,
+                    last_name: setupResponse.data.lastname,
+                    email: setupResponse.data.email,
+                    personal_acc_number: setupResponse.data.account_number,
+                    personal_acc_balance: setupResponse.data.account_balance,
+                }))
+
                 switch (decodedToken.role) {
                     case 'ROLE_USER':
-                        dispatch(initUser({
+                        dispatch(setUserRole({
                             user_type: 'ROLE_USER',
-                            user_id: setupResponse.data.user_id,
-                            username: formData.username,
-                            surname: setupResponse.data.surname,
-                            name: setupResponse.data.name,
-                            last_name: setupResponse.data.lastname,
-                            email: setupResponse.data.email,
-                            personal_acc_number: setupResponse.data.account_number,
-                            personal_acc_balance: setupResponse.data.account_balance,
                         }))
                         navigate('/user')
                         break;
 
                     case 'ROLE_OWNER':
-                        dispatch(initUser({
+                        dispatch(setUserRole({
                             user_type: 'ROLE_OWNER',
-                            user_id: setupResponse.data.user_id,
-                            username: formData.username,
-                            surname: setupResponse.data.surname,
-                            name: setupResponse.data.name,
-                            last_name: setupResponse.data.lastname,
-                            email: setupResponse.data.email,
-                            personal_acc_number: setupResponse.data.account_number,
-                            personal_acc_balance: setupResponse.data.account_balance,
                         }))
                         navigate('/owner')
                         break;
+
                     case 'ROLE_ADMIN':
-                        dispatch(initUser({
-                            user_type: 'ROLE_ADMIN',
-                            user_id: setupResponse.data.user_id,
-                            username: formData.username,
-                            surname: setupResponse.data.surname,
-                            name: setupResponse.data.name,
-                            last_name: setupResponse.data.lastname,
-                            email: setupResponse.data.email,
-                            personal_acc_number: setupResponse.data.account_number,
-                            personal_acc_balance: setupResponse.data.account_balance,
-                        }))
-                        navigate('/admin')
+                        setupAdmin();
                         break;
                 }
             }

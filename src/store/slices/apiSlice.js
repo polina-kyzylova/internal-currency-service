@@ -103,6 +103,9 @@ export const apiSlice = createApi({
         }
       },
     }),
+
+    
+    /*----- Universal queries -----*/
     getQuery: builder.mutation({
       query: (endpoint) => ({
         url: endpoint,
@@ -114,6 +117,20 @@ export const apiSlice = createApi({
         url: endpoint,
         method: 'POST',
         body: JSON.stringify(body),
+      })
+    }),
+
+
+    /*----- Parametric queries -----*/
+    getUsersList: builder.mutation({
+      query: ({ }) => {
+
+      }
+    }),
+    initCFO: builder.mutation({
+      query: ({ id }) => ({
+        url: `/fsc/${id}`,
+        method: 'GET',
       })
     }),
     cfoTransferQuery: builder.mutation({
@@ -128,6 +145,12 @@ export const apiSlice = createApi({
         url: `/fsc/active-team-fsc?name=${name}&page=${page}&size=${size}`,
         method: "GET",
       })
+    }),
+    getCFOInfo: builder.mutation({
+      query: ({ cfo_id }) => ({
+        url: `/fsc/${cfo_id}`,
+        method: "GET",
+      })
     })
   }),
 });
@@ -139,5 +162,6 @@ export const {
   usePostQueryMutation,
   useCfoTransferQueryMutation,
   useGetCFOListMutation,
+  useGetCFOInfoMutation,
 } = apiSlice;
 export { url, buildApiUrl as buildUrl };

@@ -4,6 +4,7 @@ import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
 import { Box } from '@mui/material';
 import { useGetCFOListMutation } from '../../../store/slices/apiSlice';
+import { CircularProgress } from '@mui/material';
 
 
 export default function CFOAutoList({ errors, register, title, setValue, getValues, current_cfo_number }) {
@@ -19,7 +20,7 @@ export default function CFOAutoList({ errors, register, title, setValue, getValu
         }
 
         (async () => {
-            let x = await getCFO({ name: getValues('recip_cfo_title'), page: '1', size: '100' });
+            let x = await getCFO({ name: getValues("recip_cfo_title"), page: '1', size: '100' });
             if (active) {
                 let result = x.data.data.filter((item) => item.account_number !== current_cfo_number);
                 setOptions([...result])
@@ -61,6 +62,7 @@ export default function CFOAutoList({ errors, register, title, setValue, getValu
                     if (newValue) {
                         setValue('recip_cfo_owner', newValue.owner_full_name)
                         setValue('recip_cfo_number', newValue.account_number)
+                        setValue('cfo_id', newValue.id)
                     }
                 }}
                 renderOption={(props, option) => {
@@ -78,6 +80,16 @@ export default function CFOAutoList({ errors, register, title, setValue, getValu
                         variant="standard"
                         error={errors.recip_cfo_title ? true : false}
                         {...register("recip_cfo_title", { required: true, })}
+
+                        InputProps={{
+                            ...params.InputProps,
+                            endAdornment: (
+                                <React.Fragment>
+                                    {loading ? <CircularProgress color="inherit" size={20} /> : null}
+                                    {params.InputProps.endAdornment}
+                                </React.Fragment>
+                            ),
+                        }}
                     />
                 )}
             />

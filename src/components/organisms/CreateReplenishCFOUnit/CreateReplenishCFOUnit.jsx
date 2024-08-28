@@ -15,6 +15,7 @@ export default function CreateReplenishCFOUnit({ setConfirmReplenish }) {
     const admin = useSelector(state => state.admin);
     const [data, setData] = useOutletContext();
 
+    /*----- create master-to-cfo transaction -----*/
     const {
         register,
         handleSubmit,
@@ -23,7 +24,7 @@ export default function CreateReplenishCFOUnit({ setConfirmReplenish }) {
     } = useForm({
         defaultValues: {
             master_acc: admin.master_acc_number,
-            cfo_owner: admin.current_owner_surname + ' ' + admin.current_owner_name + ' ' + admin.current_owner_lastname,
+            current_cfo_owner: admin.current_owner_fullname,
             cfo_number: admin.current_cfo_number,
             cfo_title: admin.current_cfo_title,
             cfo_id: admin.current_cfo_id,

@@ -1,26 +1,39 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import '../GeneralOperations.css';
 import styles from './CreateTransferMasterUnit.module.css';
-
-import GrayButtonBack from '../../atoms/GrayButtonBack/GrayButtonBack';
 import { useForm } from "react-hook-form";
 import { useOutletContext } from "react-router-dom";
-import TransactionAccInfo from '../../molecules/TransactionAccInfo/TransactionAccInfo';
 import { useSelector } from 'react-redux';
-import TextField from '@mui/material/TextField';
+import { useGetQueryMutation } from '../../../store/slices/apiSlice';
 
-import UsersAutoList from '../../molecules/TransactionForm/UsersAutoList';
+import GrayButtonBack from '../../atoms/GrayButtonBack/GrayButtonBack';
+import TransactionAccInfo from '../../molecules/TransactionAccInfo/TransactionAccInfo';
 import CFOAutoList from '../../molecules/TransactionForm/CFOAutoList';
 import AmountInput from '../../molecules/TransactionForm/AmountInput';
-import { globalCFOTags } from '../../../store/globalVariables';
+import PurposeTags from '../../molecules/PurposeTags/PurposeTags';
 
 
 
 export default function CreateTransferMasterUnit({ setConfirmTransfer }) {
     const [data, setData] = useOutletContext();
-    const [recipType, setRecipType] = useState('personal');
     const admin = useSelector(state => state.admin);
     const user = useSelector(state => state.user);
+
+
+    /*----- get transaction purpose tags -----*/
+    const [postReq] = useGetQueryMutation();
+    const transCFOTagsEP = useSelector((state) => state.endpoints.cfo_purposes_tags);
+    const [purposeTags, setPurposeTags] = useState();
+
+    const getPaymentPurposes = async () => {
+        const response = await postReq(transCFOTagsEP)
+        if (!!response.data) setPurposeTags([...response.data.data])
+    }
+
+    useEffect(() => {
+        getPaymentPurposes();
+    }, [])
+
 
     const {
         register,
@@ -47,28 +60,6 @@ export default function CreateTransferMasterUnit({ setConfirmTransfer }) {
         }
     }
 
-    function chooseRecipient() {
-        if (recipType === 'personal') {
-            return (
-                <UsersAutoList
-                    title='Получатель'
-                    register={register}
-                    errors={errors}
-                    setValue={setValue}
-                    getValues={getValues}
-                />)
-        } else {
-            return (
-                <CFOAutoList
-                    title='Получатель'
-                    register={register}
-                    errors={errors}
-                    setValue={setValue}
-                />
-            )
-        }
-    }
-
 
 
     return (
@@ -86,55 +77,25 @@ export default function CreateTransferMasterUnit({ setConfirmTransfer }) {
                         acc_balance={admin.master_acc_balance}
                     />
 
-                    <div className={styles.inpt_box}>
-                        <label htmlFor='recipient_type'>Тип получателя</label>
-                        <select
-                            name="recipient_type"
-                            id="recipient_type"
-                            className={styles.select_type}
-                            {...register("recip_type", { required: true })}
-                            onChange={(e) => setRecipType(e.target.value)}
-                        >
-                            <option value="personal">Пользователь</option>
-                            <option value="cfo">Другой ЦФО</option>
-                        </select>
-                    </div>
-
-                    {chooseRecipient()}
+                    <CFOAutoList
+                        title='Получатель'
+                        register={register}
+                        errors={errors}
+                        setValue={setValue}
+                        getValues={getValues}
+                    />
 
                     <AmountInput
                         register={register}
                         errors={errors}
                     />
 
-                    <div className={styles.mess}>
-                        <div className={styles.inpt_box}>
-                            <label htmlFor='message'>Сообщение</label>
-                            <TextField
-                                id="message"
-                                fullWidth
-                                variant="standard"
-                                error={errors.message ? true : false}
-                                {...register("message", { required: true })}
-                            />
-                        </div>
-
-                        <div className={styles.tags}>
-                            {globalCFOTags.map((item, index) => {
-                                return (
-                                    <span
-                                        key={index}
-                                        className={styles.message_tag}
-                                        onClick={() => {
-                                            setValue('message', `${item.icon}${item.label}`)
-                                        }}
-                                    >
-                                        {item.icon} {item.label}
-                                    </span>
-                                )
-                            })}
-                        </div>
-                    </div>
+                    <PurposeTags
+                        register={register}
+                        errors={errors}
+                        setValue={setValue}
+                        purposeTags={purposeTags}
+                    />
                 </div>
 
                 <input type="submit" value='Продолжить' className='operations-next-btn' />

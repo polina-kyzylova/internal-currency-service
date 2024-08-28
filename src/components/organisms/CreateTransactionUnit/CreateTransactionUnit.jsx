@@ -1,21 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import styles from './CreateTransactionUnit.module.css';
 import '../GeneralOperations.css';
-import { globalTags } from '../../../store/globalVariables';
 import { useForm } from "react-hook-form";
 import { useOutletContext } from "react-router-dom";
+import { useGetQueryMutation } from '../../../store/slices/apiSlice';
+import { useSelector } from 'react-redux';
 
-import TextField from '@mui/material/TextField';
 import GrayButtonBack from '../../atoms/GrayButtonBack/GrayButtonBack';
 import TransactionAccInfo from '../../molecules/TransactionAccInfo/TransactionAccInfo';
 import UsersAutoList from '../../molecules/TransactionForm/UsersAutoList';
 import AmountInput from '../../molecules/TransactionForm/AmountInput';
-import { useGetQueryMutation } from '../../../store/slices/apiSlice';
-import { useSelector } from 'react-redux';
+import PurposeTags from '../../molecules/PurposeTags/PurposeTags';
 
 
 
 export default function CreateTransactionUnit({ setCreating }) {
+    const [data, setData] = useOutletContext();
     const user = useSelector(state => state.user);
     const {
         register,
@@ -26,8 +26,7 @@ export default function CreateTransactionUnit({ setCreating }) {
         formState: { errors },
     } = useForm()
 
-    const [data, setData] = useOutletContext();
-
+    /*----- create user-to-user transaction -----*/
     const onSubmit = (data) => {
         if (parseInt(data.amount) > user.personal_acc_balance) {
             setError('amount', { type: 'custom', message: 'Недостаточно средств на счете' });
@@ -39,13 +38,14 @@ export default function CreateTransactionUnit({ setCreating }) {
         }
     }
 
-    const [postReq] = useGetQueryMutation();
-    const transTagsEP = useSelector((state) => state.endpoints.purposes_tags);
+    /*----- get transaction purpose tags -----*/
+    const [getPurposeTags] = useGetQueryMutation();
+    const tagsEP = useSelector((state) => state.endpoints.purposes_tags);
     const [purposeTags, setPurposeTags] = useState();
 
     const getPaymentPurposes = async () => {
-        const res = await postReq(transTagsEP)
-        if (!!res.data) setPurposeTags([...res.data.payment_purposes])
+        const response = await getPurposeTags(tagsEP);
+        if (!!response.data) setPurposeTags([...response.data.data])
     }
 
     useEffect(() => {
@@ -81,40 +81,12 @@ export default function CreateTransactionUnit({ setCreating }) {
                         errors={errors}
                     />
 
-                    <div className={styles.mess}>
-                        <div className={styles.inpt_box}>
-                            <label htmlFor='message'>Сообщение</label>
-                            <TextField
-                                id="message"
-                                fullWidth
-                                variant="standard"
-                                error={errors.message ? true : false}
-                                {...register("message", { required: true })}
-                                onKeyDown={(e) => {
-                                    setValue('message', `${e.target.value}`)
-                                    setValue('id', `${purposeTags.filter((item) => item.name === 'Другое').map(item => item.id)}`)
-                                }}
-                            />
-                        </div>
-
-                        <div className={styles.tags}>
-                            {!!purposeTags ?
-                                purposeTags.filter((item) => item.name !== 'Другое').map((item) => {
-                                    return (
-                                        <span
-                                            key={item.id}
-                                            className={styles.message_tag}
-                                            onClick={() => {
-                                                setValue('message', `${item.name}`)
-                                                setValue('id', `${item.id}`)
-                                            }}
-                                        >
-                                            {item.name}
-                                        </span>
-                                    )
-                                }) : null}
-                        </div>
-                    </div>
+                    <PurposeTags
+                        register={register}
+                        errors={errors}
+                        setValue={setValue}
+                        purposeTags={purposeTags}
+                    />
                 </div>
 
                 <input type="submit" value='Продолжить' className='operations-next-btn' />

@@ -7,10 +7,11 @@ const initialState = {
   user_data: '/users/me',
   transactions_hist: '/users/me/transactions',
   create_cfo: '/fsc',
-  purposes_tags: '/users/me/transactions/payments-purposes',
+  purposes_tags: '/users/payments-purposes',
   get_cfo_info: '/getFscInfo',
   replenish_cfo: '/fsc/top-up',
-  cfo_purposes_tags: '/fsc/payments-purposes?reciever=user'
+  cfo_purposes_tags: '/fsc/payments-purposes?reciever=user',
+  master_data: '/budget'
 };
 
 const endpointsSlice = createSlice({

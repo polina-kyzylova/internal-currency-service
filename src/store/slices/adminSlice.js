@@ -1,8 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-    master_acc_number: '555555555555',
-    master_acc_balance: 79000,
+    master_acc_number: null,
+    master_acc_balance: null,
 
     current_cfo_number: null,
     current_cfo_balance: null,
@@ -43,6 +43,9 @@ export const adminSlice = createSlice({
             const { item, new_value } = action.payload;
             state[item] = new_value;
         },
+        updateMasterBalance: (state, action) => {
+            state.master_acc_number = action.payload.master_acc_number;
+        },
         removeCurrentCFO: (state) => {
             state.current_cfo_number = null;
             state.current_cfo_balance = null;
@@ -75,5 +78,11 @@ export const adminSlice = createSlice({
 })
 
 
-export const { initAdmin, initCurrentCFO, updateCurrentCFO, removeCurrentCFO, removeAdmin } = adminSlice.actions
+export const {
+    initAdmin,
+    initCurrentCFO,
+    updateCurrentCFO,
+    updateMasterBalance,
+    removeCurrentCFO,
+    removeAdmin } = adminSlice.actions
 export default adminSlice.reducer

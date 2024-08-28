@@ -15,9 +15,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { initCurrentCFO } from '../../../store/slices/adminSlice';
 import { removeCurrentCFO } from '../../../store/slices/adminSlice';
 import { updateCurrentCFO } from '../../../store/slices/adminSlice';
-import { useGetQueryMutation } from '../../../store/slices/apiSlice';
+import { useGetCFOInfoMutation } from '../../../store/slices/apiSlice';
 import Loader from '../../atoms/Loader';
-
 
 
 
@@ -28,19 +27,17 @@ export default function AdminCFOPage() {
     const handleOpen = () => setDeleteModalOpen(true);
     const handleClose = () => setDeleteModalOpen(false);
 
+    const admin = useSelector(state => state.admin);
     const navigate = useNavigate();
     let { cfo_id } = useParams();
     const dispatch = useDispatch();
 
 
-    /*----- Здесь нужно получить всю инфу ЦФО и положить в redux !!!-----*/
-    //const cfoInfoEP = useSelector((state) => state.endpoints.get_cfo_info);
-    const [getCFOInfo, { isLoading: infoLoading }] = useGetQueryMutation();
+    /*----- get all CFO info by id and init store -----*/
+    const [getCFOInfo, { isLoading: infoLoading }] = useGetCFOInfoMutation();
 
     const getMe = async () => {
-        const result = await getCFOInfo(`/fsc/${cfo_id}`);
-        console.log(result);
-
+        const result = await getCFOInfo({ cfo_id: cfo_id });
         if (!!result.data) {
             dispatch(initCurrentCFO({
                 current_cfo_number: result.data.account_number,
@@ -62,13 +59,15 @@ export default function AdminCFOPage() {
         getMe()
     }, [])
 
-    const admin = useSelector(state => state.admin);
 
+    /*----- remove current CFO data from store -----*/
     function leaveCFO() {
         dispatch(removeCurrentCFO());
         navigate(-1);
     }
 
+
+    /*----- change CFO title form -----*/
     const {
         register,
         handleSubmit,
@@ -86,6 +85,7 @@ export default function AdminCFOPage() {
     }
 
 
+    /*----- render CFO card by type ------*/
     function cfoRender() {
         if (admin.current_cfo_type !== 'TEAM') {
             return (
@@ -131,7 +131,6 @@ export default function AdminCFOPage() {
                 <button className='operations-prev-btn' onClick={() => leaveCFO()}>
                     <WestIcon sx={{ color: '#fff', fontSize: 35 }} />
                 </button>
-
                 <button className={styles.delete_btn} onClick={handleOpen}>Удалить ЦФО</button>
             </div>
 

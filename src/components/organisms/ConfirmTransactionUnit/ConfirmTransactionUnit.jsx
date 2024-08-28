@@ -17,6 +17,7 @@ export default function ConfirmTransactionUnit({ setCreating }) {
   const [data, setData] = useOutletContext();
   const user = useSelector(state => state.user);
 
+  /*----- confirm transaction -----*/
   const transactionEP = useSelector((state) => state.endpoints.transactions_hist);
   const [makeTrans, { isLoading: transLoading }] = usePostQueryMutation();
 
@@ -25,8 +26,8 @@ export default function ConfirmTransactionUnit({ setCreating }) {
       "from_account_number": user.personal_acc_number,
       "to_account_number": data.target_user_acc,
       "amount": data.amount,
-      "payment_purpose_id": data.id,
-      "payment_comment": data.message,
+      "payment_purpose_id": data.purpose_id,
+      "payment_comment": data.purpose_message,
     }
 
     const response = await makeTrans({ endpoint: transactionEP, body: transData })
@@ -66,7 +67,7 @@ export default function ConfirmTransactionUnit({ setCreating }) {
         <OperationTypeTable
           operation_type='Перевод на счет пользователя'
           amount={data.amount}
-          message={data.message}
+          message={data.purpose_message}
         />
       </div>
 

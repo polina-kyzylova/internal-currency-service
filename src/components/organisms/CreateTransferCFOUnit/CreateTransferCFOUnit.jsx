@@ -4,14 +4,14 @@ import styles from './CreateTransferCFOUnit.module.css';
 import GrayButtonBack from '../../atoms/GrayButtonBack/GrayButtonBack';
 import { useForm } from "react-hook-form";
 import { useOutletContext } from "react-router-dom";
-import TransactionAccInfo from '../../molecules/TransactionAccInfo/TransactionAccInfo';
+import { useGetQueryMutation } from '../../../store/slices/apiSlice';
 import { useSelector } from 'react-redux';
-import TextField from '@mui/material/TextField';
 
+import TransactionAccInfo from '../../molecules/TransactionAccInfo/TransactionAccInfo';
 import UsersAutoList from '../../molecules/TransactionForm/UsersAutoList';
 import CFOAutoList from '../../molecules/TransactionForm/CFOAutoList';
 import AmountInput from '../../molecules/TransactionForm/AmountInput';
-import { useGetQueryMutation } from '../../../store/slices/apiSlice';
+import PurposeTags from '../../molecules/PurposeTags/PurposeTags';
 
 
 
@@ -31,7 +31,7 @@ export default function CreateTransferCFOUnit({ setConfirmTransfer, current_user
         current_cfo_title: admin.current_cfo_title,
         current_cfo_number: admin.current_cfo_number,
         current_cfo_balance: admin.current_cfo_balance,
-        current_cfo_owner: admin.current_owner_surname + ' ' + admin.current_owner_name + ' ' + admin.current_owner_lastname,
+        current_cfo_owner: admin.current_owner_fullname,
         current_user: 'admin',
       })
       setCurrentCFOnumber(admin.current_cfo_number)
@@ -58,6 +58,8 @@ export default function CreateTransferCFOUnit({ setConfirmTransfer, current_user
     formState: { errors },
   } = useForm()
 
+
+  /*----- create user-to-user transaction -----*/
   const onSubmit = (d) => {
     if (parseInt(d.amount) === 0) {
       setError('amount', { type: 'custom', message: 'Некорректная сумма' });
@@ -76,6 +78,7 @@ export default function CreateTransferCFOUnit({ setConfirmTransfer, current_user
   }
 
 
+  /*----- change recipient type -----*/
   function chooseRecipient() {
     if (recipType === 'personal') {
       return (
@@ -101,19 +104,19 @@ export default function CreateTransferCFOUnit({ setConfirmTransfer, current_user
   }
 
 
+  /*----- get transaction purpose tags -----*/
   const [postReq] = useGetQueryMutation();
   const transCFOTagsEP = useSelector((state) => state.endpoints.cfo_purposes_tags);
   const [purposeTags, setPurposeTags] = useState();
 
   const getPaymentPurposes = async () => {
-    const res = await postReq(transCFOTagsEP)
-    if (!!res.data) setPurposeTags([...res.data.data])
+    const response = await postReq(transCFOTagsEP)
+    if (!!response.data) setPurposeTags([...response.data.data])
   }
 
   useEffect(() => {
     getPaymentPurposes();
   }, [])
-
 
 
 
@@ -153,40 +156,12 @@ export default function CreateTransferCFOUnit({ setConfirmTransfer, current_user
             errors={errors}
           />
 
-          <div className={styles.mess}>
-            <div className={styles.inpt_box}>
-              <label htmlFor='message'>Сообщение</label>
-              <TextField
-                id="message"
-                fullWidth
-                variant="standard"
-                error={errors.message ? true : false}
-                {...register("message", { required: true })}
-                onKeyDown={(e) => {
-                  setValue('message', `${e.target.value}`)
-                  setValue('purpose_id', `${purposeTags.filter((item) => item.name === 'Другое').map(item => item.id)}`)
-                }}
-              />
-            </div>
-
-            <div className={styles.tags}>
-              {!!purposeTags ?
-                purposeTags.filter((item) => item.name !== 'Другое').map((item) => {
-                  return (
-                    <span
-                      key={item.id}
-                      className={styles.message_tag}
-                      onClick={() => {
-                        setValue('message', `${item.name}`)
-                        setValue('purpose_id', `${item.id}`)
-                      }}
-                    >
-                      {item.name}
-                    </span>
-                  )
-                }) : null}
-            </div>
-          </div>
+          <PurposeTags
+            register={register}
+            errors={errors}
+            setValue={setValue}
+            purposeTags={purposeTags}
+          />
         </div>
 
         <input type="submit" value='Продолжить' className='operations-next-btn' />
