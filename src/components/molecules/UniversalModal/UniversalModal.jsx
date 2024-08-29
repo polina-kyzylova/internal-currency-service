@@ -3,7 +3,12 @@ import styles from './UniversalModal.module.css';
 import Modal from '@mui/material/Modal';
 
 
-export default function UniversalModal({ handleClose, targetOption, open, title, subtitle }) {
+export default function UniversalModal({
+    handleClose,
+    targetOption,
+    open,
+    title,
+    subtitle}) {
     return (
         <Modal
             open={open}

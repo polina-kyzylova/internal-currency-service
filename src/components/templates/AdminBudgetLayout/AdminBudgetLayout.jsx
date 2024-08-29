@@ -1,14 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from './AdminBudgetLayout.module.css';
 import OperationsAction from '../../molecules/OperationsAction/OperationsAction';
 import MasterAccount from '../../molecules/MasterAccount/MasterAccount';
-
 import CFOAdminTable from '../../molecules/CFOAdminTable';
 import AdminAnalyticsUnit from '../../organisms/AdminAnalyticsUnit/AdminAnalyticsUnit';
 import { useNavigate } from 'react-router-dom';
+import DataModal from '../../molecules/DataModal/DataModal';
+
 
 
 export default function AdminBudgetLayout() {
+  const [deleteModalOpen, setDeleteModalOpen] = useState(false);
+  const handleOpen = () => setDeleteModalOpen(true);
+  const handleClose = () => setDeleteModalOpen(false);
+
   const navigate = useNavigate();
   const all_cfo = [
     { label: 'A', value: 2400 },
@@ -24,6 +29,12 @@ export default function AdminBudgetLayout() {
 
   return (
     <div className={styles.container}>
+      <DataModal
+        open={deleteModalOpen}
+        handleClose={handleClose}
+      />
+
+
       <div className={styles.content}>
         <div className={styles.oborot}>
           <h4>Оборот всех средств</h4>
@@ -33,7 +44,7 @@ export default function AdminBudgetLayout() {
 
         <div className={styles.operations}>
           <div className={styles.oper_btns}>
-            <button className={styles.action_btn}>Пополнить</button>
+            <button className={styles.action_btn} onClick={handleOpen}>Пополнить</button>
             <button className={styles.action_btn} onClick={() => navigate('/admin/transfer-master')}>Перевести</button>
           </div>
           <OperationsAction label='Шаблоны' />

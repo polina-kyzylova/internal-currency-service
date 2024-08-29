@@ -1,0 +1,82 @@
+.container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    width: 50vw;
+    height: 50vh;
+    padding: var(--global-padding);
+    background-color: #fff;
+    border-radius: var(--card-radius);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10vh;
+    z-index: 5;
+}
+
+@media (max-width: 1000px) {
+    .container {
+        width: 80vw;
+        height: 60vh;
+    }
+}
+
+.modal_info {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4vh;
+}
+
+.modal_info h2 {
+    font-size: var(--lbl-small-size);
+    font-weight: var(--lbl-light-weight);
+}
+
+.modal_info p {
+    font-size: var(--lbl-mini-size);
+    font-weight: var(--lbl-light-weight);
+}
+
+.manage {
+    display: flex;
+    justify-content: center;
+    gap: var(--grid-padding);
+}
+
+.back_btn,
+.delete_btn {
+    background-color: var(--primary-blue);
+    border-radius: 32px;
+    padding: 1rem 3rem;
+    color: #fff;
+    font-size: var(--btn-font-size);
+    font-weight: var(--btn-font-weight);
+
+    outline: none;
+    border: none;
+    cursor: pointer;
+    transition: all .3s ease-in-out;
+}
+
+.back_btn {
+    background-color: var(--dark-gray);
+}
+
+.delete_btn:hover {
+    background-color: var(--hover-blue);
+}
+
+.back_btn:hover {
+    background-color: var(--hover-gray);
+}
+
+@media (max-width: 500px) {
+    .manage {
+        flex-direction: column;
+    }    
+}

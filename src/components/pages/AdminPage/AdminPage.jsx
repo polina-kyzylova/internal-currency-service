@@ -73,20 +73,35 @@ export default function AdminPage() {
             >
               <Tab
                 value="budget"
-                sx={{ color: 'var(--dark-gray)', textTransform: 'none', fontSize: 'var(--lbl-mini-size)', fontWeight: 'var(--lbl-bold-weight)' }}
+                sx={{
+                  color: 'var(--dark-gray)',
+                  textTransform: 'none',
+                  fontSize: 'var(--lbl-mini-size)',
+                  fontWeight: 'var(--lbl-bold-weight)'
+                }}
                 aria-label="Бюджет"
                 label="Бюджет"
                 onClick={() => navigate('./budget')} />
               <Tab
                 value="cfo"
-                sx={{ color: 'var(--dark-gray)', textTransform: 'none', fontSize: 'var(--lbl-mini-size)', fontWeight: 'var(--lbl-bold-weight)' }}
+                sx={{
+                  color: 'var(--dark-gray)',
+                  textTransform: 'none',
+                  fontSize: 'var(--lbl-mini-size)',
+                  fontWeight: 'var(--lbl-bold-weight)'
+                }}
                 aria-label="ЦФО"
                 label="ЦФО"
                 onClick={() => navigate('./cfo')}
               />
               <Tab
                 value="admin"
-                sx={{ color: 'var(--dark-gray)', textTransform: 'none', fontSize: 'var(--lbl-mini-size)', fontWeight: 'var(--lbl-bold-weight)' }}
+                sx={{
+                  color: 'var(--dark-gray)',
+                  textTransform: 'none',
+                  fontSize: 'var(--lbl-mini-size)',
+                  fontWeight: 'var(--lbl-bold-weight)'
+                }}
                 aria-label="Мои финансы"
                 label="Мои финансы"
                 onClick={() => navigate('')}
