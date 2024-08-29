@@ -24,7 +24,6 @@
     }
 }
 
-
 .modal_info {
     text-align: center;
     display: flex;
@@ -33,28 +32,15 @@
     gap: 4vh;
 }
 
-.modal_title {
+.modal_info h2 {
     font-size: var(--lbl-small-size);
     font-weight: var(--lbl-light-weight);
 }
 
-.modal_data {
-    text-align: start;
-    display: flex;
-    flex-direction: column;
-    gap: var(--grid-padding);
-}
-
-.modal_data p {
+.modal_info p {
     font-size: var(--lbl-mini-size);
     font-weight: var(--lbl-light-weight);
 }
-
-.modal_data span {
-    font-weight: var(--lbl-bold-weight);
-}
-
-
 
 .manage {
     display: flex;

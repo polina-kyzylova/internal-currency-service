@@ -8,7 +8,6 @@ import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import { useDispatch, useSelector } from 'react-redux';
 import { hideAccNumber } from '../../../hooks/hideAccNumber';
 import { useGetQuery } from '../../../store/slices/apiSlice';
-import { updateMasterBalance } from '../../../store/slices/adminSlice';
 import { initAdmin } from '../../../store/slices/adminSlice';
 
 
@@ -34,9 +33,6 @@ export default function MasterAccount() {
             master_acc_number: currentData.account_number,
             master_acc_balance: currentData.amount,
         }))
-        //dispatch(updateMasterBalance({
-        //    master_acc_balance: currentData.amount,
-        //}))
     }
 
     /*----- check pooling result -----*/
@@ -46,7 +42,6 @@ export default function MasterAccount() {
             if (master_acc_balance !== currentData.amount) updateStore()
         }
     }, [currentData]);
-
 
 
 

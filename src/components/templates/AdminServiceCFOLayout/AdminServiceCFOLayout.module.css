@@ -1,12 +1,29 @@
 .content {
     display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    column-gap: var(--grid-padding);
+}
+
+.connections {
+    background-color: var(--light-gray);
+    border-radius: var(--card-radius);
+    padding: var(--global-padding);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--lbl-mini-size);
+    color: var(--dark-gray);
+}
+
+.box {
+    display: grid;
     grid-template-rows: auto 4rem;
     row-gap: var(--grid-padding);
 }
 
 .buttons_box {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     column-gap: var(--grid-padding);
 }
 
@@ -27,49 +44,28 @@
     background-color: var(--hover-blue);
 }
 
-@media (max-width: 500px) {
+
+@media (max-width: 1000px) {
     .content {
         display: grid;
         grid-template-rows: auto auto;
-        row-gap: var(--grid-padding);
-    }
-    .buttons_box {
-        display: grid;
         grid-template-columns: auto;
-        grid-template-rows: repeat(3, 4rem);
         column-gap: 0;
         row-gap: var(--grid-padding);
     }
 
-    .cfo_variant {
+    .buttons_box {
         display: grid;
         grid-template-columns: auto;
-        grid-template-rows: auto auto;
+        grid-template-rows: repeat(2, 4rem);
         column-gap: 0;
         row-gap: var(--grid-padding);
     }
-    
-    .cfo_service {
-        background-color: var(--light-gray);
-        border-radius: var(--card-radius);
-        padding: var(--global-padding);
-        grid-column-start: auto;
-        grid-column-end: auto;
-    
-        display: flex;
-        flex-direction: column;
-        gap: 3rem;
-    }
-    
-    .cfo_service_card {
-        grid-column-start: auto;
-        grid-column-end: auto;
-    }
-    
+
     .box {
         display: grid;
         grid-template-columns: auto;
-        grid-template-rows: repeat(2, 1fr);
+        grid-template-rows: auto auto;
         column-gap: 0;
         row-gap: var(--grid-padding);
     }
@@ -80,9 +76,9 @@
         border: none;
         cursor: none;
         transition: none;
-    }    
+    }
+
     .manage_btn:hover {
         background-color: var(--primary-blue);
     }
-    
 }

@@ -10,7 +10,7 @@ import AdminCFOPage from './components/pages/AdminCFOPage/AdminCFOPage';
 import AuthPage from './components/pages/AuthPage/AuthPage';
 
 import UserAccLayout from './components/templates/UserAccLayout/UserAccLayout';
-import AdminCFOLayout from './components/templates/AdminCFOLayout/AdminCFOLayout';
+import AdminCFOListLayout from './components/templates/AdminCFOListLayout/AdminCFOListLayout'
 import AdminBudgetLayout from './components/templates/AdminBudgetLayout/AdminBudgetLayout';
 import OwnerCFOLayout from './components/templates/OwnerCFOLayout/OwnerCFOLayout';
 import TransactionLayout from './components/templates/OperationsLayouts/TransactionLayout';
@@ -67,7 +67,7 @@ function App() {
           </PrivateRoute>
         } >
           <Route path="" element={<UserAccLayout />} />
-          <Route path="cfo" element={<AdminCFOLayout />} />
+          <Route path="cfo" element={<AdminCFOListLayout />} />
           <Route path="budget" element={<AdminBudgetLayout />} />
         </Route>
 

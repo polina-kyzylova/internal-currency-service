@@ -1,0 +1,113 @@
+.container {
+    width: 100%;
+    display: grid;
+    grid-template-rows: 4rem auto;
+    gap: var(--grid-padding);
+}
+
+.manage {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: end;
+}
+
+.create_btn {
+    height: 100%;
+    padding: 0 3rem;
+
+    background-color: var(--primary-blue);
+    border-radius: 32px;
+    color: #fff;
+    font-size: var(--btn-font-size);
+    font-weight: var(--btn-font-weight);
+
+    outline: none;
+    border: none;
+    cursor: pointer;
+    transition: all .3s ease-in-out;
+}
+
+.create_btn:hover {
+    background-color: var(--hover-blue);
+}
+
+.content {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: var(--grid-padding);
+}
+
+.cfo {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: var(--grid-padding);
+}
+
+.cfo h3 {
+    font-size: var(--lbl-small-size);
+    font-weight: var(--lbl-light-weight);
+    color: var(--primary-blue);
+}
+
+.cards {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: var(--grid-padding);
+}
+
+.dis_cfo {
+    font-size: 1.1rem;
+    color: var(--hover-gray);
+}
+
+
+
+
+
+@media (max-width: 1280px) {
+    .content {
+        width: 100%;
+        height: auto;
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: var(--grid-padding);
+    }
+}
+
+@media (max-width: 1000px) {
+    .container {
+        gap: 2rem;
+    }
+
+    .content {
+        width: 100%;
+        height: auto;
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+    }
+
+    .create_btn {
+        height: 4rem;
+        font-size: var(--lbl-mini-size);
+
+        outline: none;
+        border: none;
+        cursor: none;
+        transition: none;
+    }
+
+    .create_btn:hover {
+        background-color: var(--primary-blue);
+    }
+
+    .cards {
+        overflow-y: scroll;
+        overflow-x: hidden;
+        max-height: 80vh;
+    }
+}

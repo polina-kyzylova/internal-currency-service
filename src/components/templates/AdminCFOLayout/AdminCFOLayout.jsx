@@ -1,89 +1,23 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import styles from './AdminCFOLayout.module.css';
-import CFOCard from '../../molecules/CFOCard/CFOCard';
+import CFOAccount from '../../molecules/CFOAccount/CFOAccount';
 import { useNavigate } from 'react-router-dom';
-import { useGetQuery } from '../../../store/slices/apiSlice';
 
 
-
-export default function AdminCFOLayout() {
+export default function AdminCFOLayout({ cfo_balance, cfo_number }) {
   const navigate = useNavigate();
 
-  const [cfoListSize, setCFOListSize] = useState(10);
-  const [allTeamCFO, setAllTeamCFO] = useState([]);
-  const [allServiceCFO, setAllServiceCFO] = useState([]);
-
-  /*----- pooling -----*/
-  let { data: allTeamCFOList } = useGetQuery(`/fsc?fscType=TEAM&page=1&size=${cfoListSize}`, {
-    pollingInterval: 2000,
-    skipPollingIfUnfocused: true,
-  });
-
-  let { data: allServiceCFOList } = useGetQuery(`/fsc?fscType=STORE&page=1&size=${cfoListSize}`, {
-    pollingInterval: 2000,
-    skipPollingIfUnfocused: true,
-  });
-
-
-  /*----- check pooling result -----*/
-  useEffect(() => {
-    if (!!allTeamCFOList) setAllTeamCFO(allTeamCFOList.data)
-    if (!!allServiceCFOList) setAllServiceCFO(allServiceCFOList.data)
-  }, [allTeamCFOList, allServiceCFOList]);
-
-
   return (
-    <div className={styles.container}>
-      <div className={styles.manage}>
-        <button
-          className={styles.create_btn}
-          onClick={() => navigate('/admin/create-cfo')}
-        >Создать ЦФО
-        </button>
-      </div>
+    <div className={styles.content}>
+      <CFOAccount
+        cfo_balance={cfo_balance}
+        cfo_number={cfo_number}
+      />
 
-      <div className={styles.content}>
-        <div className={styles.cfo}>
-          <h3>ЦФО сервисов</h3>
-
-          <div className={styles.cards}>
-            {!!allServiceCFO.length ?
-              allServiceCFO.map(item => {
-                return <CFOCard
-                  key={item.id}
-                  cfo_id={item.id}
-                  balance={item.account_balance.toLocaleString()}
-                  title={item.name}
-                  owner_name={item.owner_name}
-                  owner_lastname={item.owner_lastname}
-                  owner_surname={item.owner_surname}
-                />
-              }) :
-              <p className={styles.dis_cfo}>Нет активных ЦФО</p>
-            }
-          </div>
-        </div>
-
-        <div className={styles.cfo}>
-          <h3>ЦФО</h3>
-
-          <div className={styles.cards}>
-            {!!allTeamCFO.length ?
-              allTeamCFO.map(item => {
-                return <CFOCard
-                  key={item.id}
-                  cfo_id={item.id}
-                  balance={item.account_balance.toLocaleString()}
-                  title={item.name}
-                  owner_name={item.owner_name}
-                  owner_lastname={item.owner_lastname}
-                  owner_surname={item.owner_surname}
-                />
-              }) :
-              <p className={styles.dis_cfo}>Нет активных ЦФО</p>
-            }
-          </div>
-        </div>
+      <div className={styles.buttons_box}>
+        <button className={styles.manage_btn} onClick={() => navigate('change-owner')}>Сменить владельца</button>
+        <button className={styles.manage_btn} onClick={() => navigate('transfer-cfo')}>Перевести</button>
+        <button className={styles.manage_btn} onClick={() => navigate('replenish-cfo')}>Пополнить</button>
       </div>
     </div>
   )

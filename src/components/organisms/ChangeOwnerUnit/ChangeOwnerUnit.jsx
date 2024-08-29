@@ -6,7 +6,7 @@ import GrayButtonBack from '../../atoms/GrayButtonBack/GrayButtonBack';
 import CFOInfoTable from '../../molecules/ConfirmForm/CFOInfoTable';
 import UsersAutoList from '../../molecules/TransactionForm/UsersAutoList';
 import { useSelector } from 'react-redux';
-import ChangeOwnerModal from '../../molecules/ChangeOwnerModal/ChangeOwnerModal';
+import UniversalModal from '../../molecules/UniversalModal/UniversalModal';
 
 
 export default function ChangeOwnerUnit() {
@@ -30,13 +30,12 @@ export default function ChangeOwnerUnit() {
 
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
-            <ChangeOwnerModal
-                username={getValues('target_user_username')}
-                name={getValues('target_user_name')}
-                surname={getValues('target_user_surname')}
-                lastname={getValues('target_user_lastname')}
-                open={deleteModalOpen}
+            <UniversalModal
                 handleClose={handleClose}
+                targetOption={handleClose}
+                open={deleteModalOpen}
+                title='Вы уверены, что хотите сменить владельца ЦФО?'
+                subtitle={`Юзернейм: ${getValues('target_user_username')}`}
             />
 
             <div className={styles.container}>

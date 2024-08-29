@@ -1,15 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import styles from './AdminCFOPage.module.css';
 import { useNavigate, useOutletContext, useParams } from 'react-router-dom';
-import CFOAccount from '../../molecules/CFOAccount/CFOAccount';
 import TextField from '@mui/material/TextField';
 import { useForm } from "react-hook-form";
 
 import CreateIcon from '@mui/icons-material/Create';
-import WestIcon from '@mui/icons-material/West';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-import DeleteCFOModal from '../../molecules/DeleteCFOModal/DeleteCFOModal';
-import ServiceCFOCard from '../../molecules/ServiceCFOCard/ServiceCFOCard';
+import GrayButton from '../../atoms/GrayButton/GrayButton';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { initCurrentCFO } from '../../../store/slices/adminSlice';
@@ -17,6 +14,10 @@ import { removeCurrentCFO } from '../../../store/slices/adminSlice';
 import { updateCurrentCFO } from '../../../store/slices/adminSlice';
 import { useGetCFOInfoMutation } from '../../../store/slices/apiSlice';
 import Loader from '../../atoms/Loader';
+import UniversalModal from '../../molecules/UniversalModal/UniversalModal';
+
+import AdminCFOLayout from '../../templates/AdminCFOLayout/AdminCFOLayout';
+import AdminServiceCFOLayout from '../../templates/AdminServiceCFOLayout/AdminServiceCFOLayout';
 
 
 
@@ -59,13 +60,11 @@ export default function AdminCFOPage() {
         getMe()
     }, [])
 
-
     /*----- remove current CFO data from store -----*/
     function leaveCFO() {
         dispatch(removeCurrentCFO());
         navigate(-1);
     }
-
 
     /*----- change CFO title form -----*/
     const {
@@ -85,34 +84,22 @@ export default function AdminCFOPage() {
     }
 
 
-    /*----- render CFO card by type ------*/
-    function cfoRender() {
-        if (admin.current_cfo_type !== 'TEAM') {
+    function showCFO() {
+        if (admin.current_cfo_type === 'TEAM') {
             return (
-                <div className={styles.cfo_variant}>
-                    <ServiceCFOCard
-                        status='ok'
-                        service_title='Lalala'
-                        service_id='123'
-                    />
-
-                    <div className={styles.cfo_service_card}>
-                        <CFOAccount
-                            cfo_balance={admin.current_cfo_balance}
-                            cfo_number={admin.current_cfo_number}
-                        />
-                    </div>
-                </div>
+                <AdminCFOLayout
+                    cfo_balance={admin.current_cfo_balance}
+                    cfo_number={admin.current_cfo_number}
+                />
             )
         } else {
             return (
-                <CFOAccount
+                <AdminServiceCFOLayout
                     cfo_balance={admin.current_cfo_balance}
                     cfo_number={admin.current_cfo_number}
                 />
             )
         }
-
     }
 
 
@@ -120,28 +107,25 @@ export default function AdminCFOPage() {
     if (infoLoading) return <Loader />
     else return (
         <div className={styles.container}>
-            <DeleteCFOModal
-                cfo_id={cfo_id}
-                cfo_title={admin.current_cfo_title}
+            <UniversalModal
                 open={deleteModalOpen}
                 handleClose={handleClose}
+                targetOption={handleClose}
+                title='Вы уверены, что хотите удалить ЦФО?'
+                subtitle={`Название: ${admin.current_cfo_title}`}
             />
 
             <div className={styles.header}>
-                <button className='operations-prev-btn' onClick={() => leaveCFO()}>
-                    <WestIcon sx={{ color: '#fff', fontSize: 35 }} />
-                </button>
+                <GrayButton
+                    direction='west'
+                    onClick={() => leaveCFO()}
+                />
                 <button className={styles.delete_btn} onClick={handleOpen}>Удалить ЦФО</button>
             </div>
 
-            <div className={styles.content}>
-                {cfoRender()}
 
-                <div className={styles.buttons_box}>
-                    <button className={styles.manage_btn} onClick={() => navigate('change-owner')}>Сменить владельца</button>
-                    <button className={styles.manage_btn} onClick={() => navigate('transfer-cfo')}>Перевести</button>
-                    <button className={styles.manage_btn} onClick={() => navigate('replenish-cfo')}>Пополнить</button>
-                </div>
+            <div className={styles.content}>
+                {showCFO()}
 
                 <div className={styles.box}>
                     <div className={styles.card}>
@@ -190,3 +174,4 @@ export default function AdminCFOPage() {
         </div>
     )
 }
+

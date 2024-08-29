@@ -7,7 +7,6 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import { useDispatch, useSelector } from 'react-redux';
 import { hideAccNumber } from '../../../hooks/hideAccNumber';
-
 import { updateUserBalance } from '../../../store/slices/userSlice';
 import { useGetQuery } from '../../../store/slices/apiSlice';
 
