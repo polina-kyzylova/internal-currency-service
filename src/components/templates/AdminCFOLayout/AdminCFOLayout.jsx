@@ -15,12 +15,12 @@ export default function AdminCFOLayout() {
 
   /*----- pooling -----*/
   let { data: allTeamCFOList } = useGetQuery(`/fsc?fscType=TEAM&page=1&size=${cfoListSize}`, {
-    pollingInterval: 3000,
+    pollingInterval: 2000,
     skipPollingIfUnfocused: true,
   });
 
   let { data: allServiceCFOList } = useGetQuery(`/fsc?fscType=STORE&page=1&size=${cfoListSize}`, {
-    pollingInterval: 3000,
+    pollingInterval: 2000,
     skipPollingIfUnfocused: true,
   });
 

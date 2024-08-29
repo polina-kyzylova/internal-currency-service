@@ -21,9 +21,6 @@ import { initUser, setUserRole } from '../../../store/slices/userSlice';
 import { initAdmin } from '../../../store/slices/adminSlice';
 
 
-
-
-
 export default function LoginLayout() {
     const [showPassword, setShowPassword] = useState(false);
     const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -66,19 +63,26 @@ export default function LoginLayout() {
 
     const setupAdmin = async () => {
         const result = await getMaster(masterEP);
-        console.log(result)
 
         if (!!result) {
             dispatch(setUserRole({
                 user_type: 'ROLE_ADMIN',
             }))
             dispatch(initAdmin({
-            master_acc_number: result.account_number,
-            master_acc_balance: result.amount,
+                master_acc_number: result.account_number,
+                master_acc_balance: result.amount,
             }))
             navigate('/admin')
         }
     }
+
+    const setupOwner = () => {
+        dispatch(setUserRole({
+            user_type: 'ROLE_OWNER',
+        }))
+        navigate('/owner')
+    }
+
 
 
     /*----- submit data -----*/
@@ -105,24 +109,17 @@ export default function LoginLayout() {
                     personal_acc_balance: setupResponse.data.account_balance,
                 }))
 
-                switch (decodedToken.role) {
-                    case 'ROLE_USER':
-                        dispatch(setUserRole({
-                            user_type: 'ROLE_USER',
-                        }))
-                        navigate('/user')
-                        break;
-
-                    case 'ROLE_OWNER':
-                        dispatch(setUserRole({
-                            user_type: 'ROLE_OWNER',
-                        }))
-                        navigate('/owner')
-                        break;
-
-                    case 'ROLE_ADMIN':
-                        setupAdmin();
-                        break;
+                if (decodedToken.role === 'ROLE_USER') {
+                    dispatch(setUserRole({
+                        user_type: 'ROLE_USER',
+                    }))
+                    navigate('/user')
+                }
+                else if (decodedToken.role === 'ROLE_OWNER') {
+                    setupOwner();
+                }
+                else if (decodedToken.role === 'ROLE_ADMIN') {
+                    setupAdmin();
                 }
             }
         } else {

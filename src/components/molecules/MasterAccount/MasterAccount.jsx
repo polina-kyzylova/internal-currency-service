@@ -8,7 +8,7 @@ import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import { useDispatch, useSelector } from 'react-redux';
 import { hideAccNumber } from '../../../hooks/hideAccNumber';
 import { useGetQuery } from '../../../store/slices/apiSlice';
-import updateMasterBalance from '../../../store/slices/adminSlice';
+import { updateMasterBalance } from '../../../store/slices/adminSlice';
 
 
 export default function MasterAccount() {
@@ -20,9 +20,10 @@ export default function MasterAccount() {
     const [currentBalance, setCurrentBalance] = useState();
     const dispatch = useDispatch();
 
+
     /*----- pooling -----*/
     let { data: currentData } = useGetQuery(masterEP, {
-        pollingInterval: 3000,
+        pollingInterval: 2000,
         skipPollingIfUnfocused: true,
     });
 
@@ -35,10 +36,10 @@ export default function MasterAccount() {
 
     /*----- check pooling result -----*/
     useEffect(() => {
-        //if (!!currentData) {
-        //    setCurrentBalance(currentData.amount)
-        //    if (master_acc_balance !== currentData.amount) updateStore()
-        //}
+        if (!!currentData) {
+            setCurrentBalance(currentData.amount)
+            if (master_acc_balance !== currentData.amount) updateStore()
+        }
     }, [currentData]);
 
 

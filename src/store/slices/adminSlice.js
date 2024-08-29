@@ -44,7 +44,7 @@ export const adminSlice = createSlice({
             state[item] = new_value;
         },
         updateMasterBalance: (state, action) => {
-            state.master_acc_number = action.payload.master_acc_number;
+            state.master_acc_balance = action.payload.master_acc_balance;
         },
         removeCurrentCFO: (state) => {
             state.current_cfo_number = null;
