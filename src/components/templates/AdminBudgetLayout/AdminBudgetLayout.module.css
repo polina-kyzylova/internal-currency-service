@@ -16,9 +16,9 @@
 }
 
 .oborot {
-    width: 100%;
     background-color: var(--light-gray);
     border-radius: var(--card-radius);
+    padding: var(--grid-padding);
 }
 
 .operations {

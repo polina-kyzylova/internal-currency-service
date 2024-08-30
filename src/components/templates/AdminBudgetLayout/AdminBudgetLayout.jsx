@@ -37,9 +37,7 @@ export default function AdminBudgetLayout() {
 
       <div className={styles.content}>
         <div className={styles.oborot}>
-          <h4>Оборот всех средств</h4>
-          <p>Оборот ЦФО</p>
-          <p>Оборот ЦФО сервисов</p>
+          <h4>Оборот средств</h4>
         </div>
 
         <div className={styles.operations}>
