@@ -10,13 +10,15 @@ import CFOInfoTable from '../../molecules/ConfirmForm/CFOInfoTable';
 import UserInfoTable from '../../molecules/ConfirmForm/UserInfoTable';
 import OperationTypeTable from '../../molecules/ConfirmForm/OperationTypeTable';
 import Loader from '../../atoms/Loader';
+import { useSelector } from 'react-redux';
 
 
 
 export default function ConfirmTransferCFOUnit({ setConfirmTransfer }) {
   const navigate = useNavigate();
   const [data, setData] = useOutletContext();
-  const { cfo_id } = useParams()
+  const { cfo_id } = useParams();
+  const cfo = useSelector(state => state.cfo);
 
 
   /*----- confirm recipient type -----*/
@@ -53,7 +55,7 @@ export default function ConfirmTransferCFOUnit({ setConfirmTransfer }) {
       payment_comment: data.purpose_message,
     }
     const result = await transferCFO({
-      id: cfo_id,
+      id: !!cfo_id ? cfo_id : cfo.cfo_id,
       body: bodyShape
     });
     console.log(bodyShape)

@@ -39,8 +39,6 @@ export default function CFOAutoList({ errors, register, title, setValue, getValu
     }, [open]);
 
 
-
-
     return (
         <div className='transaction-form-input-box'>
             <label className='transaction-form-label' htmlFor='recipient'>{title}</label>

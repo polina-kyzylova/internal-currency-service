@@ -44,7 +44,6 @@ export default function UserMoneyAcc() {
 
 
 
-
     return (
         <div className={styles.container}>
             <div className={styles.data}>

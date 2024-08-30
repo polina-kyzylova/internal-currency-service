@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from 'react';
-import { useGetQueryMutation } from '../../../store/slices/apiSlice';
+import React from 'react';
 import styles from './PurposeTags.module.css';
 import TextField from '@mui/material/TextField';
 
