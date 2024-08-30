@@ -11,7 +11,9 @@ const initialState = {
   get_cfo_info: '/getFscInfo',
   replenish_cfo: '/fsc/top-up',
   cfo_purposes_tags: '/fsc/payments-purposes?reciever=user',
-  master_data: '/budget'
+  master_data: '/budget',
+  setup_cfo: '/fsc/me',
+  master_analytics: '/budget/short-analytics',
 };
 
 const endpointsSlice = createSlice({

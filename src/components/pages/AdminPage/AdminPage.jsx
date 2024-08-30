@@ -10,6 +10,7 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 import { useSelector } from 'react-redux';
+import MenuIcon from '@mui/icons-material/Menu';
 
 
 
@@ -35,7 +36,7 @@ export default function AdminPage() {
     <div className={styles.container}>
       <div className={styles.header}>
         <div className={styles.mobile_items}>
-          <p>menu</p>
+          <MenuIcon />
         </div>
 
         <div className={styles.user_info}>

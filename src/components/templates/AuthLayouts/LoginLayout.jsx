@@ -20,6 +20,7 @@ import { base64Decoding } from '../../../hooks/base64Decoding';
 import { initUser, setUserRole } from '../../../store/slices/userSlice';
 
 
+
 export default function LoginLayout() {
     const [showPassword, setShowPassword] = useState(false);
     const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -56,7 +57,6 @@ export default function LoginLayout() {
     };
 
 
-
     /*----- submit data -----*/
     const onSubmit = async (formData) => {
         const loginResponse = await loginUser({ endpoint: loginEP, body: formData });
@@ -87,9 +87,9 @@ export default function LoginLayout() {
                     }))
                     navigate('/user')
                 }
-                else if (decodedToken.role === 'ROLE_OWNER') {
+                else if (decodedToken.role === 'ROLE_FSC_OWNER') {
                     dispatch(setUserRole({
-                        user_type: 'ROLE_OWNER',
+                        user_type: 'ROLE_FSC_OWNER',
                     }))
                     navigate('/owner')
                 }

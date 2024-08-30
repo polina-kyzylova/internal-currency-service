@@ -9,18 +9,18 @@ import { useGetQuery } from '../../../store/slices/apiSlice';
 export default function AdminCFOListLayout() {
   const navigate = useNavigate();
 
-  const [cfoListSize, setCFOListSize] = useState(10);
+  const [cfoListSize, setCFOListSize] = useState(20);
   const [allTeamCFO, setAllTeamCFO] = useState([]);
   const [allServiceCFO, setAllServiceCFO] = useState([]);
 
   /*----- pooling -----*/
   let { data: allTeamCFOList } = useGetQuery(`/fsc?fscType=TEAM&page=1&size=${cfoListSize}`, {
-    pollingInterval: 2000,
+    pollingInterval: 5000,
     skipPollingIfUnfocused: true,
   });
 
   let { data: allServiceCFOList } = useGetQuery(`/fsc?fscType=STORE&page=1&size=${cfoListSize}`, {
-    pollingInterval: 2000,
+    pollingInterval: 5000,
     skipPollingIfUnfocused: true,
   });
 

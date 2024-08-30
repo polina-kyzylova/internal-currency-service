@@ -23,7 +23,7 @@ export default function MasterAccount() {
 
     /*----- pooling -----*/
     let { data: currentData } = useGetQuery(masterEP, {
-        pollingInterval: 2000,
+        pollingInterval: 5000,
         skipPollingIfUnfocused: true,
     });
 

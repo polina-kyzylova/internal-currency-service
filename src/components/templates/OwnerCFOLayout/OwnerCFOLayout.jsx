@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './OwnerCFOLayout.module.css';
 import OperationsAction from '../../molecules/OperationsAction/OperationsAction';
 import CFOAccount from '../../molecules/CFOAccount/CFOAccount';
@@ -7,6 +7,9 @@ import AdminAnalyticsUnit from '../../organisms/AdminAnalyticsUnit/AdminAnalytic
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import ServiceCFOCard from '../../molecules/ServiceCFOCard/ServiceCFOCard';
+import { useGetQuery } from '../../../store/slices/apiSlice';
+import Loader from '../../atoms/Loader';
+import { initCFO } from '../../../store/slices/cfoSlice';
 
 
 
@@ -38,8 +41,41 @@ export default function OwnerCFOLayout() {
     }
 
 
+    const setup_cfo = useSelector((state) => state.endpoints.setup_cfo);
+    const [currentBalance, setCurrentBalance] = useState();
+    const dispatch = useDispatch();
 
-    return (
+    /*----- pooling -----*/
+    let { data: currentData, isLoading: cfoLoading } = useGetQuery(setup_cfo, {
+        pollingInterval: 2000,
+        skipPollingIfUnfocused: true,
+    });
+
+    /*----- update store if balance change -----*/
+    function updateStore() {
+        dispatch(dispatch(initCFO({
+            cfo_number: currentData.account_number,
+            cfo_balance: currentData.balance,
+            cfo_title: currentData.name,
+            cfo_id: currentData.id,
+            owner_full_name: currentData.owner_full_name,
+            cfo_type: currentData.fsc_type,
+        })))
+    }
+
+    /*----- check pooling result -----*/
+    useEffect(() => {
+        if (!!currentData) {
+            setCurrentBalance(currentData.balance)
+            if (cfo_balance !== currentData.balance) updateStore()
+        }
+    }, [currentData]);
+
+
+    
+
+    if (cfoLoading) return <Loader />
+    else return (
         <div className={styles.container}>
             <div className={styles.content}>
                 <div className={styles.item}>
@@ -59,7 +95,7 @@ export default function OwnerCFOLayout() {
                     </div>
                 </div>
 
-                <CFOAccount cfo_balance={cfo_balance} cfo_number={cfo_number} />
+                <CFOAccount cfo_balance={currentBalance} cfo_number={cfo_number} />
             </div>
 
 

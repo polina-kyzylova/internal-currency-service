@@ -18,6 +18,7 @@ import { initUser } from '../../../store/slices/userSlice';
 import AlertTitle from '@mui/material/AlertTitle';
 import { Alert } from '@mui/material';
 import { Snackbar } from '@mui/material';
+import { setUserRole } from '../../../store/slices/userSlice';
 
 
 
@@ -72,27 +73,20 @@ export default function RegistrationLayout() {
             const decodedToken = base64Decoding(token);
 
             if (!!setupResponse.data) {
-                switch (decodedToken.role) {
-                    case 'ROLE_USER':
-                        dispatch(initUser({
-                            user_type: 'ROLE_USER',
-                            user_id: setupResponse.data.user_id,
-                            username: formData.username,
-                            surname: setupResponse.data.surname,
-                            name: setupResponse.data.name,
-                            last_name: setupResponse.data.lastname,
-                            email: setupResponse.data.email,
-                            personal_acc_number: setupResponse.data.account_number,
-                            personal_acc_balance: setupResponse.data.account_balance,
-                        }))
-                        navigate('/user')
-                        break;
-
-                    case 'ROLE_OWNER':
-                        break;
-                    case 'ROLE_ADMIN':
-                        break;
-                }
+                dispatch(initUser({
+                    user_id: setupResponse.data.user_id,
+                    username: formData.username,
+                    surname: setupResponse.data.surname,
+                    name: setupResponse.data.name,
+                    last_name: setupResponse.data.lastname,
+                    email: setupResponse.data.email,
+                    personal_acc_number: setupResponse.data.account_number,
+                    personal_acc_balance: setupResponse.data.account_balance,
+                }))
+                dispatch(setUserRole({
+                    user_type: 'ROLE_USER',
+                }))
+                navigate('/user')
             }
         } else {
             handleClick(registResponse.error.data.description);

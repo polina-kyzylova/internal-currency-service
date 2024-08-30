@@ -4,6 +4,7 @@ import ControlUnit from '../../molecules/ControlUnit';
 import UserAccLayout from '../../templates/UserAccLayout/UserAccLayout';
 import SideMenu from '../../molecules/SideMenu/SideMenu';
 import { useSelector } from 'react-redux';
+import MenuIcon from '@mui/icons-material/Menu';
 
 
 export default function HomePage() {
@@ -13,7 +14,7 @@ export default function HomePage() {
     <div className={styles.container}>
       <div className={styles.header}>
         <div className={styles.mobile_items}>
-          <p>menu</p>
+          <MenuIcon />
         </div>
 
         <h2 className={styles.user}>{name} {surname}</h2>

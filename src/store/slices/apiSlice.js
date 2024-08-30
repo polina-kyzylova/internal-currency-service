@@ -14,7 +14,6 @@ const baseQuery = fetchBaseQuery({
   baseUrl: url,
   prepareHeaders: async headers => {
     const accessToken = localStorage.getItem('accessToken');
-    //if (accessToken && !isRefreshing) {
     if (accessToken) {
       headers.set('Authorization', `Bearer ${accessToken}`);
     }
@@ -30,8 +29,7 @@ const baseQuery = fetchBaseQuery({
 const baseQueryWithReauth = async (args, api, extraOptions) => {
   let result = await baseQuery(args, api, extraOptions)
 
-  //if (result.error && result.error.status === 401) {
-  if (result.error) {
+  if (result.error && result.error.status === 401) {
     if (!isRefreshing) {
       isRefreshing = true // Indicate refresh is in progress
       const refreshToken = localStorage.getItem('refreshToken');
@@ -40,8 +38,7 @@ const baseQueryWithReauth = async (args, api, extraOptions) => {
         baseQuery({
           url: `/users/me/refresh-token`,
           method: 'POST',
-          //headers: { Authorization: `Bearer ${refreshToken}` },
-          //body: { token: localStorage.getItem('refreshToken') },
+          headers: { Authorization: `Bearer ${refreshToken}` },
         },
           api,
           extraOptions
@@ -59,8 +56,7 @@ const baseQueryWithReauth = async (args, api, extraOptions) => {
           } else {
             // Handle refresh error
             isRefreshing = false // Ensure flag is reset for future requests
-            //if (refreshResult?.error?.status === 500) {
-            if (refreshResult?.error?.status === 300) {
+            if (refreshResult?.error?.status === 401) {
               localStorage.setItem("accessToken", null);
               localStorage.setItem("refreshToken", null);
               window.location.reload(true)

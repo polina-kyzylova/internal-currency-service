@@ -19,6 +19,26 @@
     background-color: var(--light-gray);
     border-radius: var(--card-radius);
     padding: var(--grid-padding);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.oborot_item {
+    display: flex;
+    flex-direction: column;
+    gap: var(--grid-padding);
+}
+
+.oborot_item p {
+    color: var(--hover-gray);
+    font-size: var(--lbl-small-size);
+}
+
+.oborot_item h2 {
+    font-size: var(--lbl-medium-size);
+    font-weight: var(--lbl-bold-weight);
 }
 
 .operations {

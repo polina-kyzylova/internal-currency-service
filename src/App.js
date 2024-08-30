@@ -113,7 +113,7 @@ function App() {
         {/*========== CFO OWNER PAGES ==========*/}
         <Route path="/owner" element={
           <PrivateRoute
-            isAllowed={!!token && !!user && user.user_type === 'ROLE_OWNER'}
+            isAllowed={!!token && !!user && user.user_type === 'ROLE_FSC_OWNER'}
           >
             <OwnerPage />
           </PrivateRoute>
@@ -125,7 +125,7 @@ function App() {
         {/*----- owner cfo manage page -----*/}
         <Route path="/owner/transfer-cfo" element={
           <PrivateRoute
-            isAllowed={!!token && !!user && user.user_type === 'ROLE_OWNER'}
+            isAllowed={!!token && !!user && user.user_type === 'ROLE_FSC_OWNER'}
           >
             <TransactionPage />
           </PrivateRoute>

@@ -21,7 +21,7 @@ export default function ResultTransactionUnit() {
         )
     } else {
         return (
-            <div className={styles.container}>
+            <div className={styles.sad_container}>
                 <img src={sad} alt='Error transaction' />
                 <h2>Ошибка! Повторите операцию позже</h2>
 

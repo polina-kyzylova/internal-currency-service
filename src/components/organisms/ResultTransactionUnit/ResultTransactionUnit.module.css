@@ -21,6 +21,29 @@
     width: 20rem;
 }
 
+.sad_container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+
+    background-color: var(--dark-gray);
+    border-radius: var(--card-radius);
+    padding: var(--global-padding);
+}
+
+.sad_container h2 {
+    font-size: var(--lbl-medium-size);
+    font-weight: var(--lbl-light-weight);
+    color: #fff;
+}
+
+.sad_container img {
+    width: 20rem;
+}
+
 .return_btn {
     width: fit-content;
     padding: 1rem 3rem;
