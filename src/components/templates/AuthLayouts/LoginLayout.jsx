@@ -18,7 +18,6 @@ import { Alert } from '@mui/material';
 import { Snackbar } from '@mui/material';
 import { base64Decoding } from '../../../hooks/base64Decoding';
 import { initUser, setUserRole } from '../../../store/slices/userSlice';
-import { initAdmin } from '../../../store/slices/adminSlice';
 
 
 export default function LoginLayout() {
@@ -58,33 +57,6 @@ export default function LoginLayout() {
 
 
 
-    const masterEP = useSelector((state) => state.endpoints.master_data);
-    const [getMaster] = useGetQueryMutation();
-
-    const setupAdmin = async () => {
-        const result = await getMaster(masterEP);
-
-        if (!!result) {
-            dispatch(setUserRole({
-                user_type: 'ROLE_ADMIN',
-            }))
-            dispatch(initAdmin({
-                master_acc_number: result.account_number,
-                master_acc_balance: result.amount,
-            }))
-            navigate('/admin')
-        }
-    }
-
-    const setupOwner = () => {
-        dispatch(setUserRole({
-            user_type: 'ROLE_OWNER',
-        }))
-        navigate('/owner')
-    }
-
-
-
     /*----- submit data -----*/
     const onSubmit = async (formData) => {
         const loginResponse = await loginUser({ endpoint: loginEP, body: formData });
@@ -116,10 +88,16 @@ export default function LoginLayout() {
                     navigate('/user')
                 }
                 else if (decodedToken.role === 'ROLE_OWNER') {
-                    setupOwner();
+                    dispatch(setUserRole({
+                        user_type: 'ROLE_OWNER',
+                    }))
+                    navigate('/owner')
                 }
                 else if (decodedToken.role === 'ROLE_ADMIN') {
-                    setupAdmin();
+                    dispatch(setUserRole({
+                        user_type: 'ROLE_ADMIN',
+                    }))
+                    navigate('/admin')
                 }
             }
         } else {

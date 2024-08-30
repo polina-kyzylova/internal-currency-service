@@ -48,8 +48,7 @@ function App() {
         {/*========== USER PAGES ==========*/}
         <Route path="/user" element={
           <PrivateRoute
-            //  isAllowed={!!token && !!user && user.user_type === 'ROLE_USER'}
-            isAllowed={!!token && !!user}
+            isAllowed={!!token && !!user && user.user_type === 'ROLE_USER'}
           >
             <HomePage />
           </PrivateRoute>
@@ -60,8 +59,7 @@ function App() {
         {/*========== ADMIN PAGES ==========*/}
         <Route path="/admin" element={
           <PrivateRoute
-            //isAllowed={!!token && !!user && user.user_type === 'ROLE_ADMIN'}
-            isAllowed={!!token && !!user}
+            isAllowed={!!token && !!user && user.user_type === 'ROLE_ADMIN'}
           >
             <AdminPage />
           </PrivateRoute>
@@ -74,8 +72,7 @@ function App() {
         {/*----- admin cfo pages -----*/}
         <Route path="/admin/create-cfo" element={
           <PrivateRoute
-            //isAllowed={!!token && !!user && user.user_type === 'ROLE_ADMIN'}
-            isAllowed={!!token && !!user}
+            isAllowed={!!token && !!user && user.user_type === 'ROLE_ADMIN'}
           >
             <TransactionPage />
           </PrivateRoute>
@@ -87,15 +84,14 @@ function App() {
 
         <Route path='/admin/cfo/:cfo_id' element={
           <PrivateRoute
-            //  isAllowed={!!token && !!user && user.user_type === 'ROLE_ADMIN'}
-            isAllowed={!!token && !!user}
+            isAllowed={!!token && !!user && user.user_type === 'ROLE_ADMIN'}
           >
             <TransactionPage />
           </PrivateRoute>
         }>
           <Route path='' element={<AdminCFOPage />} />
           <Route path="replenish-cfo" element={<ReplenishCFOLayout />} />                       {/* master-to-cfo transaction */}
-          <Route path="transfer-cfo" element={<TransferCFOLayout current_user='admin' />} />                         {/* cfo-to-user/cfo transaction */}
+          <Route path="transfer-cfo" element={<TransferCFOLayout current_user='admin' />} />    {/* cfo-to-user/cfo transaction */}
           <Route path="change-owner" element={<ChangeOwnerUnit />} />                           {/* change cfo owner */}
           <Route path="result/:status" element={<OperationResult />} />                         {/* transactions result */}
         </Route>
@@ -103,8 +99,7 @@ function App() {
         {/*----- admin budget page -----*/}
         <Route path="/admin/transfer-master" element={
           <PrivateRoute
-            //  isAllowed={!!token && !!user && user.user_type === 'ROLE_ADMIN'}
-            isAllowed={!!token && !!user}
+            isAllowed={!!token && !!user && user.user_type === 'ROLE_ADMIN'}
           >
             <TransactionPage />
           </PrivateRoute>
@@ -118,8 +113,7 @@ function App() {
         {/*========== CFO OWNER PAGES ==========*/}
         <Route path="/owner" element={
           <PrivateRoute
-            //isAllowed={!!token && !!user && user.user_type === 'ROLE_OWNER'}
-            isAllowed={!!token && !!user}
+            isAllowed={!!token && !!user && user.user_type === 'ROLE_OWNER'}
           >
             <OwnerPage />
           </PrivateRoute>
@@ -131,14 +125,13 @@ function App() {
         {/*----- owner cfo manage page -----*/}
         <Route path="/owner/transfer-cfo" element={
           <PrivateRoute
-            //  isAllowed={!!token && !!user && user.user_type === 'ROLE_OWNER'}
-            isAllowed={!!token && !!user}
+            isAllowed={!!token && !!user && user.user_type === 'ROLE_OWNER'}
           >
             <TransactionPage />
           </PrivateRoute>
         }>                                                                                     {/* cfo-to-user/cfo transaction */}
           <Route path='' element={<TransferCFOLayout current_user='owner' />} />
-          <Route path="result/:status" element={<OperationResult />} />  
+          <Route path="result/:status" element={<OperationResult />} />
         </Route>
 
 
