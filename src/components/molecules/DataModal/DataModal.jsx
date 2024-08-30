@@ -5,24 +5,39 @@ import { useForm } from 'react-hook-form';
 import AmountInput from '../../molecules/TransactionForm/AmountInput';
 import { useSelector } from 'react-redux';
 import { usePostQueryMutation } from '../../../store/slices/apiSlice';
-import Loader from '../../atoms/Loader';
 
 
 export default function DataModal({ open, handleClose }) {
     const [isTopUp, setIsTopUp] = useState(true);
-    const [success, setSuccess] = useState();
+    const [success, setSuccess] = useState(false);
     const {
         register,
         handleSubmit,
+        setValue,
         formState: { errors },
     } = useForm();
 
     const masterEP = useSelector((state) => state.endpoints.master_data);
-    const [topUp, { isLoading: topUpLoading }] = usePostQueryMutation();
+    const [topUp] = usePostQueryMutation();
 
-    const onSubmit = async (data) => {
-        const result = await topUp({ endpoint: masterEP, body: { amount: data.amount } });
-        setSuccess(!!result.amount)
+    const topMaster = async (x) => {
+        const result = await topUp({ endpoint: masterEP, body: x });
+
+        if (!!result) {
+            setSuccess(true)
+            setIsTopUp(false);
+        }
+        else {
+            setSuccess(false);
+            setIsTopUp(false);
+        }
+    }
+
+    const onSubmit = (data) => {
+        let x = {
+            amount: data.amount
+        }
+        topMaster(x)
     }
 
     function showResult() {
@@ -30,19 +45,36 @@ export default function DataModal({ open, handleClose }) {
             return (
                 <div className={styles.container}>
                     <p>Операция выполнена успешно!</p>
-                    <button className={styles.delete_btn} onClick={(() => handleClose)}>Ок</button>
+                    <button
+                        className={styles.delete_btn}
+                        onClick={() => {
+                            handleClose();
+                            setIsTopUp(true);
+                            setValue('amount', '');
+                        }}
+                    >
+                        Ок
+                    </button>
                 </div>
             )
         } else {
             <div className={styles.container}>
                 <p>Ошибка, попробуйте позже</p>
-                <button className={styles.delete_btn} onClick={(() => handleClose)}>Ок</button>
+                <button
+                    className={styles.delete_btn}
+                    onClick={() => {
+                        handleClose();
+                        setIsTopUp(true);
+                        setValue('amount', '');
+                    }}
+                >
+                    Ок
+                </button>
             </div>
         }
     }
 
 
-    if (topUpLoading) return <Loader />
     return (
         <Modal
             open={open}
@@ -63,7 +95,7 @@ export default function DataModal({ open, handleClose }) {
 
                         <div className={styles.manage}>
                             <button className={styles.back_btn} onClick={() => handleClose()}>Отменить</button>
-                            <button type='submit' className={styles.delete_btn} onClick={() => onSubmit()}>Пополнить</button>
+                            <input type="submit" className={styles.delete_btn} value='Пополнить' />
                         </div>
                     </div>
                 </form>
