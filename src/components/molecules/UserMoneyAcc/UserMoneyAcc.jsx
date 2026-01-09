@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styles from './UserMoneyAcc.module.css';
-import cover from '../../../assets/user-acc.svg';
+import cover from '../../../assets/user-acc.png';
 import coin from '../../../assets/white_coin.svg'
 
 import VisibilityIcon from '@mui/icons-material/Visibility';

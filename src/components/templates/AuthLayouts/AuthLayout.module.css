@@ -1,81 +1,85 @@
 .onboard_form {
-    background-color: #fff;
-    padding: 4rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    gap: 4.5rem;
+	background-color: #fff;
+	padding: 4rem;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	gap: 4.5rem;
 }
 
 .content {
-    display: flex;
-    flex-direction: column;
-    gap: 4rem;
+	display: flex;
+	flex-direction: column;
+	gap: 4rem;
 }
 
 .actions {
-    display: flex;
-    flex-direction: column;
-    gap: 1.6rem;
+	display: flex;
+	flex-direction: column;
+	gap: 1.6rem;
 }
 
 .actions a {
-    color: var(--hover-blue);
+	color: var(--hover-blue);
 }
 
 .login_btn {
-    width: fit-content;
-    padding: 1rem 5rem;
+	width: fit-content;
+	padding: 1rem 5rem;
 
-    background-color: var(--primary-blue);
-    border-radius: 32px;
-    color: #fff;
-    font-size: var(--btn-font-size);
-    font-weight: var(--btn-font-weight);
+	background-color: var(--primary-blue);
+	border-radius: 32px;
+	color: #fff;
+	font-size: var(--btn-font-size);
+	font-weight: var(--btn-font-weight);
 
-    outline: none;
-    border: none;
-    cursor: pointer;
-    transition: all .3s ease-in-out;
+	outline: none;
+	border: none;
+	cursor: pointer;
+	transition: all 0.3s ease-in-out;
 }
 
 .login_btn:hover {
-    background-color: var(--hover-blue);
+	background-color: var(--hover-blue);
 }
 
 .inpt_box {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
 }
 
 .inpt_box label {
-    font-size: 1.2rem;
-    font-weight: var(--lbl-bold-weight);
+	font-size: 1.2rem;
+	font-weight: var(--lbl-bold-weight);
 }
 
-
+.demo_text {
+	color: var(--hover-gray);
+	font-style: italic;
+	padding-top: 18px;
+}
 
 @media (max-width: 1399px) {
-    .onboard_form {
-        padding: 2rem;
-        justify-content: space-around;
-        gap: 3rem;
-    }
+	.onboard_form {
+		padding: 2rem;
+		justify-content: space-around;
+		gap: 3rem;
+	}
 }
 
 @media (max-width: 500px) {
-    .onboard_form {
-        padding: 3rem 2rem;
-    }
+	.onboard_form {
+		padding: 3rem 2rem;
+	}
 
-    .actions {
-        align-items: center;
-    }
+	.actions {
+		align-items: center;
+	}
 
-    .login_btn {
-        padding: 1rem 0;
-        width: 100%;
-        font-size: var(--lbl-mini-size);
-    }
+	.login_btn {
+		padding: 1rem 0;
+		width: 100%;
+		font-size: var(--lbl-mini-size);
+	}
 }
