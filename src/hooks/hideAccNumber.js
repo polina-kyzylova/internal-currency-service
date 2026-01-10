@@ -1,4 +1,10 @@
-export const hideAccNumber = (number) => {
-    const hideNumber = number.replace(number.slice(0, number.length - 4), '*'.repeat(number.length - 4));
-    return hideNumber;
+export const hideAccNumber = (accNumber) => {
+	if (!accNumber) return ''
+
+	const hiddenNumber = accNumber?.replace(
+		accNumber?.slice(0, accNumber?.length - 4),
+		'*'.repeat(accNumber?.length - 4)
+	)
+
+	return hiddenNumber
 }

@@ -19,7 +19,7 @@ import AlertTitle from '@mui/material/AlertTitle'
 import { Alert } from '@mui/material'
 import { Snackbar } from '@mui/material'
 import { setUserRole } from '../../../store/slices/userSlice'
-import { EMAIL_REGEXP, PASS_REGEXP } from '../../../shared/consts'
+import { EMAIL_REGEXP, PASS_REGEXP } from '../../../store/globalVariables'
 
 export default function RegistrationLayout() {
 	const [showPassword, setShowPassword] = useState(false)

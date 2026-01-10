@@ -11,7 +11,7 @@ import AlertTitle from '@mui/material/AlertTitle'
 import { Alert } from '@mui/material'
 import { Snackbar } from '@mui/material'
 import { setUserRole } from '../../../store/slices/userSlice'
-import { EMAIL_REGEXP, RoleTypes } from '../../../shared/consts'
+import { EMAIL_REGEXP, RoleTypes } from '../../../store/globalVariables'
 
 export const DemoLayout = () => {
 	const navigate = useNavigate()
@@ -41,13 +41,14 @@ export const DemoLayout = () => {
 		// TO DO - mock data
 		dispatch(
 			initUser({
-				user_id: '111',
+				user_id: '000',
 				surname: userData?.surname,
 				name: userData?.name,
 				last_name: userData?.lastname,
 				email: userData?.email,
-				personal_acc_number: '1000000001',
-				personal_acc_balance: '333',
+				username: 'DEMOuser',
+				personal_acc_number: '1000000000',
+				personal_acc_balance: 333,
 			})
 		)
 
@@ -138,7 +139,7 @@ export const DemoLayout = () => {
 						defaultValue={RoleTypes.User}
 						onChange={handleChangeUserRole}
 					>
-						<MenuItem value={RoleTypes.User}>Пользователь</MenuItem>
+						<MenuItem value={RoleTypes.User}>Сотрудник</MenuItem>
 						<MenuItem value={RoleTypes.Owner}>Владелец ЦФО</MenuItem>
 						<MenuItem value={RoleTypes.Admin}>Администратор</MenuItem>
 					</Select>

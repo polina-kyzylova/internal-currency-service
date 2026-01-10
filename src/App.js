@@ -28,7 +28,7 @@ import PrivateRoute from './hooks/PrivateRoute'
 import { useSelector } from 'react-redux'
 import OperationsHistoryPage from './components/pages/OperationsHistoryPage/OperationsHistoryPage'
 import { DemoLayout } from './components/templates/AuthLayouts/DemoLayout'
-import { RoleTypes } from './shared/consts'
+import { RoleTypes } from './store/globalVariables'
 
 function App() {
 	//const token = localStorage.getItem('accessToken')
