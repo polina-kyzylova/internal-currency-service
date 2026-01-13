@@ -17,8 +17,6 @@ import TransactionLayout from './components/templates/OperationsLayouts/Transact
 import ReplenishCFOLayout from './components/templates/OperationsLayouts/ReplenishCFOLayout'
 import TransferCFOLayout from './components/templates/OperationsLayouts/TransferCFOLayout'
 import TransferMasterLayout from './components/templates/OperationsLayouts/TransferMasterLayout'
-import LoginLayout from './components/templates/AuthLayouts/LoginLayout'
-import RegistrationLayout from './components/templates/AuthLayouts/RegistrationLayout'
 
 import ResultTransactionUnit from './components/organisms/ResultTransactionUnit/ResultTransactionUnit'
 import ChangeOwnerUnit from './components/organisms/ChangeOwnerUnit/ChangeOwnerUnit'
@@ -31,7 +29,6 @@ import { DemoLayout } from './components/templates/AuthLayouts/DemoLayout'
 import { RoleTypes } from './store/globalVariables'
 
 function App() {
-	//const token = localStorage.getItem('accessToken')
 	const token = 'DEMO_TOKEN'
 	const user = useSelector((state) => state.user)
 
@@ -41,9 +38,6 @@ function App() {
 				{/*========== ONBOARD PAGES ==========*/}
 
 				<Route path='/' element={<AuthPage />}>
-					{/*<Route path='' element={<LoginLayout />} />*/}
-					{/*<Route path='registration' element={<RegistrationLayout />} />*/}
-
 					<Route path='' element={<DemoLayout />} />
 				</Route>
 
@@ -158,7 +152,7 @@ function App() {
 				</Route>
 
 				<Route
-					path='/history/:user'
+					path='/history/:target'
 					element={
 						<PrivateRoute isAllowed={!!token && !!user}>
 							<OperationsHistoryPage />

@@ -1,23 +1,12 @@
-import React from 'react'
 import styles from './UserAccLayout.module.css'
 import UserMoneyUnit from '../../organisms/UserMoneyUnit/UserMoneyUnit'
 import UserAnalyticsUnit from '../../organisms/UserAnalyticsUnit/UserAnalyticsUnit'
+import { useSelector } from 'react-redux'
 
 export default function UserAccLayout() {
-	// TO DO
-	const data1 = [
-		{ id: 0, value: 30, label: 'Переводы' },
-		{ id: 1, value: 15, label: 'Регулярная выплата' },
-		{ id: 2, value: 20, label: 'Подарки' },
-		{ id: 3, value: 25, label: 'Активности' },
-	]
-
-	const data2 = [
-		{ id: 0, value: 8, label: 'Магазин' },
-		{ id: 1, value: 12, label: 'Переводы' },
-		{ id: 2, value: 25, label: 'Активности' },
-		{ id: 3, value: 80, label: 'Подарки' },
-	]
+	const { analytics_income, analytics_expenses, total_income, total_expenses } = useSelector(
+		(state) => state.user
+	)
 
 	return (
 		<div className={styles.container}>
@@ -27,8 +16,16 @@ export default function UserAccLayout() {
 				</div>
 
 				<div className={styles.content}>
-					<UserAnalyticsUnit label='Поступления' money='+500' data={data1} />
-					<UserAnalyticsUnit label='Расходы' money='-140' data={data2} />
+					<UserAnalyticsUnit
+						label='Поступления'
+						money={`+${total_income}`}
+						data={analytics_income}
+					/>
+					<UserAnalyticsUnit
+						label='Расходы'
+						money={`-${total_expenses}`}
+						data={analytics_expenses}
+					/>
 				</div>
 			</div>
 

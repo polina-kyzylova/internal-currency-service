@@ -4,9 +4,7 @@ import styles from './CreateTransferCFOUnit.module.css'
 import GrayButtonBack from '../../atoms/GrayButtonBack/GrayButtonBack'
 import { useForm } from 'react-hook-form'
 import { useOutletContext } from 'react-router-dom'
-import { useGetQueryMutation } from '../../../store/slices/apiSlice'
 import { useSelector } from 'react-redux'
-
 import TransactionAccInfo from '../../molecules/TransactionAccInfo/TransactionAccInfo'
 import UsersAutoList from '../../molecules/TransactionForm/UsersAutoList'
 import CFOAutoList from '../../molecules/TransactionForm/CFOAutoList'
@@ -98,22 +96,6 @@ export default function CreateTransferCFOUnit({ setConfirmTransfer, current_user
 		}
 	}
 
-	/*----- get transaction purpose tags -----*/
-	/*
-	const [postReq] = useGetQueryMutation()
-	const transCFOTagsEP = useSelector((state) => state.endpoints.cfo_purposes_tags)
-
-	const getPaymentPurposes = async () => {
-		const response = await postReq(transCFOTagsEP)
-		console.log('CFO TAGS response', response)
-		if (!!response.data) setPurposeTags([...response.data.data])
-	}
-
-	useEffect(() => {
-		getPaymentPurposes()
-	}, [])
-  */
-
 	return (
 		<form onSubmit={handleSubmit(onSubmit)}>
 			<div className={styles.container}>
@@ -151,7 +133,6 @@ export default function CreateTransferCFOUnit({ setConfirmTransfer, current_user
 						register={register}
 						errors={errors}
 						setValue={setValue}
-						//purposeTags={purposeTags}
 						purposeTags={recipType === 'personal' ? USER_TAGS : CFO_TAGS}
 					/>
 				</div>

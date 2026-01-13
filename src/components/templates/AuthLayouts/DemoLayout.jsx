@@ -38,17 +38,13 @@ export const DemoLayout = () => {
 	}
 
 	const onSubmit = async (userData) => {
-		// TO DO - mock data
 		dispatch(
 			initUser({
-				user_id: '000',
 				surname: userData?.surname,
 				name: userData?.name,
 				last_name: userData?.lastname,
 				email: userData?.email,
 				username: 'DEMOuser',
-				personal_acc_number: '1000000000',
-				personal_acc_balance: 333,
 			})
 		)
 

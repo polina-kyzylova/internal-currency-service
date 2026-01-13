@@ -1,45 +1,16 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import './TransactionItemStyles.css'
 import Autocomplete from '@mui/material/Autocomplete'
 import TextField from '@mui/material/TextField'
 import { Box } from '@mui/material'
 import { Avatar } from '@mui/material'
 import PersonIcon from '@mui/icons-material/Person'
-import { useGetQueryMutation } from '../../../store/slices/apiSlice'
 import CircularProgress from '@mui/material/CircularProgress'
-import { useSelector } from 'react-redux'
+import { EMPLOYEE_LIST } from '../../../mocks/mockData'
 
 export default function UsersAutoList({ errors, register, title, setValue, getValues }) {
-	const { username } = useSelector((state) => state.user)
-	const [getUsers] = useGetQueryMutation()
 	const [open, setOpen] = useState(false)
-	const [options, setOptions] = useState([])
-	const loading = open && options?.length === 0
-
-	useEffect(() => {
-		let active = true
-		if (!loading) {
-			return undefined
-		}
-
-		;(async () => {
-			let x = await getUsers(`/users?username=${getValues('target_user')}&page=1&size=10`)
-			if (active) {
-				let result = x?.data?.users?.filter((item) => item?.username !== username)
-				setOptions([...result])
-			}
-		})()
-
-		return () => {
-			active = false
-		}
-	}, [loading])
-
-	useEffect(() => {
-		if (!open) {
-			setOptions([])
-		}
-	}, [open])
+	const loading = open && EMPLOYEE_LIST?.length === 0
 
 	return (
 		<div className='transaction-form-input-box'>
@@ -50,7 +21,7 @@ export default function UsersAutoList({ errors, register, title, setValue, getVa
 			<Autocomplete
 				id='recipient'
 				fullWidth
-				options={options}
+				options={EMPLOYEE_LIST}
 				autoHighlight
 				getOptionLabel={(option) =>
 					`${option?.username} ${option?.surname} ${option?.name} ${option?.lastname}`
@@ -65,12 +36,8 @@ export default function UsersAutoList({ errors, register, title, setValue, getVa
 					}
 				}}
 				open={open}
-				onOpen={() => {
-					setOpen(true)
-				}}
-				onClose={() => {
-					setOpen(false)
-				}}
+				onOpen={() => setOpen(true)}
+				onClose={() => setOpen(false)}
 				isOptionEqualToValue={(option, value) => option?.title === value?.title}
 				loading={loading}
 				renderOption={(props, option) => {

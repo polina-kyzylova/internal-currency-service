@@ -13,6 +13,104 @@ export const CFO_TAGS = [
 	{ id: 'ideas', name: '🚀 За новаторские идеи' },
 ]
 
+// -------- user transactions --------
+export const PURPOSES = {
+	encouragement: 'Начисление из бюджета',
+	market: 'Покупка в маркете',
+	transactions: 'Перевод пользователю',
+	activity: 'Участие в активностях',
+	gifts: 'Подарок',
+}
+
+export const USER_INCOME = [
+	{ id: 'transactions', value: 250, label: 'Переводы' },
+	{ id: 'encouragement', value: 150, label: 'Начисления из бюджета' },
+	{ id: 'gifts', value: 100, label: 'Подарки' },
+	{ id: 'activity', value: 100, label: 'Активности' },
+]
+
+export const USER_EXPENSES = [
+	{ id: 'market', value: 10, label: 'Магазин' },
+	{ id: 'activity', value: 20, label: 'Активности' },
+	{ id: 'gifts', value: 30, label: 'Подарки' },
+	{ id: 'transactions', value: 40, label: 'Переводы' },
+]
+
+// TO DO - в хронологическом порядке
+export const USER_HISTORY = [
+	{
+		operation_type: 'expense',
+		purpose_id: 'transactions',
+		from_account_number: '1000000000',
+		to_account_number: '1000000001',
+		amount: 40,
+		payment_comment: '👾 За релиз без багов',
+		datetime: '2025-11-19T18:47:56+05:00',
+	},
+	{
+		operation_type: 'income',
+		purpose_id: 'transactions',
+		from_account_number: '1000000000',
+		to_account_number: '1000000004',
+		amount: 250,
+		payment_comment: '💻 Крутому разработчику :)',
+		datetime: '2025-05-05T15:45:30+05:00',
+	},
+	{
+		operation_type: 'expense',
+		purpose_id: 'market',
+		from_account_number: '1000000000',
+		amount: 10,
+		payment_comment: 'Футболка с логотипом Т1',
+		datetime: '2025-04-25T18:47:56+05:00',
+	},
+	{
+		operation_type: 'expense',
+		purpose_id: 'gifts',
+		from_account_number: '1000000000',
+		to_account_number: '1000000002',
+		amount: 30,
+		payment_comment: '🌺 Поздравляю с 8 марта!',
+		datetime: '2025-03-08T12:40:50+05:00',
+	},
+	{
+		operation_type: 'income',
+		purpose_id: 'encouragement',
+		from_account_number: '1000000000',
+		to_account_number: '1000000001',
+		amount: 150,
+		payment_comment: '🚀 За выдающиеся результаты работы!',
+		datetime: '2024-12-27T16:30:12+05:00',
+	},
+	{
+		operation_type: 'expense',
+		purpose_id: 'activity',
+		from_account_number: '1000000000',
+		amount: 20,
+		payment_comment: 'Участие в квизе',
+		datetime: '2024-11-20T15:40:56+05:00',
+	},
+	{
+		operation_type: 'income',
+		purpose_id: 'gifts',
+		from_account_number: '1000000000',
+		to_account_number: '1000000005',
+		amount: 100,
+		payment_comment: '🎁 С Днем Рождения!',
+		datetime: '2024-10-25T11:50:09+05:00',
+	},
+	{
+		operation_type: 'income',
+		purpose_id: 'activity',
+		from_account_number: '1000000000',
+		to_account_number: '1000000002',
+		amount: 100,
+		payment_comment: 'Участие в ИТ-лагере Т1 2024',
+		datetime: '2024-08-31T18:40:07+05:00',
+	},
+]
+
+// --------
 export const EMPLOYEE_LIST = [
 	{
 		id: 1,
