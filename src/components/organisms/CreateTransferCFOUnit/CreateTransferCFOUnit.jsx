@@ -10,7 +10,7 @@ import UsersAutoList from '../../molecules/TransactionForm/UsersAutoList'
 import CFOAutoList from '../../molecules/TransactionForm/CFOAutoList'
 import AmountInput from '../../molecules/TransactionForm/AmountInput'
 import PurposeTags from '../../molecules/PurposeTags/PurposeTags'
-import { CFO_TAGS, USER_TAGS } from '../../../mocks/mockData'
+import { CFO_TAGS } from '../../../mocks/mockData'
 
 export default function CreateTransferCFOUnit({ setConfirmTransfer, current_user }) {
 	const [data, setData] = useOutletContext()
@@ -40,6 +40,7 @@ export default function CreateTransferCFOUnit({ setConfirmTransfer, current_user
 				current_cfo_balance: owner.cfo_balance,
 				current_cfo_owner: user.surname + ' ' + user.name + ' ' + user.last_name,
 				current_user: 'owner',
+				recip_type: 'personal',
 			})
 			setCurrentCFOnumber(owner.cfo_number)
 		}
@@ -111,19 +112,21 @@ export default function CreateTransferCFOUnit({ setConfirmTransfer, current_user
 						acc_balance={current_user === 'owner' ? owner.cfo_balance : admin.current_cfo_balance}
 					/>
 
-					<div className={styles.inpt_box}>
-						<label htmlFor='recipient_type'>Тип получателя</label>
-						<select
-							name='recipient_type'
-							id='recipient_type'
-							className={styles.select_type}
-							{...register('recip_type', { required: true })}
-							onChange={(e) => setRecipType(e.target.value)}
-						>
-							<option value='personal'>Пользователь</option>
-							<option value='cfo'>Другой ЦФО</option>
-						</select>
-					</div>
+					{current_user === 'admin' ? (
+						<div className={styles.inpt_box}>
+							<label htmlFor='recipient_type'>Тип получателя</label>
+							<select
+								name='recipient_type'
+								id='recipient_type'
+								className={styles.select_type}
+								{...register('recip_type', { required: true })}
+								onChange={(e) => setRecipType(e.target.value)}
+							>
+								<option value='personal'>Пользователь</option>
+								<option value='cfo'>Другой ЦФО</option>
+							</select>
+						</div>
+					) : null}
 
 					{chooseRecipient()}
 
@@ -133,7 +136,7 @@ export default function CreateTransferCFOUnit({ setConfirmTransfer, current_user
 						register={register}
 						errors={errors}
 						setValue={setValue}
-						purposeTags={recipType === 'personal' ? USER_TAGS : CFO_TAGS}
+						purposeTags={CFO_TAGS}
 					/>
 				</div>
 

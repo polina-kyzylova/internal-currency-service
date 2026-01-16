@@ -1,29 +1,28 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useMemo } from 'react'
 import styles from './OwnerCFOLayout.module.css'
 import OperationsAction from '../../molecules/OperationsAction/OperationsAction'
 import CFOAccount from '../../molecules/CFOAccount/CFOAccount'
 import CFOOwnerTable from '../../molecules/CFOOwnerTable'
 import AdminAnalyticsUnit from '../../organisms/AdminAnalyticsUnit/AdminAnalyticsUnit'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import { initCFO } from '../../../store/slices/cfoSlice'
-import { CFO_TEAM_LIST } from '../../../mocks/mockData'
 
 export default function OwnerCFOLayout() {
-	const { cfo_number, cfo_balance, cfo_title, cfo_type } = useSelector((state) => state.cfo)
 	const navigate = useNavigate()
+	const { cfo_number, cfo_balance, cfo_title, cfo_type, cfo_analytic_list, cfo_total_expenses } =
+		useSelector((state) => state.cfo)
 
 	/*----- CFO analytics -----*/
-	const teamAnalytics = CFO_TEAM_LIST.reduce((acc, user) => {
-		const teamId = user.teamId
+	const teamAnalytics = cfo_analytic_list?.reduce((acc, user) => {
+		const teamId = user?.teamId
 
 		// Ищем команду в массиве
-		let team = acc.find((t) => t.teamId === teamId)
+		let team = acc?.find((t) => t.teamId === teamId)
 
 		if (!team) {
 			team = {
 				teamId: teamId,
-				teamName: user.team,
+				teamName: user?.team,
 				totalExpenses: 0,
 				employeeCount: 0,
 				employees: [],
@@ -31,13 +30,13 @@ export default function OwnerCFOLayout() {
 			acc.push(team)
 		}
 
-		team.totalExpenses += user.expenses // Суммируем расходы
+		team.totalExpenses += user?.expenses // Суммируем расходы
 		team.employeeCount += 1
 		team.employees.push({
-			id: user.id,
-			name: user.name,
-			position: user.position,
-			expenses: user.expenses,
+			id: user?.id,
+			name: user?.name,
+			position: user?.position,
+			expenses: user?.expenses,
 		})
 
 		return acc
@@ -49,37 +48,6 @@ export default function OwnerCFOLayout() {
 			value: team?.totalExpenses,
 		}))
 	}, [teamAnalytics])
-
-	const calcTotalExpenses = (usersList) => {
-		let total = 0
-		usersList?.forEach((user) => (Number(user?.expenses) ? (total += user?.expenses) : null))
-		return total
-	}
-
-	const totalExpenses = useMemo(() => calcTotalExpenses(CFO_TEAM_LIST), [])
-
-	const [currentBalance, setCurrentBalance] = useState(cfo_balance)
-	const dispatch = useDispatch()
-
-	/*----- update store if balance change -----*/
-	function updateStore() {
-		dispatch(
-			dispatch(
-				initCFO({
-					cfo_number: '2000000000',
-					cfo_balance: 12000,
-					cfo_title: 'Стрим 20',
-					cfo_id: 222,
-					owner_full_name: '>???',
-					cfo_type: 'null',
-				})
-			)
-		)
-	}
-
-	useEffect(() => {
-		updateStore()
-	}, [])
 
 	return (
 		<div className={styles.container}>
@@ -96,22 +64,22 @@ export default function OwnerCFOLayout() {
 					</div>
 
 					<div className={cfo_type === 'service' ? styles.cfo_serv : styles.serv}>
-						<OperationsAction label='История операций' onClick={() => navigate('/history/cfo')} />
+						<OperationsAction label='История операций' onClick={() => navigate('/history/owner')} />
 						<OperationsAction label='Шаблоны' />
 					</div>
 				</div>
 
-				<CFOAccount cfo_balance={currentBalance} cfo_number={cfo_number} />
+				<CFOAccount cfo_balance={cfo_balance} cfo_number={cfo_number} />
 			</div>
 
 			<div className={styles.analytics}>
 				<h3>Аналитика по участникам</h3>
 
 				<div className={styles.cfo_table}>
-					<CFOOwnerTable teamList={CFO_TEAM_LIST} totalExpenses={totalExpenses} />
+					<CFOOwnerTable teamList={cfo_analytic_list} totalExpenses={cfo_total_expenses} />
 					<AdminAnalyticsUnit
-						income={cfo_balance + totalExpenses}
-						expenses={totalExpenses}
+						income={cfo_balance + cfo_total_expenses}
+						expenses={cfo_total_expenses}
 						data={all_cfo}
 					/>
 				</div>

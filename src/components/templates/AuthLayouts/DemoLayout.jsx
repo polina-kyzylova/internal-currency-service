@@ -1,21 +1,33 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import styles from './AuthLayout.module.css'
 import MenuItem from '@mui/material/MenuItem'
 import Select from '@mui/material/Select'
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { TextField } from '@mui/material'
-import { initUser } from '../../../store/slices/userSlice'
+import { initUser, removeUser } from '../../../store/slices/userSlice'
 import AlertTitle from '@mui/material/AlertTitle'
 import { Alert } from '@mui/material'
 import { Snackbar } from '@mui/material'
 import { setUserRole } from '../../../store/slices/userSlice'
 import { EMAIL_REGEXP, RoleTypes } from '../../../store/globalVariables'
+import { removeCFO, initCFO } from '../../../store/slices/cfoSlice'
+import { removeAdmin } from '../../../store/slices/adminSlice'
 
 export const DemoLayout = () => {
 	const navigate = useNavigate()
 	const dispatch = useDispatch()
+
+	const { name } = useSelector((state) => state.user)
+
+	useEffect(() => {
+		if (name) {
+			dispatch(removeUser())
+			dispatch(removeCFO())
+			dispatch(removeAdmin())
+		}
+	}, [name])
 
 	const {
 		register,
@@ -55,7 +67,16 @@ export const DemoLayout = () => {
 		)
 
 		if (userData?.userRole === RoleTypes.User) navigate('/user')
-		if (userData?.userRole === RoleTypes.Owner) navigate('/owner')
+
+		if (userData?.userRole === RoleTypes.Owner) {
+			dispatch(
+				initCFO({
+					owner_full_name: `${userData?.surname} ${userData?.name} ${userData?.lastname}`,
+				})
+			)
+			navigate('/owner')
+		}
+
 		if (userData?.userRole === RoleTypes.Admin) navigate('/admin')
 	}
 

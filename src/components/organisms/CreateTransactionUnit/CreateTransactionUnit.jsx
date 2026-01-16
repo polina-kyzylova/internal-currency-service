@@ -1,11 +1,8 @@
-import React, { useEffect, useState } from 'react'
 import styles from './CreateTransactionUnit.module.css'
 import '../GeneralOperations.css'
 import { useForm } from 'react-hook-form'
 import { useOutletContext } from 'react-router-dom'
-import { useGetQueryMutation } from '../../../store/slices/apiSlice'
 import { useSelector } from 'react-redux'
-
 import GrayButtonBack from '../../atoms/GrayButtonBack/GrayButtonBack'
 import TransactionAccInfo from '../../molecules/TransactionAccInfo/TransactionAccInfo'
 import UsersAutoList from '../../molecules/TransactionForm/UsersAutoList'
@@ -37,22 +34,6 @@ export default function CreateTransactionUnit({ setCreating }) {
 		}
 	}
 
-	/*----- get transaction purpose tags -----*/
-	/*
-	const [getPurposeTags] = useGetQueryMutation()
-	const tagsEP = useSelector((state) => state.endpoints.purposes_tags)
-	const [purposeTags, setPurposeTags] = useState()
-
-	const getPaymentPurposes = async () => {
-		const response = await getPurposeTags(tagsEP)
-		if (!!response.data) setPurposeTags([...response.data.data])
-	}
-
-	useEffect(() => {
-		getPaymentPurposes()
-	}, [])
-    */
-
 	return (
 		<form onSubmit={handleSubmit(onSubmit)}>
 			<div className={styles.container}>
@@ -81,7 +62,6 @@ export default function CreateTransactionUnit({ setCreating }) {
 						register={register}
 						errors={errors}
 						setValue={setValue}
-						//purposeTags={purposeTags}
 						purposeTags={USER_TAGS}
 					/>
 				</div>

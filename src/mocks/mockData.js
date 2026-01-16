@@ -13,15 +13,6 @@ export const CFO_TAGS = [
 	{ id: 'ideas', name: '🚀 За новаторские идеи' },
 ]
 
-// -------- user transactions --------
-export const PURPOSES = {
-	encouragement: 'Начисление из бюджета',
-	market: 'Покупка в маркете',
-	transactions: 'Перевод пользователю',
-	activity: 'Участие в активностях',
-	gifts: 'Подарок',
-}
-
 export const USER_INCOME = [
 	{ id: 'transactions', value: 250, label: 'Переводы' },
 	{ id: 'encouragement', value: 150, label: 'Начисления из бюджета' },
@@ -36,7 +27,15 @@ export const USER_EXPENSES = [
 	{ id: 'transactions', value: 40, label: 'Переводы' },
 ]
 
-// TO DO - в хронологическом порядке
+/* ----------- История операций ----------- */
+export const USER_PURPOSES = {
+	encouragement: 'Начисление из бюджета',
+	market: 'Покупка в маркете',
+	transactions: 'Перевод пользователю',
+	activity: 'Участие в активностях',
+	gifts: 'Подарок',
+}
+
 export const USER_HISTORY = [
 	{
 		operation_type: 'expense',
@@ -110,7 +109,31 @@ export const USER_HISTORY = [
 	},
 ]
 
-// --------
+export const CFO_HISTORY = [
+	// 8 команд - распределение средств
+	{
+		operation_type: 'expense',
+		purpose_id: 'transactions',
+		from_account_number: '2000000000',
+		to_account_number: '1000000001',
+		amount: 40,
+		payment_comment: 'За высокие показатели работы!',
+		datetime: '2025-11-19T12:50:56+05:00',
+	},
+	{
+		operation_type: 'income',
+		purpose_id: 'encouragement',
+		from_account_number: '3000000000',
+		to_account_number: '2000000000',
+		amount: 15600,
+		payment_comment: 'Пополнение ЦФО администратором',
+		datetime: '2025-07-01T09:12:56+05:00',
+	},
+]
+
+export const ADMIN_HISTORY = []
+
+/* ----------- Список получаталей ----------- */
 export const EMPLOYEE_LIST = [
 	{
 		id: 1,
@@ -154,6 +177,40 @@ export const EMPLOYEE_LIST = [
 	},
 ]
 
+export const CFO_LIST = [
+	{
+		id: 1,
+		name: 'Стрим 1',
+		owner_full_name: 'Краснов Сергей Петрович',
+		account_number: '2000000001',
+	},
+	{
+		id: 2,
+		name: 'Стрим 2',
+		owner_full_name: 'Сидоров Иван Алексеевич',
+		account_number: '2000000002',
+	},
+	{
+		id: 3,
+		name: 'Стрим 3',
+		owner_full_name: 'Воробьева Анна Игоревна',
+		account_number: '2000000003',
+	},
+	{
+		id: 4,
+		name: 'Стрим 4',
+		owner_full_name: 'Золотова Ирина Павловна',
+		account_number: '2000000004',
+	},
+	{
+		id: 5,
+		name: 'Стрим 5',
+		owner_full_name: 'Грачев Александр Владимирович',
+		account_number: '2000000005',
+	},
+]
+
+/* ----------- Аналитика ----------- */
 export const CFO_TEAM_LIST = [
 	{
 		id: '1',
