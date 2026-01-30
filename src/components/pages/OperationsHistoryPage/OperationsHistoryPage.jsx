@@ -1,7 +1,7 @@
 import styles from './OperationsHistoryPage.module.css'
 import GrayButtonBack from '../../atoms/GrayButtonBack/GrayButtonBack'
 import { useSelector } from 'react-redux'
-import { EMPLOYEE_LIST, USER_PURPOSES } from '../../../mocks/mockData'
+import { EMPLOYEE_LIST, HISTORY_PURPOSES } from '../../../mocks/mockData'
 import { useParams } from 'react-router-dom'
 import dayjs from 'dayjs'
 
@@ -9,12 +9,14 @@ import expensesActivity from '../../../assets/expenses-activity.png'
 import expensesTransaction from '../../../assets/expenses-transaction.png'
 import expensesMarket from '../../../assets/expenses-market.png'
 import expensesGift from '../../../assets/expenses-gift.png'
+import expensesBudget from '../../../assets/expenses-budget.png'
 
 import incomeEncouragement from '../../../assets/income-encouragement.png'
 import incomeTransaction from '../../../assets/income-transaction.png'
 import incomeActivity from '../../../assets/income-transaction.png'
 import incomeGift from '../../../assets/income-gift.png'
 import { useEffect, useState } from 'react'
+import { formatSum } from '../../../utils/formatSum'
 
 const INCOME_IMG = {
 	transactions: incomeTransaction,
@@ -28,16 +30,16 @@ const EXPENSES_IMG = {
 	activity: expensesActivity,
 	gifts: expensesGift,
 	transactions: expensesTransaction,
+	budget: expensesBudget,
 }
 
 export default function OperationsHistoryPage() {
 	const { target } = useParams()
 	const [targetHistory, setTargetHistory] = useState([])
-	const [purposes, setPurposes] = useState({})
 
 	const { transactions_history } = useSelector((state) => state.user)
 	const { cfo_transactions_history } = useSelector((state) => state.cfo)
-	// admin
+	const { admin_transactions_history } = useSelector((state) => state.admin)
 
 	const getUserName = (targetAccNumber) => {
 		const user = EMPLOYEE_LIST?.find((employee) => employee?.account_number === targetAccNumber)
@@ -52,28 +54,15 @@ export default function OperationsHistoryPage() {
 	}
 
 	const getTargetImg = (operationType, purposeId) => {
-		if (operationType === 'expense') {
-			return EXPENSES_IMG[purposeId]
-		} else {
-			return INCOME_IMG[purposeId]
-		}
+		if (operationType === 'expense') return EXPENSES_IMG[purposeId]
+		else return INCOME_IMG[purposeId]
 	}
 
 	useEffect(() => {
-		if (target === 'user') {
-			setTargetHistory(transactions_history)
-			setPurposes(USER_PURPOSES)
-		}
-
-		if (target === 'owner') {
-			setTargetHistory(cfo_transactions_history)
-			setPurposes(USER_PURPOSES)
-		}
-
-		if (target === 'admin') {
-			setTargetHistory([])
-		}
-	}, [target, transactions_history, cfo_transactions_history])
+		if (target === 'user') setTargetHistory(transactions_history)
+		if (target === 'owner') setTargetHistory(cfo_transactions_history)
+		if (target === 'admin') setTargetHistory(admin_transactions_history)
+	}, [target, transactions_history, cfo_transactions_history, admin_transactions_history])
 
 	return (
 		<div className={styles.container}>
@@ -98,20 +87,22 @@ export default function OperationsHistoryPage() {
 
 								<div className={styles.oper_layout}>
 									<div>
-										<span>{purposes[item?.purpose_id]}</span>
+										<span>{HISTORY_PURPOSES[item?.purpose_id]}</span>
 										<p className={styles.amount}>
-											{digit} {item?.amount} коинов
+											{digit} {formatSum(item?.amount)} коинов
 										</p>
 									</div>
 
-									<div>
+									<div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
 										{userName && (
 											<p>
 												{userType}: {userName}
 											</p>
 										)}
 
-										<p style={{ paddingTop: '4px' }}>Комментарий: {item?.payment_comment}</p>
+										{item?.cfo_name && <p>ЦФО: {item?.cfo_name}</p>}
+										{item?.owner_full_name && <p>Владелец: {item?.owner_full_name}</p>}
+										{item?.payment_comment && <p>Комментарий: {item?.payment_comment}</p>}
 									</div>
 
 									<span style={{ alignSelf: 'flex-end' }}>

@@ -1,73 +1,106 @@
-import React from 'react';
-import styles from './ConfirmTransferMasterUnit.module.css';
-import { useNavigate } from 'react-router-dom';
-import { useOutletContext } from "react-router-dom";
-import { usePostQueryMutation } from '../../../store/slices/apiSlice';
-
-import '../GeneralOperations.css';
-import WestIcon from '@mui/icons-material/West';
-import CFOInfoTable from '../../molecules/ConfirmForm/CFOInfoTable';
-import OperationTypeTable from '../../molecules/ConfirmForm/OperationTypeTable';
-import MasterInfoTable from '../../molecules/ConfirmForm/MasterInfoTable';
-import Loader from '../../atoms/Loader';
-import { useSelector } from 'react-redux';
-
+import React, { useState } from 'react'
+import styles from './ConfirmTransferMasterUnit.module.css'
+import { useNavigate } from 'react-router-dom'
+import { useOutletContext } from 'react-router-dom'
+import '../GeneralOperations.css'
+import WestIcon from '@mui/icons-material/West'
+import CFOInfoTable from '../../molecules/ConfirmForm/CFOInfoTable'
+import OperationTypeTable from '../../molecules/ConfirmForm/OperationTypeTable'
+import MasterInfoTable from '../../molecules/ConfirmForm/MasterInfoTable'
+import Loader from '../../atoms/Loader'
+import { useDispatch } from 'react-redux'
+import { addMasterTransaction } from '../../../store/slices/adminSlice'
+import { getUserName } from '../../../utils/getUserName'
+import dayjs from 'dayjs'
 
 export default function ConfirmTransferMasterUnit({ setConfirmTransfer }) {
-    const navigate = useNavigate();
-    const [data, setData] = useOutletContext();
+	const navigate = useNavigate()
+	const dispatch = useDispatch()
 
+	const [data, setData] = useOutletContext()
+	const [isLoading, setIsLoading] = useState(false)
 
-    /*----- confirm transaction -----*/
-    const transactionEP = useSelector((state) => state.endpoints.replenish_cfo);
-    const [replenishCFO, { isLoading: transferLoading }] = usePostQueryMutation();
+	const makeTransaction = async () => {
+		setIsLoading(true)
 
-    const makeTransaction = async () => {
-        let repBody = {
-            "id": data.cfo_id,
-            "amount": data.amount
-        }
-        const result = await replenishCFO({ endpoint: transactionEP, body: repBody })
+		let transactionData = {
+			operation_type: 'expense',
+			purpose_id: 'budget',
+			from_account_number: data?.sender_number,
+			to_account_number: data?.recip_cfo_number,
+			amount: Number(data?.amount),
+			cfo_name: data?.recip_cfo_title,
+			owner_full_name: data?.recip_cfo_owner_full_name,
+			payment_purpose_id: data?.purpose_id,
+			payment_comment: data?.purpose_message,
+			datetime: dayjs().format(),
+		}
 
-        if (!!result.data) {
-            navigate('result/ok')
-        } else {
-            navigate('result/error')
-        }
-    }
+		const cfoBalance = Math.floor(Math.random() * (1000 - 500 + 1)) + 1000
 
+		const newTransaction = {
+			id: data?.recip_cfo_number,
+			name: data?.recip_cfo_title,
+			owner: data?.recip_cfo_owner,
+			balance: cfoBalance,
+			income: Number(data?.amount),
+			expenses: Number(data?.amount) - cfoBalance,
+		}
 
-    if (transferLoading) return <Loader />
-    else return (
-        <div className={styles.container}>
-            <button className='operations-prev-btn' onClick={() => setConfirmTransfer(false)}>
-                <WestIcon sx={{ color: '#fff', fontSize: 35 }} />
-            </button>
+		// для отрисовки лоадера
+		await new Promise((resolve) => setTimeout(resolve, 500))
 
-            <div className={styles.content}>
-                <h1>Подтверждение операции</h1>
+		const result = Math.random() > 0.5 ? 'success' : 'error'
+		setIsLoading(false)
 
-                <MasterInfoTable
-                    title='Отправитель'
-                    acc_number={parseInt(data.sender_number).toLocaleString()}
-                    admin={data.sender_name}
-                />
+		if (result === 'success') {
+			dispatch(
+				addMasterTransaction({
+					new_transaction: transactionData,
+					new_analytic_row: newTransaction,
+					amount: Number(data?.amount),
+				})
+			)
 
-                <CFOInfoTable
-                    title='Получатель'
-                    acc_number={parseInt(data.recip_cfo_number).toLocaleString()}
-                    acc_owner={data.recip_cfo_owner}
-                    acc_title={data.recip_cfo_title}
-                />
+			navigate('result/ok')
+		} else {
+			navigate('result/error')
+		}
+	}
 
-                <OperationTypeTable
-                    operation_type='Распределение средств Мастер-счета'
-                    amount={data.amount}
-                    message={data.purpose_message}
-                />
-            </div>
+	if (isLoading) return <Loader />
+	return (
+		<div className={styles.container}>
+			<button className='operations-prev-btn' onClick={() => setConfirmTransfer(false)}>
+				<WestIcon sx={{ color: '#fff', fontSize: 35 }} />
+			</button>
 
-            <button className='operations-next-btn' onClick={() => makeTransaction()}>Перевести</button>
-        </div>
-    )
+			<div className={styles.content}>
+				<h1>Подтверждение операции</h1>
+
+				<MasterInfoTable
+					title='Отправитель'
+					acc_number={parseInt(data?.sender_number).toLocaleString()}
+					admin={data?.sender_name}
+				/>
+
+				<CFOInfoTable
+					title='Получатель'
+					acc_number={parseInt(data?.recip_cfo_number).toLocaleString()}
+					acc_owner={data?.recip_cfo_owner_full_name}
+					acc_title={data?.recip_cfo_title}
+				/>
+
+				<OperationTypeTable
+					operation_type='Распределение средств Мастер-счета'
+					amount={data?.amount}
+					message={data?.purpose_message}
+				/>
+			</div>
+
+			<button className='operations-next-btn' onClick={() => makeTransaction()}>
+				Перевести
+			</button>
+		</div>
+	)
 }

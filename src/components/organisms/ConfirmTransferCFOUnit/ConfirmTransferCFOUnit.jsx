@@ -10,6 +10,7 @@ import OperationTypeTable from '../../molecules/ConfirmForm/OperationTypeTable'
 import Loader from '../../atoms/Loader'
 import { useDispatch } from 'react-redux'
 import { addCFOTransaction } from '../../../store/slices/cfoSlice'
+import { getUserName } from '../../../utils/getUserName'
 import dayjs from 'dayjs'
 
 export default function ConfirmTransferCFOUnit({ setConfirmTransfer }) {
@@ -18,14 +19,6 @@ export default function ConfirmTransferCFOUnit({ setConfirmTransfer }) {
 	const dispatch = useDispatch()
 
 	const [isLoading, setIsLoading] = useState(false)
-
-	const getUserName = (data, variant) => {
-		if (variant === 'short') {
-			return `${data?.target_user_surname} ${data?.target_user_name?.[0]}.${data?.target_user_lastname?.[0]}.`
-		}
-
-		return `${data?.target_user_surname} ${data?.target_user_name} ${data?.target_user_lastname}`
-	}
 
 	/*----- confirm recipient type -----*/
 	function chooseRecipient() {
@@ -70,7 +63,7 @@ export default function ConfirmTransferCFOUnit({ setConfirmTransfer }) {
 			datetime: dayjs().format(),
 		}
 
-		const new_transaction = {
+		const newTransaction = {
 			id: Math.random(1000),
 			name: targetUser,
 			position: 'QA Engineer',
@@ -87,7 +80,7 @@ export default function ConfirmTransferCFOUnit({ setConfirmTransfer }) {
 
 		if (result === 'success') {
 			if (data?.current_user === 'admin') {
-				// + update store
+				// TO DO + update store
 				navigate('../result/ok')
 			}
 
@@ -95,7 +88,7 @@ export default function ConfirmTransferCFOUnit({ setConfirmTransfer }) {
 				dispatch(
 					addCFOTransaction({
 						new_transaction: transactionData,
-						new_analytic_row: new_transaction,
+						new_analytic_row: newTransaction,
 						amount: Number(data?.amount),
 					})
 				)

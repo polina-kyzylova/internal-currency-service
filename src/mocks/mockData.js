@@ -28,12 +28,13 @@ export const USER_EXPENSES = [
 ]
 
 /* ----------- История операций ----------- */
-export const USER_PURPOSES = {
+export const HISTORY_PURPOSES = {
 	encouragement: 'Начисление из бюджета',
 	market: 'Покупка в маркете',
 	transactions: 'Перевод пользователю',
 	activity: 'Участие в активностях',
 	gifts: 'Подарок',
+	budget: 'Распределение бюджета',
 }
 
 export const USER_HISTORY = [
@@ -131,7 +132,15 @@ export const CFO_HISTORY = [
 	},
 ]
 
-export const ADMIN_HISTORY = []
+export const ADMIN_HISTORY = [
+	{
+		operation_type: 'income',
+		purpose_id: 'encouragement',
+		amount: 163700,
+		payment_comment: 'Пополнение мастер счета администратором',
+		datetime: '2024-08-31T17:53:56+05:00',
+	},
+]
 
 /* ----------- Список получаталей ----------- */
 export const EMPLOYEE_LIST = [
@@ -174,39 +183,6 @@ export const EMPLOYEE_LIST = [
 		name: 'Екатерина',
 		lastname: 'Александровна',
 		account_number: '1000000005',
-	},
-]
-
-export const CFO_LIST = [
-	{
-		id: 1,
-		name: 'Стрим 1',
-		owner_full_name: 'Краснов Сергей Петрович',
-		account_number: '2000000001',
-	},
-	{
-		id: 2,
-		name: 'Стрим 2',
-		owner_full_name: 'Сидоров Иван Алексеевич',
-		account_number: '2000000002',
-	},
-	{
-		id: 3,
-		name: 'Стрим 3',
-		owner_full_name: 'Воробьева Анна Игоревна',
-		account_number: '2000000003',
-	},
-	{
-		id: 4,
-		name: 'Стрим 4',
-		owner_full_name: 'Золотова Ирина Павловна',
-		account_number: '2000000004',
-	},
-	{
-		id: 5,
-		name: 'Стрим 5',
-		owner_full_name: 'Грачев Александр Владимирович',
-		account_number: '2000000005',
 	},
 ]
 
@@ -371,5 +347,98 @@ export const CFO_TEAM_LIST = [
 		teamId: 'team_data',
 		team: 'Команда Data',
 		expenses: 220,
+	},
+]
+
+export const ADMIN_TEAM_LIST = [
+	{
+		id: '2000000007',
+		name: 'Стрим 7',
+		owner: 'Клинов Д.Н.',
+		owner_full_name: 'Клинов Дмитрий Николаевич',
+		account_number: '2000000007',
+		balance: 5800,
+		income: 7000,
+		expenses: 1200,
+	},
+	{
+		id: '2000000009',
+		name: 'Стрим 9',
+		owner: 'Семенов Д.А.',
+		owner_full_name: 'Семенов Дмитрий Александрович',
+		account_number: '2000000009',
+		balance: 160,
+		income: 2000,
+		expenses: 1840,
+	},
+	{
+		id: '2000000010',
+		name: 'Стрим 10',
+		owner: 'Солнцев В.Л.',
+		owner_full_name: 'Солнцев Владимир Леонидович',
+		account_number: '2000000010',
+		balance: 600,
+		income: 8000,
+		expenses: 7400,
+	},
+	{
+		id: '2000000012',
+		name: 'Стрим 12',
+		owner: 'Сидоров А.Н.',
+		owner_full_name: 'Сидоров Андрей Николаевич',
+		account_number: '2000000012',
+		balance: 1201,
+		income: 9000,
+		expenses: 7799,
+	},
+	{
+		id: '2000000015',
+		name: 'Стрим 15',
+		owner: 'Романова А.И.',
+		owner_full_name: 'Романов Алексей Иванович',
+		account_number: '2000000015',
+		balance: 500,
+		income: 2000,
+		expenses: 1500,
+	},
+	{
+		id: '2000000019',
+		name: 'Стрим 19',
+		owner: 'Лаврова Л.Д.',
+		owner_full_name: 'Лаврова Любовь Дмитриевна',
+		account_number: '2000000019',
+		balance: 9900,
+		income: 19000,
+		expenses: 9100,
+	},
+	{
+		id: '2000000020',
+		name: 'Стрим 20',
+		owner: 'Петров И.И.',
+		owner_full_name: 'Петров Игорь Иванович',
+		account_number: '2000000020',
+		balance: 7550,
+		income: 15000,
+		expenses: 7450,
+	},
+	{
+		id: '2000000025',
+		name: 'Стрим 25',
+		owner: 'Краснов С.П.',
+		owner_full_name: 'Краснов Сергей Петрович',
+		account_number: '2000000025',
+		balance: 2410,
+		income: 10000,
+		expenses: 7590,
+	},
+	{
+		id: '2000000031',
+		name: 'Стрим 31',
+		owner: 'Титов С.П.',
+		owner_full_name: 'Титов Семен Петрович',
+		account_number: '2000000031',
+		balance: 100,
+		income: 1000,
+		expenses: 900,
 	},
 ]

@@ -14,6 +14,9 @@ import { setUserRole } from '../../../store/slices/userSlice'
 import { EMAIL_REGEXP, RoleTypes } from '../../../store/globalVariables'
 import { removeCFO, initCFO } from '../../../store/slices/cfoSlice'
 import { removeAdmin } from '../../../store/slices/adminSlice'
+import { initAdmin } from '../../../store/slices/adminSlice'
+import { ADMIN_HISTORY, ADMIN_TEAM_LIST } from '../../../mocks/mockData'
+import dayjs from 'dayjs'
 
 export const DemoLayout = () => {
 	const navigate = useNavigate()
@@ -49,6 +52,16 @@ export const DemoLayout = () => {
 		setValue('userRole', event.target.value)
 	}
 
+	const getRandomDate = () => {
+		const startDate = dayjs('2024-09-01')
+		const today = dayjs()
+
+		const diffInMs = today.diff(startDate)
+		const randomMs = Math.floor(Math.random() * diffInMs)
+
+		return startDate.add(randomMs, 'millisecond')
+	}
+
 	const onSubmit = async (userData) => {
 		dispatch(
 			initUser({
@@ -77,7 +90,31 @@ export const DemoLayout = () => {
 			navigate('/owner')
 		}
 
-		if (userData?.userRole === RoleTypes.Admin) navigate('/admin')
+		if (userData?.userRole === RoleTypes.Admin) {
+			const template = {
+				operation_type: 'expense',
+				purpose_id: 'budget',
+				from_account_number: '3000000000',
+				payment_comment: '',
+			}
+
+			const cfoList = ADMIN_TEAM_LIST?.map((item) => ({
+				...template,
+				datetime: getRandomDate(),
+				to_account_number: item?.account_number,
+				cfo_name: item?.name,
+				owner_full_name: item?.owner_full_name,
+				amount: item?.income,
+			}))
+
+			dispatch(
+				initAdmin({
+					admin_full_name: `${userData?.surname} ${userData?.name} ${userData?.lastname}`,
+					admin_transactions_history: [...cfoList, ...ADMIN_HISTORY],
+				})
+			)
+			navigate('/admin')
+		}
 	}
 
 	return (

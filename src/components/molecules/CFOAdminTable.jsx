@@ -1,68 +1,73 @@
-import React from 'react';
+import React, { useMemo } from 'react'
+import Table from '@mui/material/Table'
+import TableBody from '@mui/material/TableBody'
+import TableCell from '@mui/material/TableCell'
+import TableContainer from '@mui/material/TableContainer'
+import TableHead from '@mui/material/TableHead'
+import TableRow from '@mui/material/TableRow'
+import { formatSum } from '../../utils/formatSum'
 
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-
-function createData(id, title, amount, expenses, remains) {
-    return { id, title, amount, expenses, remains };
+const container = {
+	width: '100%',
+	backgroundColor: 'var(--light-gray)',
+	borderRadius: 'var(--card-radius)',
+	maxHeight: '80vh',
 }
 
-const rows = [
-    createData(111, 'Название/Владелец', 15, 11, 4),
-    createData(122, 'Название/Владелец', 15, 11, 4),
-    createData(133, 'Название/Владелец', 15, 11, 4),
-    createData(144, 'Название/Владелец', 15, 11, 4),
-    createData(155, 'Название/Владелец', 15, 11, 4),
-    createData(166, 'Название/Владелец', 15, 11, 4),
-    createData(177, 'Название/Владелец', 15, 11, 4),
-    createData(188, 'Название/Владелец', 15, 11, 4),
-    createData(199, 'Название/Владелец', 15, 11, 4),
-    createData(211, 'Название/Владелец', 15, 11, 4),
-    createData(222, 'Название/Владелец', 15, 11, 4),
-    createData(233, 'Название/Владелец', 15, 11, 4),
-    createData(244, 'Название/Владелец', 15, 11, 4),
-];
+const titleStyle = { fontSize: '1.1rem', fontWeight: 'var(--lbl-bold-weight)' }
+const textStyle = { fontSize: '1rem' }
 
+export default function CFOAdminTable({ teamList, totalData }) {
+	const createTableRows = (users) => {
+		const totalRow = {
+			id: 'total',
+			name: 'Все ЦФО',
+			owner: '',
+			balance: formatSum(totalData?.totalBalance),
+			income: `+ ${formatSum(totalData?.totalIcome)}`,
+			expenses: `- ${formatSum(totalData?.totalExpenses)}`,
+		}
 
+		const formattedUsers = users?.map((user) => ({
+			...user,
+			balance: formatSum(user?.balance),
+			income: `+ ${formatSum(user?.income)}`,
+			expenses: `- ${formatSum(user?.expenses)}`,
+		}))
 
-export default function CFOAdminTable() {
-    const container = {
-        width: '100%',
-        backgroundColor: 'var(--light-gray)',
-        borderRadius: 'var(--card-radius)',
-        maxHeight: '80vh'
-    }
+		return [totalRow, ...formattedUsers]
+	}
 
+	const tableRows = useMemo(() => createTableRows(teamList), [teamList])
 
-    return (
-        <TableContainer style={container}>
-            <Table aria-label="Таблица показателей всех ЦФО">
-                <TableHead>
-                    <TableRow sx={{ '&:last-child td, &:last-child th': { borderColor: '#000' } }}>
-                        <TableCell sx={{ fontSize: '1.1rem', fontWeight: 'var(--lbl-bold-weight)' }}>ID</TableCell>
-                        <TableCell sx={{ fontSize: '1.1rem', fontWeight: 'var(--lbl-bold-weight)' }}>Название/Владелец</TableCell>
-                        <TableCell sx={{ fontSize: '1.1rem', fontWeight: 'var(--lbl-bold-weight)' }}>Выделеная сумма</TableCell>
-                        <TableCell sx={{ fontSize: '1.1rem', fontWeight: 'var(--lbl-bold-weight)' }}>Расходы за период</TableCell>
-                        <TableCell sx={{ fontSize: '1.1rem', fontWeight: 'var(--lbl-bold-weight)' }}>Остаток</TableCell>
-                    </TableRow>
-                </TableHead>
+	return (
+		<TableContainer style={container}>
+			<Table aria-label='Таблица показателей всех ЦФО'>
+				<TableHead>
+					<TableRow sx={{ '&:last-child td, &:last-child th': { borderColor: '#000' } }}>
+						<TableCell sx={titleStyle}>Название</TableCell>
+						<TableCell sx={titleStyle}>Владелец</TableCell>
+						<TableCell sx={titleStyle}>Баланс</TableCell>
+						<TableCell sx={titleStyle}>Поступления</TableCell>
+						<TableCell sx={titleStyle}>Расходы</TableCell>
+					</TableRow>
+				</TableHead>
 
-                <TableBody>
-                    {rows.map((row) => (
-                        <TableRow key={row.id} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-                            <TableCell sx={{ fontSize: '1rem' }}>{row.id}</TableCell>
-                            <TableCell sx={{ fontSize: '1rem' }}>{row.title}</TableCell>
-                            <TableCell sx={{ fontSize: '1rem' }}>{row.amount}</TableCell>
-                            <TableCell sx={{ fontSize: '1rem' }}>{row.expenses}</TableCell>
-                            <TableCell sx={{ fontSize: '1rem' }}>{row.remains}</TableCell>
-                        </TableRow>
-                    ))}
-                </TableBody>
-            </Table>
-        </TableContainer>
-    )
+				<TableBody>
+					{tableRows?.map((row) => {
+						const isTotal = row?.id === 'total'
+						return (
+							<TableRow key={row?.id} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+								<TableCell sx={isTotal ? titleStyle : textStyle}>{row?.name}</TableCell>
+								<TableCell sx={isTotal ? titleStyle : textStyle}>{row?.owner}</TableCell>
+								<TableCell sx={isTotal ? titleStyle : textStyle}>{row?.balance}</TableCell>
+								<TableCell sx={isTotal ? titleStyle : textStyle}>{row?.income}</TableCell>
+								<TableCell sx={isTotal ? titleStyle : textStyle}>{row?.expenses}</TableCell>
+							</TableRow>
+						)
+					})}
+				</TableBody>
+			</Table>
+		</TableContainer>
+	)
 }

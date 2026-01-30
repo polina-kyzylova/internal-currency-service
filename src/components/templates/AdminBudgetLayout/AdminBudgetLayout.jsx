@@ -1,97 +1,109 @@
-import React, { useEffect, useState } from 'react';
-import styles from './AdminBudgetLayout.module.css';
-import OperationsAction from '../../molecules/OperationsAction/OperationsAction';
-import MasterAccount from '../../molecules/MasterAccount/MasterAccount';
-import CFOAdminTable from '../../molecules/CFOAdminTable';
-import AdminAnalyticsUnit from '../../organisms/AdminAnalyticsUnit/AdminAnalyticsUnit';
-import { useNavigate } from 'react-router-dom';
-import DataModal from '../../molecules/DataModal/DataModal';
-import { useGetQuery } from '../../../store/slices/apiSlice';
-import { useSelector } from 'react-redux';
+import { useState, useMemo } from 'react'
+import styles from './AdminBudgetLayout.module.css'
+import OperationsAction from '../../molecules/OperationsAction/OperationsAction'
+import MasterAccount from '../../molecules/MasterAccount/MasterAccount'
+import CFOAdminTable from '../../molecules/CFOAdminTable'
+import AdminAnalyticsUnit from '../../organisms/AdminAnalyticsUnit/AdminAnalyticsUnit'
+import { useNavigate } from 'react-router-dom'
+import DataModal from '../../molecules/DataModal/DataModal'
+import { useSelector } from 'react-redux'
+import coin from '../../../assets/black_coin.svg'
+import { formatSum } from '../../../utils/formatSum'
 
-
+export const COIN_RATE = 10
 
 export default function AdminBudgetLayout() {
-  const [deleteModalOpen, setDeleteModalOpen] = useState(false);
-  const handleOpen = () => setDeleteModalOpen(true);
-  const handleClose = () => setDeleteModalOpen(false);
-  const [amountEntered, setAmountEntered] = useState('');
-  const [amountCFOTransfered, setAmountCFOtransfered] = useState('');
+	const navigate = useNavigate()
+	const { admin_analytic_list, master_acc_balance, master_total_expenses } = useSelector(
+		(state) => state.admin
+	)
 
+	const [deleteModalOpen, setDeleteModalOpen] = useState(false)
+	const handleClose = () => setDeleteModalOpen(false)
+	const handleTransfer = () => navigate('/admin/transfer-master')
 
-  const navigate = useNavigate();
-  const all_cfo = [
-    { label: 'A', value: 2400 },
-    { label: 'B', value: 4567 },
-    { label: 'C', value: 1398 },
-    { label: 'D', value: 9800 },
-    { label: 'E', value: 3908 },
-    { label: 'F', value: 4800 },
-    { label: 'G', value: 4800 },
-    { label: 'H', value: 4800 },
-  ];
+	const allCfo = useMemo(() => {
+		return admin_analytic_list?.map((team) => ({
+			label: team?.name,
+			value: team?.income,
+		}))
+	}, [admin_analytic_list])
 
+	const totalData = useMemo(() => {
+		const result = admin_analytic_list?.reduce(
+			(acc, item) => {
+				return {
+					totalBalance: (acc.totalBalance += item?.balance),
+					totalIcome: (acc.totalIcome += item?.income),
+					totalExpenses: (acc.totalExpenses += item?.expenses),
+				}
+			},
+			{ totalBalance: 0, totalIcome: 0, totalExpenses: 0 }
+		)
 
-  /*----- pooling -----*/
-  const master_analytics = useSelector((state) => state.endpoints.master_analytics);
-  let { data: adminAnalyst } = useGetQuery(master_analytics, {
-    pollingInterval: 5000,
-    skipPollingIfUnfocused: true,
-  });
+		return result
+	}, [admin_analytic_list])
 
-  useEffect(() => {
-    if (!!adminAnalyst) {
-      setAmountEntered(adminAnalyst.amount_entered)
-      setAmountCFOtransfered(adminAnalyst.amount_transfered_to_fsc)
-    }
-  }, [adminAnalyst]);
+	return (
+		<div className={styles.container}>
+			<DataModal open={deleteModalOpen} handleClose={handleClose} />
 
+			<div className={styles.content}>
+				<div className={styles.oborot}>
+					<div className={styles.oborot_item}>
+						<p>
+							Курс <span className={styles.currency}>коин/рубль</span>
+						</p>
+						<h2>
+							<span className={styles.oborot_amount}>{COIN_RATE}</span>
+							<img className={styles.coin} src={coin} alt='coin' />
+							<span className={styles.rubl}>/&#8381;</span>
+						</h2>
+					</div>
 
+					<div className={styles.oborot_item}>
+						<p>Оборот средств</p>
+						<h2>
+							{formatSum(totalData?.totalBalance / COIN_RATE)}
+							<span className={styles.rubl}> &#8381;</span>
+						</h2>
+					</div>
 
-  return (
-    <div className={styles.container}>
-      <DataModal
-        open={deleteModalOpen}
-        handleClose={handleClose}
-      />
+					<div className={styles.oborot_item}>
+						<p>Расходы на ЦФО</p>
+						<h2>
+							{formatSum(master_total_expenses / COIN_RATE)}
+							<span className={styles.rubl}> &#8381;</span>
+						</h2>
+					</div>
+				</div>
 
-      <div className={styles.content}>
-        <div className={styles.oborot}>
-          <div className={styles.oborot_item}>
-            <p>Курс: 10 &#8381;/коин</p>
-          </div>
+				<div className={styles.operations}>
+					<div className={styles.oper_btns}>
+						<button className={styles.action_btn}>Пополнить</button>
+						<button className={styles.action_btn} onClick={handleTransfer}>
+							Перевести
+						</button>
+					</div>
+					<OperationsAction label='Шаблоны' />
+					<OperationsAction label='История операций' onClick={() => navigate('/history/admin')} />
+				</div>
 
-          <div className={styles.oborot_item}>
-            <p>Оборот средств за месяц</p>
-            <h2>{parseInt(amountEntered).toLocaleString()} &#8381;</h2>
-          </div>
+				<MasterAccount />
+			</div>
 
-          <div className={styles.oborot_item}>
-            <p>Расходы на ЦФО за месяц</p>
-            <h2>{parseInt(amountCFOTransfered).toLocaleString()} &#8381;</h2>
-          </div>
-        </div>
+			<div className={styles.analytics}>
+				<h3>Аналитика по ЦФО</h3>
 
-        <div className={styles.operations}>
-          <div className={styles.oper_btns}>
-            <button className={styles.action_btn} onClick={handleOpen}>Пополнить</button>
-            <button className={styles.action_btn} onClick={() => navigate('/admin/transfer-master')}>Перевести</button>
-          </div>
-          <OperationsAction label='Шаблоны' />
-          <OperationsAction label='История операций' />
-        </div>
-
-        <MasterAccount />
-      </div>
-
-      <div className={styles.analytics}>
-        <h3>Аналитика по ЦФО</h3>
-
-        <div className={styles.cfo_table}>
-          <CFOAdminTable />
-          <AdminAnalyticsUnit income={100000} expenses={21000} data={all_cfo} />
-        </div>
-      </div>
-    </div>
-  )
+				<div className={styles.cfo_table}>
+					<CFOAdminTable teamList={admin_analytic_list} totalData={totalData} />
+					<AdminAnalyticsUnit
+						income={master_acc_balance + master_total_expenses}
+						expenses={master_total_expenses}
+						data={allCfo}
+					/>
+				</div>
+			</div>
+		</div>
+	)
 }

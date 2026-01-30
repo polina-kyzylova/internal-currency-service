@@ -4,7 +4,7 @@ import Autocomplete from '@mui/material/Autocomplete'
 import TextField from '@mui/material/TextField'
 import { Box } from '@mui/material'
 import { CircularProgress } from '@mui/material'
-import { CFO_LIST } from '../../../mocks/mockData'
+import { ADMIN_TEAM_LIST } from '../../../mocks/mockData'
 
 export default function CFOAutoList({
 	errors,
@@ -15,7 +15,7 @@ export default function CFOAutoList({
 	current_cfo_number,
 }) {
 	const [open, setOpen] = useState(false)
-	const loading = open && CFO_LIST.length === 0
+	const loading = open && ADMIN_TEAM_LIST.length === 0
 
 	return (
 		<div className='transaction-form-input-box'>
@@ -26,7 +26,7 @@ export default function CFOAutoList({
 			<Autocomplete
 				id='recipient'
 				fullWidth
-				options={CFO_LIST}
+				options={ADMIN_TEAM_LIST}
 				autoHighlight
 				open={open}
 				onOpen={() => setOpen(true)}
@@ -34,7 +34,8 @@ export default function CFOAutoList({
 				getOptionLabel={(option) => option?.name}
 				onChange={(event, newValue) => {
 					if (newValue) {
-						setValue('recip_cfo_owner', newValue?.owner_full_name)
+						setValue('recip_cfo_owner_full_name', newValue?.owner_full_name)
+						setValue('recip_cfo_owner', newValue?.owner)
 						setValue('recip_cfo_number', newValue?.account_number)
 						setValue('cfo_id', newValue?.id)
 					}

@@ -2,7 +2,13 @@ import React from 'react'
 import styles from './PurposeTags.module.css'
 import TextField from '@mui/material/TextField'
 
-export default function PurposeTags({ register, errors, setValue, purposeTags }) {
+export default function PurposeTags({
+	register,
+	errors,
+	setValue,
+	purposeTags,
+	isRequired = true,
+}) {
 	return (
 		<div className={styles.mess}>
 			<div className={styles.inpt_box}>
@@ -12,7 +18,7 @@ export default function PurposeTags({ register, errors, setValue, purposeTags })
 					fullWidth
 					variant='standard'
 					error={errors.purpose_message ? true : false}
-					{...register('purpose_message', { required: true })}
+					{...register('purpose_message', { required: isRequired })}
 					onKeyDown={(e) => {
 						setValue('purpose_message', `${e.target.value}`)
 						setValue(
