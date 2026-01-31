@@ -4,6 +4,7 @@ import TableCell from '@mui/material/TableCell'
 import TableContainer from '@mui/material/TableContainer'
 import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
+import { formatSum } from '../../utils/formatSum'
 import { useMemo } from 'react'
 
 const container = {
@@ -23,10 +24,13 @@ export default function CFOOwnerTable({ teamList, totalExpenses }) {
 			name: 'Все участники',
 			position: '',
 			team: '',
-			expenses: `- ${total}`,
+			expenses: `- ${formatSum(total)}`,
 		}
 
-		const formattedUsers = users?.map((user) => ({ ...user, expenses: `- ${user?.expenses}` }))
+		const formattedUsers = users?.map((user) => ({
+			...user,
+			expenses: `- ${formatSum(user?.expenses)}`,
+		}))
 		return [totalRow, ...formattedUsers]
 	}
 

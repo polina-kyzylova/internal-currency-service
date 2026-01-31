@@ -23,9 +23,7 @@ export default function UsersAutoList({ errors, register, title, setValue, getVa
 				fullWidth
 				options={EMPLOYEE_LIST}
 				autoHighlight
-				getOptionLabel={(option) =>
-					`${option?.username} ${option?.surname} ${option?.name} ${option?.lastname}`
-				}
+				getOptionLabel={(option) => `${option?.surname} ${option?.name} ${option?.lastname}`}
 				onChange={(event, newValue) => {
 					if (newValue) {
 						setValue('target_user_username', newValue?.username)

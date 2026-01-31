@@ -93,7 +93,7 @@ export default function OperationsHistoryPage() {
 										</p>
 									</div>
 
-									<div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+									<div className={styles.transaction_info}>
 										{userName && (
 											<p>
 												{userType}: {userName}

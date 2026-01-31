@@ -44,8 +44,23 @@ export const cfoSlice = createSlice({
 			state.cfo_transactions_history = [new_transaction, ...state.cfo_transactions_history]
 
 			// Обновляем аналитику
-			// TO DO - обновлять записи, не добавлять новые
-			state.cfo_analytic_list = [new_analytic_row, ...state.cfo_analytic_list]
+			const existedRow = state.cfo_analytic_list?.find((item) => item?.id === new_analytic_row?.id)
+
+			if (existedRow) {
+				let updatedRow = {
+					...existedRow,
+					expenses: existedRow?.expenses + amount,
+				}
+
+				const updatedAnalytics = state.cfo_analytic_list?.map((item) => {
+					if (item?.id === new_analytic_row?.id) return updatedRow
+					else return item
+				})
+
+				state.cfo_analytic_list = updatedAnalytics
+			} else {
+				state.cfo_analytic_list = [new_analytic_row, ...state.cfo_analytic_list]
+			}
 
 			// Обновляем общие расходы
 			state.cfo_total_expenses += amount

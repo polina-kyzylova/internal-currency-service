@@ -126,9 +126,6 @@ export default function AdminCFOPage() {
 
 								<div className={styles.modif_item}>
 									<p className={styles.titl}>{admin.current_cfo_title}</p>
-									<button>
-										<CreateIcon />
-									</button>
 								</div>
 							</div>
 						</div>

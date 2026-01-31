@@ -79,13 +79,19 @@
 		grid-template-columns: 12rem auto;
 	}
 
+	.money {
+		align-items: center;
+	}
+
 	.money h4 {
 		font-size: var(--lbl-small-size);
+		padding-bottom: 0.2rem;
 	}
 
 	.money img {
 		height: 1rem;
-		padding-bottom: 0.4rem;
+		padding-bottom: 0.7rem;
+		align-self: end;
 	}
 }
 

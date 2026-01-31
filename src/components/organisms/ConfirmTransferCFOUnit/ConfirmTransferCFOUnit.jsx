@@ -41,7 +41,7 @@ export default function ConfirmTransferCFOUnit({ setConfirmTransfer }) {
 		}
 
 		const newTransaction = {
-			id: Math.random(1000),
+			id: data?.target_user_acc,
 			name: targetUser,
 			position: 'QA Engineer',
 			teamId: 'team_qa',
@@ -57,8 +57,6 @@ export default function ConfirmTransferCFOUnit({ setConfirmTransfer }) {
 
 		if (result === 'success') {
 			if (data?.current_user === 'admin') {
-				console.log('!!! transferCFObyAdmin')
-
 				dispatch(
 					transferCFObyAdmin({
 						amount: Number(data?.amount),
@@ -84,8 +82,6 @@ export default function ConfirmTransferCFOUnit({ setConfirmTransfer }) {
 			if (data?.current_user === 'owner') navigate('result/error')
 		}
 	}
-
-	console.log('data', data)
 
 	if (isLoading) return <Loader />
 	return (
