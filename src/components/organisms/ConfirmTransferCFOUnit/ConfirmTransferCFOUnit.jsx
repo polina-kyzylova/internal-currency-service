@@ -11,6 +11,8 @@ import Loader from '../../atoms/Loader'
 import { useDispatch } from 'react-redux'
 import { addCFOTransaction } from '../../../store/slices/cfoSlice'
 import { getUserName } from '../../../utils/getUserName'
+import { formatSum } from '../../../utils/formatSum'
+import { transferCFObyAdmin } from '../../../store/slices/adminSlice'
 import dayjs from 'dayjs'
 
 export default function ConfirmTransferCFOUnit({ setConfirmTransfer }) {
@@ -19,31 +21,6 @@ export default function ConfirmTransferCFOUnit({ setConfirmTransfer }) {
 	const dispatch = useDispatch()
 
 	const [isLoading, setIsLoading] = useState(false)
-
-	/*----- confirm recipient type -----*/
-	function chooseRecipient() {
-		if (data?.recip_type === 'personal') {
-			const targetUser = getUserName(data)
-
-			return (
-				<UserInfoTable
-					title='Получатель'
-					acc={data?.target_user_acc}
-					name={targetUser}
-					username={data?.target_user_username}
-				/>
-			)
-		} else {
-			return (
-				<CFOInfoTable
-					title='Получатель'
-					acc_number={parseInt(data?.recip_cfo_number).toLocaleString()}
-					acc_owner={data?.recip_cfo_owner}
-					acc_title={data?.recip_cfo_title}
-				/>
-			)
-		}
-	}
 
 	/*----- confirm transaction -----*/
 	const makeTransaction = async () => {
@@ -80,7 +57,14 @@ export default function ConfirmTransferCFOUnit({ setConfirmTransfer }) {
 
 		if (result === 'success') {
 			if (data?.current_user === 'admin') {
-				// TO DO + update store
+				console.log('!!! transferCFObyAdmin')
+
+				dispatch(
+					transferCFObyAdmin({
+						amount: Number(data?.amount),
+						cfo_id: data?.current_cfo_number,
+					})
+				)
 				navigate('../result/ok')
 			}
 
@@ -101,6 +85,8 @@ export default function ConfirmTransferCFOUnit({ setConfirmTransfer }) {
 		}
 	}
 
+	console.log('data', data)
+
 	if (isLoading) return <Loader />
 	return (
 		<div className={styles.container}>
@@ -113,12 +99,17 @@ export default function ConfirmTransferCFOUnit({ setConfirmTransfer }) {
 
 				<CFOInfoTable
 					title='Отправитель'
-					acc_number={parseInt(data?.current_cfo_number).toLocaleString()}
+					acc_number={formatSum(data?.current_cfo_number)}
 					acc_owner={data?.current_cfo_owner}
 					acc_title={data?.current_cfo_title}
 				/>
 
-				{chooseRecipient()}
+				<UserInfoTable
+					title='Получатель'
+					acc={data?.target_user_acc}
+					name={data?.target_user_full_name}
+					username={data?.target_user_username}
+				/>
 
 				<OperationTypeTable
 					operation_type='Распределение средств ЦФО'

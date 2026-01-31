@@ -1,68 +1,97 @@
-import React from 'react';
-import styles from './ConfirmReplenishCFOUnit.module.css';
-import '../GeneralOperations.css';
-import { useNavigate } from 'react-router-dom';
-import { useOutletContext } from "react-router-dom";
-import { usePostQueryMutation } from '../../../store/slices/apiSlice';
-import { useSelector } from 'react-redux';
-
-import WestIcon from '@mui/icons-material/West';
-import OperationTypeTable from '../../molecules/ConfirmForm/OperationTypeTable';
-import CFOInfoTable from '../../molecules/ConfirmForm/CFOInfoTable';
-import MasterInfotable from '../../molecules/ConfirmForm/MasterInfoTable';
-import Loader from '../../atoms/Loader';
-
+import { useState } from 'react'
+import styles from './ConfirmReplenishCFOUnit.module.css'
+import '../GeneralOperations.css'
+import { useNavigate } from 'react-router-dom'
+import { useOutletContext } from 'react-router-dom'
+import WestIcon from '@mui/icons-material/West'
+import OperationTypeTable from '../../molecules/ConfirmForm/OperationTypeTable'
+import CFOInfoTable from '../../molecules/ConfirmForm/CFOInfoTable'
+import MasterInfotable from '../../molecules/ConfirmForm/MasterInfoTable'
+import Loader from '../../atoms/Loader'
+import { formatSum } from '../../../utils/formatSum'
+import { addMasterTransaction } from '../../../store/slices/adminSlice'
+import { useDispatch, useSelector } from 'react-redux'
+import dayjs from 'dayjs'
 
 export default function ConfirmReplenishCFOUnit({ setConfirmReplenish }) {
-    const navigate = useNavigate();
-    const [data, setData] = useOutletContext();
+	const navigate = useNavigate()
+	const dispatch = useDispatch()
 
-    /*----- confirm transaction -----*/
-    const transactionEP = useSelector((state) => state.endpoints.replenish_cfo);
-    const [replenishCFO, { isLoading: transLoading }] = usePostQueryMutation();
+	const admin = useSelector((state) => state.admin)
+	const [data, setData] = useOutletContext()
+	const [isLoading, setIsLoading] = useState(false)
 
-    const replenish = async () => {
-        let repBody = {
-            "id": data.cfo_id,
-            "amount": data.amount
-        }
-        const result = await replenishCFO({ endpoint: transactionEP, body: repBody })
+	const makeTransaction = async () => {
+		setIsLoading(true)
 
-        if (!!result.data) navigate('../result/ok')
-        else navigate('../result/error')
-    }
+		let transactionData = {
+			operation_type: 'expense',
+			purpose_id: 'budget',
+			from_account_number: data?.master_acc,
+			to_account_number: data?.cfo_number,
+			amount: Number(data?.amount),
+			cfo_name: data?.cfo_title,
+			owner_full_name: data?.current_cfo_owner,
+			datetime: dayjs().format(),
+		}
 
+		const newTransaction = {
+			id: data?.cfo_number,
+			name: data?.cfo_title,
+			owner: data?.current_cfo_owner,
+			income: Number(data?.amount),
+		}
 
-    if (transLoading) return <Loader />
-    return (
-        <div className={styles.container}>
-            <button className='operations-prev-btn' onClick={() => setConfirmReplenish(false)}>
-                <WestIcon sx={{ color: '#fff', fontSize: 35 }} />
-            </button>
+		// для отрисовки лоадера
+		await new Promise((resolve) => setTimeout(resolve, 500))
 
-            <div className={styles.content}>
-                <h1>Подтверждение операции</h1>
+		const result = Math.random() > 0.5 ? 'success' : 'error'
+		setIsLoading(false)
 
-                <MasterInfotable
-                    title='Счет списания'
-                    acc_number={parseInt(data.master_acc).toLocaleString()}
-                    admin={data.sender_name}
-                />
+		if (result === 'success') {
+			dispatch(
+				addMasterTransaction({
+					new_transaction: transactionData,
+					new_analytic_row: newTransaction,
+					amount: Number(data?.amount),
+				})
+			)
 
-                <CFOInfoTable
-                    title='Счет зачисления'
-                    acc_number={parseInt(data.cfo_number).toLocaleString()}
-                    acc_owner={data.current_cfo_owner}
-                    acc_title={data.cfo_title}
-                />
+			navigate('../result/ok')
+		} else {
+			navigate('../result/error')
+		}
+	}
 
-                <OperationTypeTable
-                    operation_type='Пополнение ЦФО'
-                    amount={data.amount}
-                />
-            </div>
+	if (isLoading) return <Loader />
+	return (
+		<div className={styles.container}>
+			<button className='operations-prev-btn' onClick={() => setConfirmReplenish(false)}>
+				<WestIcon sx={{ color: '#fff', fontSize: 35 }} />
+			</button>
 
-            <button className='operations-next-btn' onClick={() => replenish()}>Перевести</button>
-        </div>
-    )
+			<div className={styles.content}>
+				<h1>Подтверждение операции</h1>
+
+				<MasterInfotable
+					title='Счет списания'
+					acc_number={formatSum(data?.master_acc)}
+					admin={data?.sender_name}
+				/>
+
+				<CFOInfoTable
+					title='Счет зачисления'
+					acc_number={formatSum(data?.cfo_number)}
+					acc_owner={data?.current_cfo_owner}
+					acc_title={data?.cfo_title}
+				/>
+
+				<OperationTypeTable operation_type='Пополнение ЦФО' amount={data?.amount} />
+			</div>
+
+			<button className='operations-next-btn' onClick={makeTransaction}>
+				Перевести
+			</button>
+		</div>
+	)
 }

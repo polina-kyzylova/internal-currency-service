@@ -52,14 +52,14 @@ export const DemoLayout = () => {
 		setValue('userRole', event.target.value)
 	}
 
-	const getRandomDate = () => {
-		const startDate = dayjs('2024-09-01')
-		const today = dayjs()
+	const getRandomDate = (index) => {
+		const yesterday = dayjs().subtract(1, 'day')
 
-		const diffInMs = today.diff(startDate)
-		const randomMs = Math.floor(Math.random() * diffInMs)
-
-		return startDate.add(randomMs, 'millisecond')
+		return yesterday
+			.subtract(index + 10, 'day')
+			.hour(Math.floor(Math.random() * 24))
+			.minute(Math.floor(Math.random() * 60))
+			.second(Math.floor(Math.random() * 60))
 	}
 
 	const onSubmit = async (userData) => {
@@ -98,9 +98,9 @@ export const DemoLayout = () => {
 				payment_comment: '',
 			}
 
-			const cfoList = ADMIN_TEAM_LIST?.map((item) => ({
+			const cfoList = ADMIN_TEAM_LIST?.map((item, index) => ({
 				...template,
-				datetime: getRandomDate(),
+				datetime: getRandomDate(index),
 				to_account_number: item?.account_number,
 				cfo_name: item?.name,
 				owner_full_name: item?.owner_full_name,

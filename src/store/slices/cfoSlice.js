@@ -44,6 +44,7 @@ export const cfoSlice = createSlice({
 			state.cfo_transactions_history = [new_transaction, ...state.cfo_transactions_history]
 
 			// Обновляем аналитику
+			// TO DO - обновлять записи, не добавлять новые
 			state.cfo_analytic_list = [new_analytic_row, ...state.cfo_analytic_list]
 
 			// Обновляем общие расходы

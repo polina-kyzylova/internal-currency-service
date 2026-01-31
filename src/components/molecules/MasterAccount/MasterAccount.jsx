@@ -6,6 +6,7 @@ import VisibilityIcon from '@mui/icons-material/Visibility'
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff'
 import { useSelector } from 'react-redux'
 import { hideAccNumber } from '../../../hooks/hideAccNumber'
+import { formatSum } from '../../../utils/formatSum'
 
 export default function MasterAccount() {
 	const [visible, setVisible] = useState(false)
@@ -17,7 +18,7 @@ export default function MasterAccount() {
 			<div className={styles.data}>
 				<p className={styles.balance}>Баланс</p>
 				<div className={styles.coin}>
-					<p className={styles.amount}>{parseInt(master_acc_balance).toLocaleString()}</p>
+					<p className={styles.amount}>{formatSum(master_acc_balance)}</p>
 					<img src={coin} alt='coin' />
 				</div>
 
@@ -25,7 +26,7 @@ export default function MasterAccount() {
 					<p>Мастер счет</p>
 
 					<div className={styles.acc_nmbr}>
-						<p>{visible ? parseInt(master_acc_number).toLocaleString() : hideNumber}</p>
+						<p>{visible ? formatSum(master_acc_number) : hideNumber}</p>
 						{visible ? (
 							<VisibilityIcon
 								sx={{ fontSize: 30, cursor: 'pointer' }}

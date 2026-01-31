@@ -1,22 +1,21 @@
 .container {
-    display: grid;
-    grid-template-columns: auto 4rem;
-    column-gap: var(--grid-padding);
+	display: grid;
+	grid-template-columns: auto 4rem;
+	column-gap: var(--grid-padding);
 
-    padding: var(--global-padding);
-    background-color: var(--light-gray);
-    border-radius: var(--card-radius);
+	padding: var(--global-padding);
+	background-color: var(--light-gray);
+	border-radius: var(--card-radius);
 }
 
 .lbl {
-    width: fit-content;
-    font-size: var(--lbl-small-size);
-    font-weight: var(--lbl-light-weight);
+	width: fit-content;
+	font-size: var(--lbl-small-size);
+	font-weight: var(--lbl-light-weight);
 }
 
-
 @media (max-width: 500px) {
-    .lbl {
-        font-size: var(--lbl-mini-size);
-    }
+	.lbl {
+		font-size: var(--lbl-mini-size);
+	}
 }

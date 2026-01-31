@@ -10,7 +10,7 @@ import MasterInfoTable from '../../molecules/ConfirmForm/MasterInfoTable'
 import Loader from '../../atoms/Loader'
 import { useDispatch } from 'react-redux'
 import { addMasterTransaction } from '../../../store/slices/adminSlice'
-import { getUserName } from '../../../utils/getUserName'
+import { formatSum } from '../../../utils/formatSum'
 import dayjs from 'dayjs'
 
 export default function ConfirmTransferMasterUnit({ setConfirmTransfer }) {
@@ -80,13 +80,13 @@ export default function ConfirmTransferMasterUnit({ setConfirmTransfer }) {
 
 				<MasterInfoTable
 					title='Отправитель'
-					acc_number={parseInt(data?.sender_number).toLocaleString()}
+					acc_number={formatSum(data?.sender_number)}
 					admin={data?.sender_name}
 				/>
 
 				<CFOInfoTable
 					title='Получатель'
-					acc_number={parseInt(data?.recip_cfo_number).toLocaleString()}
+					acc_number={formatSum(data?.recip_cfo_number)}
 					acc_owner={data?.recip_cfo_owner_full_name}
 					acc_title={data?.recip_cfo_title}
 				/>

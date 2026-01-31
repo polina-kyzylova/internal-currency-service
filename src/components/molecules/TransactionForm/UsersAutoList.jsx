@@ -33,6 +33,12 @@ export default function UsersAutoList({ errors, register, title, setValue, getVa
 						setValue('target_user_lastname', newValue?.lastname)
 						setValue('target_user_surname', newValue?.surname)
 						setValue('target_user_acc', newValue?.account_number)
+
+						setValue('target_user_email', newValue?.email)
+						setValue('target_user_position', newValue?.position)
+						setValue('target_user_department', newValue?.department)
+						setValue('target_user_full_name', newValue?.full_name)
+						setValue('target_user_short_name', newValue?.short_name)
 					}
 				}}
 				open={open}

@@ -28,7 +28,7 @@ export default function CreateTransferCFOUnit({ setConfirmTransfer, current_user
 				current_cfo_title: admin.current_cfo_title,
 				current_cfo_number: admin.current_cfo_number,
 				current_cfo_balance: admin.current_cfo_balance,
-				current_cfo_owner: admin.current_owner_fullname,
+				current_cfo_owner: admin.current_cfo_owner_fullname,
 				current_user: 'admin',
 			})
 			setCurrentCFOnumber(admin.current_cfo_number)
@@ -111,22 +111,6 @@ export default function CreateTransferCFOUnit({ setConfirmTransfer, current_user
 						acc_number={current_user === 'owner' ? owner.cfo_number : admin.current_cfo_number}
 						acc_balance={current_user === 'owner' ? owner.cfo_balance : admin.current_cfo_balance}
 					/>
-
-					{current_user === 'admin' ? (
-						<div className={styles.inpt_box}>
-							<label htmlFor='recipient_type'>Тип получателя</label>
-							<select
-								name='recipient_type'
-								id='recipient_type'
-								className={styles.select_type}
-								{...register('recip_type', { required: true })}
-								onChange={(e) => setRecipType(e.target.value)}
-							>
-								<option value='personal'>Пользователь</option>
-								<option value='cfo'>Другой ЦФО</option>
-							</select>
-						</div>
-					) : null}
 
 					{chooseRecipient()}
 

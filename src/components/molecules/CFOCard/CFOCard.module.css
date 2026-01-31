@@ -1,112 +1,111 @@
 .container {
-    padding: var(--grid-padding);
-    background-color: var(--light-gray);
-    border-radius: var(--card-radius);
+	padding: var(--grid-padding);
+	background-color: var(--light-gray);
+	border-radius: var(--card-radius);
 
-    display: grid;
-    grid-template-columns: auto min-content;
-    align-items: center;
-    gap: var(--grid-padding);
+	display: grid;
+	grid-template-columns: auto min-content;
+	align-items: center;
+	gap: var(--grid-padding);
 }
 
-.content {   
-    display: grid;
-    grid-template-columns: 10rem auto;
-    column-gap: var(--grid-padding);
-    align-items: center;
+.content {
+	display: grid;
+	grid-template-columns: 10rem auto;
+	column-gap: var(--grid-padding);
+	align-items: center;
 }
 
 .money {
-    height: 2.4rem;
-    display: flex;
-    align-items: end;
-    gap: 0.3rem;
+	height: 2.4rem;
+	display: flex;
+	align-items: end;
+	gap: 0.3rem;
 }
 
 .money h4 {
-    font-size: var(--lbl-medium-size);
-    font-weight: var(--lbl-bold-weight);
+	font-size: var(--lbl-medium-size);
+	font-weight: var(--lbl-bold-weight);
 }
 
 .money img {
-    height: 50%;
-    padding-bottom: 0.5rem;
+	height: 50%;
+	padding-bottom: 0.5rem;
 }
 
 .info {
-    display: flex;
-    flex-direction: column;
-    gap: var(--grid-padding);
+	display: flex;
+	flex-direction: column;
+	gap: var(--grid-padding);
 }
 
 .identif {
-    color: var(--hover-gray);
-    font-size: 1.1rem;
+	color: var(--hover-gray);
+	font-size: 1.1rem;
 
-    display: -webkit-box;
-    -webkit-line-clamp: 1;
-    line-clamp: 1;
-    -webkit-box-orient: vertical;
+	display: -webkit-box;
+	-webkit-line-clamp: 1;
+	line-clamp: 1;
+	-webkit-box-orient: vertical;
 
-    text-wrap: wrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    overflow-wrap: break-word;
+	text-wrap: wrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	overflow-wrap: break-word;
 }
 
 .titl {
-    color: #000;
-    font-size: var(--lbl-mini-size);
-    font-weight: var(--lbl-light-weight);
+	color: #000;
+	font-size: var(--lbl-mini-size);
+	font-weight: var(--lbl-light-weight);
 
-    display: -webkit-box;
-    -webkit-line-clamp: 1;
-    line-clamp: 1;
-    -webkit-box-orient: vertical;
+	display: -webkit-box;
+	-webkit-line-clamp: 1;
+	line-clamp: 1;
+	-webkit-box-orient: vertical;
 
-    text-wrap: wrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    overflow-wrap: break-word;
+	text-wrap: wrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	overflow-wrap: break-word;
 }
 
-
 @media (max-width: 1024px) {
-    .progress {
-        display: none;
-    }
-    .content {
-        display: grid;
-        grid-template-columns: 12rem auto;
-    }
+	.progress {
+		display: none;
+	}
+	.content {
+		display: grid;
+		grid-template-columns: 12rem auto;
+	}
 
-    .money h4 {
-        font-size: var(--lbl-small-size);
-    }
+	.money h4 {
+		font-size: var(--lbl-small-size);
+	}
 
-    .money img {
-        height: 1rem;
-        padding-bottom: 0.4rem;
-    }
+	.money img {
+		height: 1rem;
+		padding-bottom: 0.4rem;
+	}
 }
 
 @media (max-width: 500px) {
-    .content {
-        width: 100%;
-        display: grid;
-        align-items: center;
-        gap: 1rem;
-    }
-    .titl {
-        font-size: 1.2rem;
-    }
+	.content {
+		width: 100%;
+		display: grid;
+		align-items: center;
+		gap: 1rem;
+	}
+	.titl {
+		font-size: 1.2rem;
+	}
 
-    .identif {
-        display: none;
-    }
+	.identif {
+		display: none;
+	}
 
-    .content {
-        grid-template-columns: 8rem auto;
-        gap: 1rem;
-    }
+	.content {
+		grid-template-columns: 8rem auto;
+		gap: 1rem;
+	}
 }
